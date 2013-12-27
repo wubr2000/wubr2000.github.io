@@ -3,9 +3,9 @@
 # ----------------------- #
 
 url: http://wubr2000.github.io
-title: My Octopress Blog
-subtitle: A blogging framework for hackers.
-author: Your Name
+title: Codex
+subtitle: thoughts.random
+author: Bruno Wu
 simple_search: http://google.com/search
 description:
 
@@ -17,9 +17,9 @@ date_format: "ordinal"
 
 # RSS / Email (optional) subscription links (change if using something like Feedburner)
 subscribe_rss: /atom.xml
-subscribe_email:
+subscribe_email: wubr2000@hotmail.com
 # RSS feeds can list your email address if you like
-email:
+email: wubr2000@hotmail.com
 
 # ----------------------- #
 #    Jekyll & Plugins     #
@@ -63,13 +63,13 @@ default_asides: [asides/recent_posts.html, asides/github.html, asides/delicious.
 # ----------------------- #
 
 # Github repositories
-github_user:
+github_user: wubr2000
 github_repo_count: 0
 github_show_profile_link: true
 github_skip_forks: true
 
 # Twitter
-twitter_user:
+twitter_user: wubr2000
 twitter_tweet_button: true
 
 # Google +1
@@ -90,8 +90,8 @@ delicious_user:
 delicious_count: 3
 
 # Disqus Comments
-disqus_short_name:
-disqus_show_comment_count: false
+disqus_short_name: wubr2000
+disqus_show_comment_count: true
 
 # Google Analytics
 google_analytics_tracking_id:
