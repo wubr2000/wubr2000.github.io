@@ -5,11 +5,16 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Hello World! - Codex</title>
+  <title>Code Snippets Test - Codex</title>
   <meta name="author" content="Bruno Wu">
 
   
-  <meta name="description" content="Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut &hellip;">
+  <meta name="description" content="Here&rsquo;s an example of a Ruby code: Discover if a number is primeSource Article1
+2
+3
+4
+5
+class Fixnum def prime? (&#39;1&#39; * self) !~ /^1?$|^( &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +23,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://wubr2000.github.io/blog/2013/12/27/hello-world">
+  <link rel="canonical" href="http://wubr2000.github.io/blog/2013/12/27/code-snippets-test">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Codex" type="application/atom+xml">
@@ -70,7 +75,7 @@
   
   <header>
     
-      <h1 class="entry-title">Hello World!</h1>
+      <h1 class="entry-title">Code Snippets Test</h1>
     
     
       <p class="meta">
@@ -86,7 +91,7 @@
   
 
 
-<time datetime="2013-12-27T15:59:03-05:00" pubdate data-updated="true">Dec 27<span>th</span>, 2013</time>
+<time datetime="2013-12-27T16:28:32-05:00" pubdate data-updated="true">Dec 27<span>th</span>, 2013</time>
         
            | <a href="#disqus_thread"
              data-disqus-identifier="http://wubr2000.github.io">Comments</a>
@@ -96,7 +101,62 @@
   </header>
 
 
-<div class="entry-content"><p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. <!-- more --> Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.</p>
+<div class="entry-content"><p>Here&rsquo;s an example of a Ruby code:</p>
+
+<figure class='code'><figcaption><span>Discover if a number is prime</span><a href='http://www.noulakaz.net/weblog/2007/03/18/a-regular-expression-to-check-for-prime-numbers/'>Source Article</a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Fixnum</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">prime?</span>
+</span><span class='line'>    <span class="p">(</span><span class="s1">&#39;1&#39;</span> <span class="o">*</span> <span class="nb">self</span><span class="p">)</span> <span class="o">!~</span> <span class="sr">/^1?$|^(11+?)\1+$/</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>An example of Coffeescript:</p>
+
+<figure class='code'><figcaption><span>Coffeescript Tricks </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="c1"># Given an alphabet:</span>
+</span><span class='line'><span class="nv">alphabet = </span><span class="s">&#39;abcdefghijklmnopqrstuvwxyz&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># Iterate over part of the alphabet:</span>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">letter</span> <span class="k">for</span> <span class="nx">letter</span> <span class="k">in</span> <span class="nx">alphabet</span><span class="p">[</span><span class="mi">4</span><span class="p">..</span><span class="mi">8</span><span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<!-- more -->
+
+
+<p>Example of embedding Gist:</p>
+
+<div><script src='https://gist.github.com/4321346.js?file=gistfile1.diff'></script>
+<noscript><pre><code>@@ -590,7 +590,7 @@ class SpritesTest &lt; Test::Unit::TestCase
+  it &quot;should generate a sprite from nested folders&quot; do
+    css = render &lt;&lt;-SCSS
+-     @import &quot;nested/*.png&quot;;
++     @import &quot;nested/**/*.png&quot;;
+      @include all-nested-sprites;
+    SCSS
+    assert_correct css, &lt;&lt;-CSS</code></pre></noscript></div>
+
+
+<p>Inline code blocks example:</p>
+
+<figure class='code'><figcaption><span>Javascript Array Syntax</span><a href='http://j.mp/pPUUmW'>MDN Documentation </a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">arr1</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="nx">arrayLength</span><span class="p">);</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">arr2</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="nx">element0</span><span class="p">,</span> <span class="nx">element1</span><span class="p">,</span> <span class="p">...,</span> <span class="nx">elementN</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
 </div>
 
 
@@ -119,21 +179,15 @@
   
 
 
-<time datetime="2013-12-27T15:59:03-05:00" pubdate data-updated="true">Dec 27<span>th</span>, 2013</time>
+<time datetime="2013-12-27T16:28:32-05:00" pubdate data-updated="true">Dec 27<span>th</span>, 2013</time>
       
-
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/hello/'>hello</a>, <a class='category' href='/blog/categories/inaugural/'>inaugural</a>
-  
-</span>
 
 
     </p>
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://wubr2000.github.io/blog/2013/12/27/hello-world/" data-via="wubr2000" data-counturl="http://wubr2000.github.io/blog/2013/12/27/hello-world/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://wubr2000.github.io/blog/2013/12/27/code-snippets-test/" data-via="wubr2000" data-counturl="http://wubr2000.github.io/blog/2013/12/27/code-snippets-test/" >Tweet</a>
   
   
   
@@ -142,8 +196,8 @@
     
     <p class="meta">
       
+        <a class="basic-alignment left" href="/blog/2013/12/27/hello-world/" title="Previous Post: Hello World!">&laquo; Hello World!</a>
       
-        <a class="basic-alignment right" href="/blog/2013/12/27/code-snippets-test/" title="Next Post: Code Snippets Test">Code Snippets Test &raquo;</a>
       
     </p>
   </footer>
@@ -226,8 +280,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://wubr2000.github.io/blog/2013/12/27/hello-world/';
-        var disqus_url = 'http://wubr2000.github.io/blog/2013/12/27/hello-world/';
+        var disqus_identifier = 'http://wubr2000.github.io/blog/2013/12/27/code-snippets-test/';
+        var disqus_url = 'http://wubr2000.github.io/blog/2013/12/27/code-snippets-test/';
         var disqus_script = 'embed.js';
       
     (function () {

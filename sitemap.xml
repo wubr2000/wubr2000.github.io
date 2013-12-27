@@ -2,15 +2,19 @@
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
         <loc>http://wubr2000.github.io/blog/2013/12/27/hello-world/</loc>
-        <lastmod>2013-12-27T15:59:03-05:00</lastmod>
+        <lastmod>2013-12-27T16:28:14-05:00</lastmod>
+    </url>
+    <url>
+        <loc>http://wubr2000.github.io/blog/2013/12/27/code-snippets-test/</loc>
+        <lastmod>2013-12-27T16:28:48-05:00</lastmod>
     </url>
     <url>
         <loc>http://wubr2000.github.io/blog/archives/</loc>
-        <lastmod>2013-12-27T15:59:03-05:00</lastmod>
+        <lastmod>2013-12-27T16:28:48-05:00</lastmod>
     </url>
     <url>
         <loc>http://wubr2000.github.io/</loc>
-        <lastmod>2013-12-27T15:59:03-05:00</lastmod>
+        <lastmod>2013-12-27T16:28:48-05:00</lastmod>
     </url>
     <url>
         <loc>http://wubr2000.github.io/robots.txt</loc>
