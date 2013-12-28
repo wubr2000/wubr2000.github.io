@@ -7,7 +7,7 @@ sharing: true
 footer: true
 ---
 
-Your content here.
+This is a social network. The most important thing that I experimented with is the following/followers data model.
 
 {% portfolio Bites %}
 

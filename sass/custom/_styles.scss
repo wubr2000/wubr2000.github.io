@@ -390,7 +390,7 @@ nav {
   }
   
   time:after {
-    content: "•";
+    content: ".";
     padding: 0 6px 0 10px;
     padding: 0 0.3rem 0 0.5rem; /* not from scale */
   }
@@ -461,7 +461,7 @@ article {
       }
       
       > span:after {
-        content: "•";
+        content: ".";
       }
       
       > span:before, > span:after {
@@ -538,7 +538,7 @@ article {
         border-bottom: 2px dotted $text-color;
       
         time:after, span.author:after {
-          content: "•";
+          content: ".";
           padding: 0 6px 0 10px;
           padding: 0 0.3rem 0 0.5rem; /* not from scale */
         }
