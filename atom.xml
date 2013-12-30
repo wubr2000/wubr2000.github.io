@@ -4,7 +4,7 @@
   <title><![CDATA[Codex]]></title>
   <link href="http://wubr2000.github.io/atom.xml" rel="self"/>
   <link href="http://wubr2000.github.io/"/>
-  <updated>2013-12-28T23:29:24+08:00</updated>
+  <updated>2013-12-30T11:18:47+08:00</updated>
   <id>http://wubr2000.github.io/</id>
   <author>
     <name><![CDATA[Bruno Wu]]></name>
@@ -12,6 +12,34 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Exploring NLP in Python]]></title>
+    <link href="http://wubr2000.github.io/blog/2013/12/30/exploring-nlp-in-python/"/>
+    <updated>2013-12-30T09:46:50+08:00</updated>
+    <id>http://wubr2000.github.io/blog/2013/12/30/exploring-nlp-in-python</id>
+    <content type="html"><![CDATA[<p>Came across a <a href="http://blog.scripted.com/scripted-updates/nlp-hacking-in-python/">great tutorial</a> on the basics of natural language processing (NLP) and classification.</p>
+
+<p>The example in this tutorial uses a Python library called <code>gensim</code> which (according to its <a href="http://radimrehurek.com/gensim/about.html">website</a>) is the &ldquo;the most robust, efficient and hassle-free piece of software to realize unsupervised semantic modelling from plain text.&rdquo; As far as I understand it, it&rsquo;s a very handy and commonly-used library for NLP.</p>
+
+<p>One important tool/algorithm used for classification is something called the <a href="http://en.wikipedia.org/wiki/Vector_space_model">Vector Space Model</a>. Basically, all documents or queries are represented as &ldquo;vectors of identifiers&rdquo;, such as an index of words.</p>
+
+<!-- more -->
+
+
+<p>A common way to represent a written document as a vector is to think about it in terms of <a href="http://en.wikipedia.org/wiki/Bag-of-words_model">Bag of Words</a> (BoW) vectors.</p>
+
+<p>For example, if an entire document consists only of the words &ldquo;dog&rdquo; and &ldquo;cat&rdquo;, then the BoW vector for this document would be [# of &lsquo;dog&rsquo;, # of &lsquo;cat&rsquo;].</p>
+
+<p>A very high-level overview of the workflow for NLP using the Vector Space Model is as follows:</p>
+
+<blockquote><p>Preprocessing &ndash;> Create Bag of Words vector &ndash;> Dimensionality Reduction &ndash;> use SVM algorithm for classification</p></blockquote>
+
+<p>A more detailed workflow:</p>
+
+<blockquote><p>Remove stopwords and split on spaces &ndash;> Take out rare terms using <code>gensim</code> &ndash;> Create Bag of Words vectors &ndash;> Dimensionality reduction using LSI (<a href="http://en.wikipedia.org/wiki/Latent_semantic_indexing">Latent Semantic Indexing</a>) model in <code>gensim</code> &ndash;></p></blockquote>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Code Snippets Test]]></title>

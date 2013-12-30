@@ -5,16 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Code Snippets Test - Codex</title>
+  <title>Exploring NLP in Python - Codex</title>
   <meta name="author" content="Bruno Wu">
 
   
-  <meta name="description" content="Here&rsquo;s an example of a Ruby code: Discover if a number is primeSource Article1
-2
-3
-4
-5
-class Fixnum def prime? (&#39;1&#39; * self) !~ /^1?$|^( &hellip;">
+  <meta name="description" content="Came across a great tutorial on the basics of natural language processing (NLP) and classification. The example in this tutorial uses a Python &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -23,7 +18,7 @@ class Fixnum def prime? (&#39;1&#39; * self) !~ /^1?$|^( &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://wubr2000.github.io/blog/2013/12/28/code-snippets-test">
+  <link rel="canonical" href="http://wubr2000.github.io/blog/2013/12/30/exploring-nlp-in-python">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Codex" type="application/atom+xml">
@@ -76,7 +71,7 @@ class Fixnum def prime? (&#39;1&#39; * self) !~ /^1?$|^( &hellip;">
   
   <header>
     
-      <h1 class="entry-title">Code Snippets Test</h1>
+      <h1 class="entry-title">Exploring NLP in Python</h1>
     
     
       <p class="meta">
@@ -92,7 +87,7 @@ class Fixnum def prime? (&#39;1&#39; * self) !~ /^1?$|^( &hellip;">
   
 
 
-<time datetime="2013-12-28T05:28:32+08:00" pubdate data-updated="true">Dec 28<span>th</span>, 2013</time>
+<time datetime="2013-12-30T09:46:50+08:00" pubdate data-updated="true">Dec 30<span>th</span>, 2013</time>
         
            | <a href="#disqus_thread"
              data-disqus-identifier="http://wubr2000.github.io">Comments</a>
@@ -102,62 +97,26 @@ class Fixnum def prime? (&#39;1&#39; * self) !~ /^1?$|^( &hellip;">
   </header>
 
 
-<div class="entry-content"><p>Here&rsquo;s an example of a Ruby code:</p>
+<div class="entry-content"><p>Came across a <a href="http://blog.scripted.com/scripted-updates/nlp-hacking-in-python/">great tutorial</a> on the basics of natural language processing (NLP) and classification.</p>
 
-<figure class='code'><figcaption><span>Discover if a number is prime</span><a href='http://www.noulakaz.net/weblog/2007/03/18/a-regular-expression-to-check-for-prime-numbers/'>Source Article</a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Fixnum</span>
-</span><span class='line'>  <span class="k">def</span> <span class="nf">prime?</span>
-</span><span class='line'>    <span class="p">(</span><span class="s1">&#39;1&#39;</span> <span class="o">*</span> <span class="nb">self</span><span class="p">)</span> <span class="o">!~</span> <span class="sr">/^1?$|^(11+?)\1+$/</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
+<p>The example in this tutorial uses a Python library called <code>gensim</code> which (according to its <a href="http://radimrehurek.com/gensim/about.html">website</a>) is the &ldquo;the most robust, efficient and hassle-free piece of software to realize unsupervised semantic modelling from plain text.&rdquo; As far as I understand it, it&rsquo;s a very handy and commonly-used library for NLP.</p>
 
-
-<p>An example of Coffeescript:</p>
-
-<figure class='code'><figcaption><span>Coffeescript Tricks </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="c1"># Given an alphabet:</span>
-</span><span class='line'><span class="nv">alphabet = </span><span class="s">&#39;abcdefghijklmnopqrstuvwxyz&#39;</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1"># Iterate over part of the alphabet:</span>
-</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">letter</span> <span class="k">for</span> <span class="nx">letter</span> <span class="k">in</span> <span class="nx">alphabet</span><span class="p">[</span><span class="mi">4</span><span class="p">..</span><span class="mi">8</span><span class="p">]</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<p>One important tool/algorithm used for classification is something called the <a href="http://en.wikipedia.org/wiki/Vector_space_model">Vector Space Model</a>. Basically, all documents or queries are represented as &ldquo;vectors of identifiers&rdquo;, such as an index of words.</p>
 
 <!-- more -->
 
 
-<p>Example of embedding Gist:</p>
+<p>A common way to represent a written document as a vector is to think about it in terms of <a href="http://en.wikipedia.org/wiki/Bag-of-words_model">Bag of Words</a> (BoW) vectors.</p>
 
-<div><script src='https://gist.github.com/4321346.js?file=gistfile1.diff'></script>
-<noscript><pre><code>@@ -590,7 +590,7 @@ class SpritesTest &lt; Test::Unit::TestCase
-  it &quot;should generate a sprite from nested folders&quot; do
-    css = render &lt;&lt;-SCSS
--     @import &quot;nested/*.png&quot;;
-+     @import &quot;nested/**/*.png&quot;;
-      @include all-nested-sprites;
-    SCSS
-    assert_correct css, &lt;&lt;-CSS</code></pre></noscript></div>
+<p>For example, if an entire document consists only of the words &ldquo;dog&rdquo; and &ldquo;cat&rdquo;, then the BoW vector for this document would be [# of &lsquo;dog&rsquo;, # of &lsquo;cat&rsquo;].</p>
 
+<p>A very high-level overview of the workflow for NLP using the Vector Space Model is as follows:</p>
 
-<p>Inline code blocks example:</p>
+<blockquote><p>Preprocessing &ndash;> Create Bag of Words vector &ndash;> Dimensionality Reduction &ndash;> use SVM algorithm for classification</p></blockquote>
 
-<figure class='code'><figcaption><span>Javascript Array Syntax</span><a href='http://j.mp/pPUUmW'>MDN Documentation </a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">arr1</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="nx">arrayLength</span><span class="p">);</span>
-</span><span class='line'><span class="kd">var</span> <span class="nx">arr2</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="nx">element0</span><span class="p">,</span> <span class="nx">element1</span><span class="p">,</span> <span class="p">...,</span> <span class="nx">elementN</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></figure>
+<p>A more detailed workflow:</p>
 
-
-
+<blockquote><p>Remove stopwords and split on spaces &ndash;> Take out rare terms using <code>gensim</code> &ndash;> Create Bag of Words vectors &ndash;> Dimensionality reduction using LSI (<a href="http://en.wikipedia.org/wiki/Latent_semantic_indexing">Latent Semantic Indexing</a>) model in <code>gensim</code> &ndash;></p></blockquote>
 </div>
 
 
@@ -180,15 +139,21 @@ class Fixnum def prime? (&#39;1&#39; * self) !~ /^1?$|^( &hellip;">
   
 
 
-<time datetime="2013-12-28T05:28:32+08:00" pubdate data-updated="true">Dec 28<span>th</span>, 2013</time>
+<time datetime="2013-12-30T09:46:50+08:00" pubdate data-updated="true">Dec 30<span>th</span>, 2013</time>
       
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/bag/'>Bag</a>, <a class='category' href='/blog/categories/model/'>Model</a>, <a class='category' href='/blog/categories/model/'>Model,</a>, <a class='category' href='/blog/categories/nlp/'>NLP,</a>, <a class='category' href='/blog/categories/python/'>Python,</a>, <a class='category' href='/blog/categories/space/'>Space</a>, <a class='category' href='/blog/categories/vector/'>Vector</a>, <a class='category' href='/blog/categories/words/'>Words</a>, <a class='category' href='/blog/categories/of/'>of</a>
+  
+</span>
 
 
     </p>
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://wubr2000.github.io/blog/2013/12/28/code-snippets-test/" data-via="wubr2000" data-counturl="http://wubr2000.github.io/blog/2013/12/28/code-snippets-test/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://wubr2000.github.io/blog/2013/12/30/exploring-nlp-in-python/" data-via="wubr2000" data-counturl="http://wubr2000.github.io/blog/2013/12/30/exploring-nlp-in-python/" >Tweet</a>
   
   
   
@@ -197,10 +162,8 @@ class Fixnum def prime? (&#39;1&#39; * self) !~ /^1?$|^( &hellip;">
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2013/12/28/hello-world/" title="Previous Post: Hello World!">&laquo; Hello World!</a>
+        <a class="basic-alignment left" href="/blog/2013/12/28/code-snippets-test/" title="Previous Post: Code Snippets Test">&laquo; Code Snippets Test</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2013/12/30/exploring-nlp-in-python/" title="Next Post: Exploring NLP in Python">Exploring NLP in Python &raquo;</a>
       
     </p>
   </footer>
@@ -287,8 +250,8 @@ class Fixnum def prime? (&#39;1&#39; * self) !~ /^1?$|^( &hellip;">
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://wubr2000.github.io/blog/2013/12/28/code-snippets-test/';
-        var disqus_url = 'http://wubr2000.github.io/blog/2013/12/28/code-snippets-test/';
+        var disqus_identifier = 'http://wubr2000.github.io/blog/2013/12/30/exploring-nlp-in-python/';
+        var disqus_url = 'http://wubr2000.github.io/blog/2013/12/30/exploring-nlp-in-python/';
         var disqus_script = 'embed.js';
       
     (function () {
