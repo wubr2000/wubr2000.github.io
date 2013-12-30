@@ -1,24 +1,103 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Codex]]></title>
-  <link href="http://wubr2000.github.io/atom.xml" rel="self"/>
-  <link href="http://wubr2000.github.io/"/>
-  <updated>2013-12-30T11:31:50+08:00</updated>
-  <id>http://wubr2000.github.io/</id>
-  <author>
-    <name><![CDATA[Bruno Wu]]></name>
-    <email><![CDATA[wubr2000@hotmail.com]]></email>
-  </author>
-  <generator uri="http://octopress.org/">Octopress</generator>
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Solving the Monty Hall Problem Using Monte Carlo Simulation - Codex</title>
+  <meta name="author" content="Bruno Wu">
 
   
-  <entry>
-    <title type="html"><![CDATA[Solving the Monty Hall Problem Using Monte Carlo Simulation]]></title>
-    <link href="http://wubr2000.github.io/blog/2013/12/30/monty-hall-simulation/"/>
-    <updated>2013-12-30T11:25:09+08:00</updated>
-    <id>http://wubr2000.github.io/blog/2013/12/30/monty-hall-simulation</id>
-    <content type="html"><![CDATA[<p>This exercise is from <a href="http://cs109.org/">Harvard&rsquo;s CS109 course.</a></p>
+  <meta name="description" content="This exercise is from Harvard&rsquo;s CS109 course. In the Monty Hall game show, contestants try to guess which of 3 closed doors contain a cash &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://wubr2000.github.io/blog/2013/12/30/monty-hall-simulation">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Codex" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Codex</a></h1>
+  
+    <h2>¯\_(ツ)_/¯</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss email">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+    <li><a href="wubr2000@hotmail.com" rel="subscribe-email" title="subscribe via email">Email</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:wubr2000.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+    <li><a href="/portfolio">Portfolio</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Solving the Monty Hall Problem Using Monte Carlo Simulation</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-30T11:25:09+08:00" pubdate data-updated="true">Dec 30<span>th</span>, 2013</time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://wubr2000.github.io">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>This exercise is from <a href="http://cs109.org/">Harvard&rsquo;s CS109 course.</a></p>
 
 <p>In the Monty Hall game show, contestants try to guess which of 3 closed doors contain a cash prize (goats are behind the other two doors). Of course, the odds of choosing the correct door are 1 in 3. As a twist, the host of the show occasionally opens a door after a contestant makes his or her choice. This door is always one of the two the contestant did not pick, and is also always one of the goat doors (note that it is always possible to do this, since there are two goat doors). At this point, the contestant has the option of keeping his or her original choice, or swtiching to the other unopened door. The question is: is there any benefit to switching doors? The answer surprises many people who haven&rsquo;t heard the question before.</p>
 
@@ -191,108 +270,167 @@
 <p>Voila! Always switch!</p>
 
 <p>Additional work: One of the best ways to build intuition about why opening a Goat door affects the odds is to re-run the experiment with 100 doors and one prize. If the game show host opens 98 goat doors after you make your initial selection, would you want to keep your first pick or switch? Can you generalize your simulation code to handle the case of &ldquo;n&rdquo; doors?</p>
-]]></content>
-  </entry>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
   
-  <entry>
-    <title type="html"><![CDATA[Exploring NLP in Python]]></title>
-    <link href="http://wubr2000.github.io/blog/2013/12/30/exploring-nlp-in-python/"/>
-    <updated>2013-12-30T09:46:50+08:00</updated>
-    <id>http://wubr2000.github.io/blog/2013/12/30/exploring-nlp-in-python</id>
-    <content type="html"><![CDATA[<p>Came across a <a href="http://blog.scripted.com/scripted-updates/nlp-hacking-in-python/">great tutorial</a> on the basics of natural language processing (NLP) and classification.</p>
 
-<p>The example in this tutorial uses a Python library called <code>gensim</code> which (according to its <a href="http://radimrehurek.com/gensim/about.html">website</a>) is the &ldquo;the most robust, efficient and hassle-free piece of software to realize unsupervised semantic modelling from plain text.&rdquo; As far as I understand it, it&rsquo;s a very handy and commonly-used library for NLP.</p>
+<span class="byline author vcard">Posted by <span class="fn">Bruno Wu</span></span>
 
-<p>One important tool/algorithm used for classification is something called the <a href="http://en.wikipedia.org/wiki/Vector_space_model">Vector Space Model</a>. Basically, all documents or queries are represented as &ldquo;vectors of identifiers&rdquo;, such as an index of words.</p>
-
-<!-- more -->
+      
 
 
-<p>A common way to represent a written document as a vector is to think about it in terms of <a href="http://en.wikipedia.org/wiki/Bag-of-words_model">Bag of Words</a> (BoW) vectors.</p>
 
-<p>For example, if an entire document consists only of the words &ldquo;dog&rdquo; and &ldquo;cat&rdquo;, then the BoW vector for this document would be [# of &lsquo;dog&rsquo;, # of &lsquo;cat&rsquo;].</p>
 
-<p>A very high-level overview of the workflow for NLP using the Vector Space Model is as follows:</p>
 
-<blockquote><p>Preprocessing &ndash;> Create Bag of Words vector &ndash;> Dimensionality Reduction &ndash;> use SVM algorithm for classification</p></blockquote>
 
-<p>A more detailed workflow:</p>
 
-<blockquote><p>Remove stopwords and split on spaces &ndash;> Take out rare terms using <code>gensim</code> &ndash;> Create Bag of Words vectors &ndash;> Dimensionality reduction using LSI (<a href="http://en.wikipedia.org/wiki/Latent_semantic_indexing">Latent Semantic Indexing</a>) model in <code>gensim</code> &ndash;></p></blockquote>
-]]></content>
-  </entry>
+
   
-  <entry>
-    <title type="html"><![CDATA[Code Snippets Test]]></title>
-    <link href="http://wubr2000.github.io/blog/2013/12/28/code-snippets-test/"/>
-    <updated>2013-12-28T05:28:32+08:00</updated>
-    <id>http://wubr2000.github.io/blog/2013/12/28/code-snippets-test</id>
-    <content type="html"><![CDATA[<p>Here&rsquo;s an example of a Ruby code:</p>
-
-<figure class='code'><figcaption><span>Discover if a number is prime</span><a href='http://www.noulakaz.net/weblog/2007/03/18/a-regular-expression-to-check-for-prime-numbers/'>Source Article</a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Fixnum</span>
-</span><span class='line'>  <span class="k">def</span> <span class="nf">prime?</span>
-</span><span class='line'>    <span class="p">(</span><span class="s1">&#39;1&#39;</span> <span class="o">*</span> <span class="nb">self</span><span class="p">)</span> <span class="o">!~</span> <span class="sr">/^1?$|^(11+?)\1+$/</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
 
 
-<p>An example of Coffeescript:</p>
-
-<figure class='code'><figcaption><span>Coffeescript Tricks </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="c1"># Given an alphabet:</span>
-</span><span class='line'><span class="nv">alphabet = </span><span class="s">&#39;abcdefghijklmnopqrstuvwxyz&#39;</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1"># Iterate over part of the alphabet:</span>
-</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">letter</span> <span class="k">for</span> <span class="nx">letter</span> <span class="k">in</span> <span class="nx">alphabet</span><span class="p">[</span><span class="mi">4</span><span class="p">..</span><span class="mi">8</span><span class="p">]</span>
-</span></code></pre></td></tr></table></div></figure>
+<time datetime="2013-12-30T11:25:09+08:00" pubdate data-updated="true">Dec 30<span>th</span>, 2013</time>
+      
 
 
-<!-- more -->
-
-
-<p>Example of embedding Gist:</p>
-
-<div><script src='https://gist.github.com/4321346.js?file=gistfile1.diff'></script>
-<noscript><pre><code>@@ -590,7 +590,7 @@ class SpritesTest &lt; Test::Unit::TestCase
-  it &quot;should generate a sprite from nested folders&quot; do
-    css = render &lt;&lt;-SCSS
--     @import &quot;nested/*.png&quot;;
-+     @import &quot;nested/**/*.png&quot;;
-      @include all-nested-sprites;
-    SCSS
-    assert_correct css, &lt;&lt;-CSS</code></pre></noscript></div>
-
-
-<p>Inline code blocks example:</p>
-
-<figure class='code'><figcaption><span>Javascript Array Syntax</span><a href='http://j.mp/pPUUmW'>MDN Documentation </a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">arr1</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="nx">arrayLength</span><span class="p">);</span>
-</span><span class='line'><span class="kd">var</span> <span class="nx">arr2</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="nx">element0</span><span class="p">,</span> <span class="nx">element1</span><span class="p">,</span> <span class="p">...,</span> <span class="nx">elementN</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-]]></content>
-  </entry>
+    </p>
+    
+      <div class="sharing">
   
-  <entry>
-    <title type="html"><![CDATA[Hello World!]]></title>
-    <link href="http://wubr2000.github.io/blog/2013/12/28/hello-world/"/>
-    <updated>2013-12-28T04:59:03+08:00</updated>
-    <id>http://wubr2000.github.io/blog/2013/12/28/hello-world</id>
-    <content type="html"><![CDATA[<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. <!-- more --> Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.</p>
-]]></content>
-  </entry>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://wubr2000.github.io/blog/2013/12/30/monty-hall-simulation/" data-via="wubr2000" data-counturl="http://wubr2000.github.io/blog/2013/12/30/monty-hall-simulation/" >Tweet</a>
   
-</feed>
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/12/30/exploring-nlp-in-python/" title="Previous Post: Exploring NLP in Python">&laquo; Exploring NLP in Python</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/12/30/monty-hall-simulation/">Solving the Monty Hall Problem Using Monte Carlo Simulation</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/12/30/exploring-nlp-in-python/">Exploring NLP in Python</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/12/28/code-snippets-test/">Code Snippets Test</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/12/28/hello-world/">Hello World!</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/wubr2000">@wubr2000</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'wubr2000',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Bruno Wu -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'wubr2000';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://wubr2000.github.io/blog/2013/12/30/monty-hall-simulation/';
+        var disqus_url = 'http://wubr2000.github.io/blog/2013/12/30/monty-hall-simulation/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
