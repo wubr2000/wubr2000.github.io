@@ -8,7 +8,3 @@ footer: true
 ---
 
 Your content here.
-
-{% portfolio Group_Order %}
-
-Content after images.

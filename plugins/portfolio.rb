@@ -40,9 +40,11 @@ module Jekyll
               title = File.basename(screenshot, File.extname(screenshot))
 
               if(screenshot.index "main")
+                content += '<br>'
                 content += '<div class="gallery-item viewport clearfix">'
-                content += '<a rel="gallery1" title="' + title + '" href="' + link + '" class="fancybox"><span class="dark-background">'+ project_name + '</span><img src="' + img + '"></a>'
+                content += '<a rel="gallery1" title="' + title + '" href="' + link + '" class="fancybox"><span class="dark-background">'+ project_name + '</span><br><br><img src="' + img + '"></a>'
                 content += '</div>'
+                content += '<br>'
               end
             end
           end

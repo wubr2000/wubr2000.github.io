@@ -9,6 +9,4 @@ footer: true
 
 Your content here.
 
-{% portfolio Tic-Tac-Toe %}
-
-Content after images.
+<!-- {% portfolio Tic-Tac-Toe %} -->

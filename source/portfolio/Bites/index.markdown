@@ -7,8 +7,6 @@ sharing: true
 footer: true
 ---
 
-This is a social network. The most important thing that I experimented with is the following/followers data model.
+I envisioned [Bites](bitesize.herokuapp.com) to be a restaurant recommendation Twitter-like service that is curated/commented by experts only and where each review is only limited to 140 words. 
 
-{% portfolio Bites %}
-
-Content after images.
+The most important thing that I experimented with is the following/followers data model.
