@@ -29,7 +29,7 @@
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-
+<link href="http://fonts.googleapis.com/css?family=Fjalla+One" rel="stylesheet" type="text/css">
   
 
 </head>
@@ -101,22 +101,322 @@
 
 <p>The example in this tutorial uses a Python library called <code>gensim</code> which (according to its <a href="http://radimrehurek.com/gensim/about.html">website</a>) is the &ldquo;the most robust, efficient and hassle-free piece of software to realize unsupervised semantic modelling from plain text.&rdquo; As far as I understand it, it&rsquo;s a very handy and commonly-used library for NLP.</p>
 
-<p>One important tool/algorithm used for classification is something called the <a href="http://en.wikipedia.org/wiki/Vector_space_model">Vector Space Model</a>. Basically, all documents or queries are represented as &ldquo;vectors of identifiers&rdquo;, such as an index of words.</p>
+<p>One important tool/algorithm used for classification is something called the <a href="http://en.wikipedia.org/wiki/Vector_space_model">Vector Space Model</a>. Basically, all documents or queries are represented as &ldquo;vectors of identifiers&rdquo;, such as an index of words and use the angle (theta) between vectors as a similarity measure (explained further later). Incidentally, if you ranked the similarity of each document to a query, you&rsquo;d have a search engine.</p>
 
 <!-- more -->
 
 
-<p>A common way to represent a written document as a vector is to think about it in terms of <a href="http://en.wikipedia.org/wiki/Bag-of-words_model">Bag of Words</a> (BoW) vectors.</p>
-
-<p>For example, if an entire document consists only of the words &ldquo;dog&rdquo; and &ldquo;cat&rdquo;, then the BoW vector for this document would be [# of &lsquo;dog&rsquo;, # of &lsquo;cat&rsquo;].</p>
+<p>A common way to represent a written document as a vector is to think about it in terms of <a href="http://en.wikipedia.org/wiki/Bag-of-words_model">Bag of Words</a> (BoW) vectors. For example, if an entire document consists only of the words &ldquo;dog&rdquo; and &ldquo;cat&rdquo;, then the BoW vector for this document would be [# of &lsquo;dog&rsquo;, # of &lsquo;cat&rsquo;].</p>
 
 <p>A very high-level overview of the workflow for NLP using the Vector Space Model is as follows:</p>
 
-<blockquote><p>Preprocessing &ndash;> Create Bag of Words vector &ndash;> Dimensionality Reduction &ndash;> use SVM algorithm for classification</p></blockquote>
+<blockquote><p>Preprocessing &ndash;> Create &ldquo;Bag of Words&rdquo; vector &ndash;> Dimensionality Reduction &ndash;> use SVM algorithm for classification</p></blockquote>
 
-<p>A more detailed workflow:</p>
+<p>A more detailed workflow is as follows:</p>
 
-<blockquote><p>Remove stopwords and split on spaces &ndash;> Take out rare terms using <code>gensim</code> &ndash;> Create Bag of Words vectors &ndash;> Dimensionality reduction using LSI (<a href="http://en.wikipedia.org/wiki/Latent_semantic_indexing">Latent Semantic Indexing</a>) model in <code>gensim</code> &ndash;></p></blockquote>
+<blockquote><p>Remove stopwords and split on spaces &ndash;> Take out rare terms using <code>gensim</code> &ndash;> Create Bag of Words vectors &ndash;> Dimensionality reduction using LSI (<a href="http://en.wikipedia.org/wiki/Latent_semantic_indexing">Latent Semantic Indexing</a>) model in <code>gensim</code> (topic vectorization) &ndash;> unit vectorization &ndash;> finding cosine distance</p></blockquote>
+
+<p>Several important concepts to be aware of from this tutorial:</p>
+
+<p>1.<em>Vector Space Model</em></p>
+
+<p>2.<a href="http://en.wikipedia.org/wiki/Curse_of_dimensionality">The Curse of Dimensionality</a></p>
+
+<blockquote><p>There are all kinds of terrible things that happen as the dimensionality of your descriptor vectors rises. One obvious one is that as the dimensionality rises, both the time and space complexity of dealing with these vectors rises, often exponentially. Another issue is that as dimensionality rises, the amount of samples needed to draw useful conclusions from that data also rises steeply. Another way of phrasing that is with a fixed number of samples, the usefulness of each dimension diminishes. Finally, as the dimensionality rises, your points all tend to start becoming equidistant to each other, making it difficult to draw solid conclusions from them.</p></blockquote>
+
+<p>3.<em>Similarity in Vector Space</em></p>
+
+<p>  Euclidean distance (this ignores direction)</p>
+
+<p>  Cosine distance &ndash; measuring similarity based on angle between vectors is know as cosine distance, or cosine similarity.
+  * Unit vectorization &ndash; modify the vectors themselves by dividing each number in each vector by that vector&rsquo;s magnitude. In doing so, all our vectors have a magnitude of 1. This process is called unit vectorization because the output vectors are units vectors.</p>
+
+<p>4.<em>Supervised Learning</em></p>
+
+<p>  Train the algorithm on samples which have the &lsquo;correct&rsquo; answer provided with them. The specific supervised learning problem we&rsquo;re addressing here is called classification. You train an algorithm on labelled descriptor vectors, then ask it to label a previously unseen descriptor vector based on conclusions drawn from the training set.</p>
+
+<p>5.<em><a href="http://en.wikipedia.org/wiki/Support_vector_machine">Support Vector Machine</a></em></p>
+
+<p>  SVM is a family of algorithms which define decision boundaries between classes based on labelled training data.</p>
+
+<blockquote><p>For our &lsquo;dog&rsquo; vs. &lsquo;sandwich&rsquo; classification problem, we provide the algorithm with some training samples. These samples are documents which have gone through our whole process (BoW vector &ndash;> topic vector &ndash;> unit vector) and carry with them either a &lsquo;dog&rsquo; label or a &lsquo;sandwich&rsquo; label. As you provide the SVM model with these samples, it looks at these points in space and essentially draws a line between the &lsquo;sandwich&rsquo; documents and the &lsquo;dog&rsquo; documents. This border between &ldquo;dog&rdquo;-land and &ldquo;sandwich&rdquo;-land is known as a decision boundary. Whichever side of the line the query point falls on determines what the algorithm labels it.</p>
+
+<p>All samples in both training and test sets are labeled. However, in practice, you would build the model on the labeled training set, ignore the labels on the test set, feed them into the model, have the model guess what those labels are, and finally check whether or not the algorithm guessed correctly. This process of testing out your supervised learning algorithm with a training and test set is called cross-validation.</p></blockquote>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+<span class='line-number'>105</span>
+<span class='line-number'>106</span>
+<span class='line-number'>107</span>
+<span class='line-number'>108</span>
+<span class='line-number'>109</span>
+<span class='line-number'>110</span>
+<span class='line-number'>111</span>
+<span class='line-number'>112</span>
+<span class='line-number'>113</span>
+<span class='line-number'>114</span>
+<span class='line-number'>115</span>
+<span class='line-number'>116</span>
+<span class='line-number'>117</span>
+<span class='line-number'>118</span>
+<span class='line-number'>119</span>
+<span class='line-number'>120</span>
+<span class='line-number'>121</span>
+<span class='line-number'>122</span>
+<span class='line-number'>123</span>
+<span class='line-number'>124</span>
+<span class='line-number'>125</span>
+<span class='line-number'>126</span>
+<span class='line-number'>127</span>
+<span class='line-number'>128</span>
+<span class='line-number'>129</span>
+<span class='line-number'>130</span>
+<span class='line-number'>131</span>
+<span class='line-number'>132</span>
+<span class='line-number'>133</span>
+<span class='line-number'>134</span>
+<span class='line-number'>135</span>
+<span class='line-number'>136</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">import</span> <span class="nn">warnings</span>
+</span><span class='line'><span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sqrt</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">gensim</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">os</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">vec2dense</span><span class="p">(</span><span class="n">vec</span><span class="p">,</span> <span class="n">num_terms</span><span class="p">):</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="sd">&#39;&#39;&#39;Convert from sparse gensim format to dense list of numbers&#39;&#39;&#39;</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">gensim</span><span class="o">.</span><span class="n">matutils</span><span class="o">.</span><span class="n">corpus2dense</span><span class="p">([</span><span class="n">vec</span><span class="p">],</span> <span class="n">num_terms</span><span class="o">=</span><span class="n">num_terms</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c">#Load in corpus, remove newlines, make strings lower-case</span>
+</span><span class='line'>    <span class="n">docs</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span class='line'>    <span class="n">corpus_dir</span> <span class="o">=</span> <span class="s">&#39;corpus&#39;</span>
+</span><span class='line'>    <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">corpus_dir</span><span class="p">):</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">corpus_dir</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">doc</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+</span><span class='line'>        <span class="n">docs</span><span class="p">[</span><span class="n">filename</span><span class="p">]</span> <span class="o">=</span> <span class="n">doc</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">names</span> <span class="o">=</span> <span class="n">docs</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c">#Remove stopwords and split on spaces</span>
+</span><span class='line'>    <span class="k">print</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">---Corpus with Stopwords Removed---&quot;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">stop</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;the&#39;</span><span class="p">,</span> <span class="s">&#39;of&#39;</span><span class="p">,</span> <span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;at&#39;</span><span class="p">,</span> <span class="s">&#39;is&#39;</span><span class="p">]</span>
+</span><span class='line'>    <span class="n">preprocessed_docs</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span class='line'>    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">text</span> <span class="o">=</span> <span class="n">docs</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+</span><span class='line'>        <span class="n">preprocessed</span> <span class="o">=</span> <span class="p">[</span><span class="n">word</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">text</span> <span class="k">if</span> <span class="n">word</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">stop</span><span class="p">]</span>
+</span><span class='line'>        <span class="n">preprocessed_docs</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">preprocessed</span>
+</span><span class='line'>        <span class="k">print</span> <span class="n">name</span><span class="p">,</span> <span class="s">&quot;:&quot;</span><span class="p">,</span> <span class="n">preprocessed</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c">#Build the dictionary and filter out rare terms</span>
+</span><span class='line'>    <span class="n">dct</span> <span class="o">=</span> <span class="n">gensim</span><span class="o">.</span><span class="n">corpora</span><span class="o">.</span><span class="n">Dictionary</span><span class="p">(</span><span class="n">preprocessed_docs</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+</span><span class='line'>    <span class="n">unfiltered</span> <span class="o">=</span> <span class="n">dct</span><span class="o">.</span><span class="n">token2id</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+</span><span class='line'>    <span class="n">dct</span><span class="o">.</span><span class="n">filter_extremes</span><span class="p">(</span><span class="n">no_below</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">filtered</span> <span class="o">=</span> <span class="n">dct</span><span class="o">.</span><span class="n">token2id</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+</span><span class='line'>    <span class="n">filtered_out</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">unfiltered</span><span class="p">)</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">filtered</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">print</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">The following super common/rare words were filtered out...&quot;</span>
+</span><span class='line'>    <span class="k">print</span> <span class="nb">list</span><span class="p">(</span><span class="n">filtered_out</span><span class="p">),</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">print</span> <span class="s">&quot;Vocabulary after filtering...&quot;</span>
+</span><span class='line'>    <span class="k">print</span> <span class="n">dct</span><span class="o">.</span><span class="n">token2id</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c">#Build Bag of Words Vectors out of preprocessed corpus</span>
+</span><span class='line'>    <span class="k">print</span> <span class="s">&quot;---Bag of Words Corpus---&quot;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">bow_docs</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span class='line'>    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">sparse</span> <span class="o">=</span> <span class="n">dct</span><span class="o">.</span><span class="n">doc2bow</span><span class="p">(</span><span class="n">preprocessed_docs</span><span class="p">[</span><span class="n">name</span><span class="p">])</span>
+</span><span class='line'>        <span class="n">bow_docs</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">sparse</span>
+</span><span class='line'>        <span class="n">dense</span> <span class="o">=</span> <span class="n">vec2dense</span><span class="p">(</span><span class="n">sparse</span><span class="p">,</span> <span class="n">num_terms</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">dct</span><span class="p">))</span>
+</span><span class='line'>        <span class="k">print</span> <span class="n">name</span><span class="p">,</span> <span class="s">&quot;:&quot;</span><span class="p">,</span> <span class="n">dense</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c">#Dimensionality reduction using LSI. Go from 6D to 2D.</span>
+</span><span class='line'>    <span class="k">print</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">---LSI Model---&quot;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">lsi_docs</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span class='line'>    <span class="n">num_topics</span> <span class="o">=</span> <span class="mi">2</span>
+</span><span class='line'>    <span class="n">lsi_model</span> <span class="o">=</span> <span class="n">gensim</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">LsiModel</span><span class="p">(</span><span class="n">bow_docs</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span>
+</span><span class='line'>                                       <span class="n">num_topics</span><span class="o">=</span><span class="n">num_topics</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">vec</span> <span class="o">=</span> <span class="n">bow_docs</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+</span><span class='line'>        <span class="n">sparse</span> <span class="o">=</span> <span class="n">lsi_model</span><span class="p">[</span><span class="n">vec</span><span class="p">]</span>
+</span><span class='line'>        <span class="n">dense</span> <span class="o">=</span> <span class="n">vec2dense</span><span class="p">(</span><span class="n">sparse</span><span class="p">,</span> <span class="n">num_topics</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">lsi_docs</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">sparse</span>
+</span><span class='line'>        <span class="k">print</span> <span class="n">name</span><span class="p">,</span> <span class="s">&#39;:&#39;</span><span class="p">,</span> <span class="n">dense</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c">#Normalize LSI vectors by setting each vector to unit length</span>
+</span><span class='line'>    <span class="k">print</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">---Unit Vectorization---&quot;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">unit_vecs</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span class='line'>    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">vec</span> <span class="o">=</span> <span class="n">vec2dense</span><span class="p">(</span><span class="n">lsi_docs</span><span class="p">[</span><span class="n">name</span><span class="p">],</span> <span class="n">num_topics</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">norm</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">num</span> <span class="o">**</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="n">vec</span><span class="p">))</span>
+</span><span class='line'>        <span class="n">unit_vec</span> <span class="o">=</span> <span class="p">[</span><span class="n">num</span> <span class="o">/</span> <span class="n">norm</span> <span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="n">vec</span><span class="p">]</span>
+</span><span class='line'>        <span class="n">unit_vecs</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">unit_vec</span>
+</span><span class='line'>        <span class="k">print</span> <span class="n">name</span><span class="p">,</span> <span class="s">&#39;:&#39;</span><span class="p">,</span> <span class="n">unit_vec</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c">#Take cosine distances between docs and show best matches</span>
+</span><span class='line'>    <span class="k">print</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">---Document Similarities---&quot;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">index</span> <span class="o">=</span> <span class="n">gensim</span><span class="o">.</span><span class="n">similarities</span><span class="o">.</span><span class="n">MatrixSimilarity</span><span class="p">(</span><span class="n">lsi_docs</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+</span><span class='line'>    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">names</span><span class="p">):</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">vec</span> <span class="o">=</span> <span class="n">lsi_docs</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+</span><span class='line'>        <span class="n">sims</span> <span class="o">=</span> <span class="n">index</span><span class="p">[</span><span class="n">vec</span><span class="p">]</span>
+</span><span class='line'>        <span class="n">sims</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="n">sims</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">item</span><span class="p">:</span> <span class="o">-</span><span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c">#Similarities are a list of tuples of the form (doc #, score)</span>
+</span><span class='line'>        <span class="c">#In order to extract the doc # we take first value in the tuple</span>
+</span><span class='line'>        <span class="c">#Doc # is stored in tuple as numpy format, must cast to int</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">sims</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span> <span class="o">!=</span> <span class="n">i</span><span class="p">:</span>
+</span><span class='line'>            <span class="n">match</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">sims</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+</span><span class='line'>        <span class="k">else</span><span class="p">:</span>
+</span><span class='line'>            <span class="n">match</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">sims</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">match</span> <span class="o">=</span> <span class="n">names</span><span class="p">[</span><span class="n">match</span><span class="p">]</span>
+</span><span class='line'>        <span class="k">print</span> <span class="n">name</span><span class="p">,</span> <span class="s">&quot;is most similar to...&quot;</span><span class="p">,</span> <span class="n">match</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c">#We add classes to the mix by labelling dog1.txt and sandwich1.txt</span>
+</span><span class='line'>    <span class="c">#We use these as our training set, and test on all documents.</span>
+</span><span class='line'>    <span class="k">print</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">---Classification---&quot;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">dog1</span> <span class="o">=</span> <span class="n">unit_vecs</span><span class="p">[</span><span class="s">&#39;dog1.txt&#39;</span><span class="p">]</span>
+</span><span class='line'>    <span class="n">sandwich1</span> <span class="o">=</span> <span class="n">unit_vecs</span><span class="p">[</span><span class="s">&#39;sandwich1.txt&#39;</span><span class="p">]</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">train</span> <span class="o">=</span> <span class="p">[</span><span class="n">dog1</span><span class="p">,</span> <span class="n">sandwich1</span><span class="p">]</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c"># The label &#39;1&#39; represents the &#39;dog&#39; category</span>
+</span><span class='line'>    <span class="c"># The label &#39;2&#39; represents the &#39;sandwich&#39; category</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">label_to_name</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">([(</span><span class="mi">1</span><span class="p">,</span> <span class="s">&#39;dogs&#39;</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s">&#39;sandwiches&#39;</span><span class="p">)])</span>
+</span><span class='line'>    <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+</span><span class='line'>    <span class="n">classifier</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">()</span>
+</span><span class='line'>    <span class="n">classifier</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">vec</span> <span class="o">=</span> <span class="n">unit_vecs</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+</span><span class='line'>        <span class="n">label</span> <span class="o">=</span> <span class="n">classifier</span><span class="o">.</span><span class="n">predict</span><span class="p">([</span><span class="n">vec</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+</span><span class='line'>        <span class="n">cls</span> <span class="o">=</span> <span class="n">label_to_name</span><span class="p">[</span><span class="n">label</span><span class="p">]</span>
+</span><span class='line'>        <span class="k">print</span> <span class="n">name</span><span class="p">,</span> <span class="s">&#39;is a document about&#39;</span><span class="p">,</span> <span class="n">cls</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">print</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
 </div>
 
 
@@ -244,7 +544,7 @@
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2013 - Bruno Wu -
+  Copyright &copy; 2014 - Bruno Wu -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

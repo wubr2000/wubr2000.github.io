@@ -29,7 +29,7 @@
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-
+<link href="http://fonts.googleapis.com/css?family=Fjalla+One" rel="stylesheet" type="text/css">
   
 
 </head>
@@ -152,7 +152,7 @@
 
 <p>The example in this tutorial uses a Python library called <code>gensim</code> which (according to its <a href="http://radimrehurek.com/gensim/about.html">website</a>) is the &ldquo;the most robust, efficient and hassle-free piece of software to realize unsupervised semantic modelling from plain text.&rdquo; As far as I understand it, it&rsquo;s a very handy and commonly-used library for NLP.</p>
 
-<p>One important tool/algorithm used for classification is something called the <a href="http://en.wikipedia.org/wiki/Vector_space_model">Vector Space Model</a>. Basically, all documents or queries are represented as &ldquo;vectors of identifiers&rdquo;, such as an index of words.</p>
+<p>One important tool/algorithm used for classification is something called the <a href="http://en.wikipedia.org/wiki/Vector_space_model">Vector Space Model</a>. Basically, all documents or queries are represented as &ldquo;vectors of identifiers&rdquo;, such as an index of words and use the angle (theta) between vectors as a similarity measure (explained further later). Incidentally, if you ranked the similarity of each document to a query, you&rsquo;d have a search engine.</p>
 
 </div>
   
@@ -349,7 +349,7 @@
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2013 - Bruno Wu -
+  Copyright &copy; 2014 - Bruno Wu -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
