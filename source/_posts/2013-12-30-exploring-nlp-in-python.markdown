@@ -25,26 +25,24 @@ A more detailed workflow is as follows:
 
 Several important concepts to be aware of from this tutorial:
 
-1._Vector Space Model_
+1. Vector Space Model
 
-2.[The Curse of Dimensionality](http://en.wikipedia.org/wiki/Curse_of_dimensionality)
+2. [The Curse of Dimensionality](http://en.wikipedia.org/wiki/Curse_of_dimensionality)
 
-  > There are all kinds of terrible things that happen as the dimensionality of your descriptor vectors rises. One obvious one is that as the dimensionality rises, both the time and space complexity of dealing with these vectors rises, often exponentially. Another issue is that as dimensionality rises, the amount of samples needed to draw useful conclusions from that data also rises steeply. Another way of phrasing that is with a fixed number of samples, the usefulness of each dimension diminishes. Finally, as the dimensionality rises, your points all tend to start becoming equidistant to each other, making it difficult to draw solid conclusions from them. 
+ > "There are all kinds of terrible things that happen as the dimensionality of your descriptor vectors rises. One obvious one is that as the dimensionality rises, both the time and space complexity of dealing with these vectors rises, often exponentially. Another issue is that as dimensionality rises, the amount of samples needed to draw useful conclusions from that data also rises steeply. Another way of phrasing that is with a fixed number of samples, the usefulness of each dimension diminishes. Finally, as the dimensionality rises, your points all tend to start becoming equidistant to each other, making it difficult to draw solid conclusions from them."
 
-3._Similarity in Vector Space_
+3. Similarity in Vector Space
   
-  Euclidean distance (this ignores direction)
+  *Euclidean distance (this ignores direction)
   
-  Cosine distance - measuring similarity based on angle between vectors is know as cosine distance, or cosine similarity. 
-  * Unit vectorization - modify the vectors themselves by dividing each number in each vector by that vector's magnitude. In doing so, all our vectors have a magnitude of 1. This process is called unit vectorization because the output vectors are units vectors.
+  * Cosine distance - measuring similarity based on angle between vectors is know as cosine distance, or cosine similarity. 
+  *Unit vectorization - modify the vectors themselves by dividing each number in each vector by that vector's magnitude. In doing so, all our vectors have a magnitude of 1. This process is called unit vectorization because the output vectors are units vectors.
 
-4._Supervised Learning_
-  
-  Train the algorithm on samples which have the 'correct' answer provided with them. The specific supervised learning problem we're addressing here is called classification. You train an algorithm on labelled descriptor vectors, then ask it to label a previously unseen descriptor vector based on conclusions drawn from the training set.
+4. Supervised Learning 
+  *Train the algorithm on samples which have the 'correct' answer provided with them. The specific supervised learning problem we're addressing here is called classification. You train an algorithm on labelled descriptor vectors, then ask it to label a previously unseen descriptor vector based on conclusions drawn from the training set.
 
-5._[Support Vector Machine](http://en.wikipedia.org/wiki/Support_vector_machine)_
-  
-  SVM is a family of algorithms which define decision boundaries between classes based on labelled training data.
+5. _[Support Vector Machine](http://en.wikipedia.org/wiki/Support_vector_machine)_
+  +SVM is a family of algorithms which define decision boundaries between classes based on labelled training data.
   
   > For our 'dog' vs. 'sandwich' classification problem, we provide the algorithm with some training samples. These samples are documents which have gone through our whole process (BoW vector -> topic vector -> unit vector) and carry with them either a 'dog' label or a 'sandwich' label. As you provide the SVM model with these samples, it looks at these points in space and essentially draws a line between the 'sandwich' documents and the 'dog' documents. This border between "dog"-land and "sandwich"-land is known as a decision boundary. Whichever side of the line the query point falls on determines what the algorithm labels it.
   
