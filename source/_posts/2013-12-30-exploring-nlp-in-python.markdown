@@ -3,7 +3,7 @@ layout: post
 title: "Exploring NLP in Python"
 date: 2013-12-30 09:46:50 +0800
 comments: true
-categories: NLP, Python, Vector Space Model, Bag of Words Model
+categories: NLP Python "Vector Space Model" "Bag of Words Model"
 ---
 Came across a [great tutorial](http://blog.scripted.com/scripted-updates/nlp-hacking-in-python/) on the basics of natural language processing (NLP) and classification. 
 

@@ -3,7 +3,7 @@ layout: post
 title: "Code Snippets Test"
 date: 2013-12-27 16:28:32 -0500
 comments: true
-categories: 
+categories: "code snippet"
 ---
 Here's an example of a Ruby code:
 
