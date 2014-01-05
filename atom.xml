@@ -4,7 +4,7 @@
   <title><![CDATA[Codex]]></title>
   <link href="http://wubr2000.github.io/atom.xml" rel="self"/>
   <link href="http://wubr2000.github.io/"/>
-  <updated>2014-01-05T11:43:27+08:00</updated>
+  <updated>2014-01-05T11:46:48+08:00</updated>
   <id>http://wubr2000.github.io/</id>
   <author>
     <name><![CDATA[Bruno Wu]]></name>
@@ -20,7 +20,7 @@
     <id>http://wubr2000.github.io/blog/2014/01/05/tapir</id>
     <content type="html"><![CDATA[<p>Was shown a very helpful walkthrough on how to <a href="http://minizatic.github.io/blog/2013/08/08/installing-octopress-plugins/">install the Tapir search plugin</a> for Octopress.</p>
 
-<p>It also has instructions on how to install Disqus and a plugin for tag cloud function.</p>
+<p>The articles also has instructions on how to install Disqus and a plugin for tag cloud function in Octopress.</p>
 ]]></content>
   </entry>
   
