@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Space | Codex]]></title>
   <link href="http://wubr2000.github.io/blog/categories/space/atom.xml" rel="self"/>
   <link href="http://wubr2000.github.io/"/>
-  <updated>2014-01-01T10:40:05+08:00</updated>
+  <updated>2014-01-05T09:45:59+08:00</updated>
   <id>http://wubr2000.github.io/</id>
   <author>
     <name><![CDATA[Bruno Wu]]></name>
@@ -39,26 +39,30 @@
 
 <p>Several important concepts to be aware of from this tutorial:</p>
 
-<p>1.<em>Vector Space Model</em></p>
+<ol>
+<li><p>Vector Space Model</p></li>
+<li><p><a href="http://en.wikipedia.org/wiki/Curse_of_dimensionality">The Curse of Dimensionality</a></p></li>
+</ol>
 
-<p>2.<a href="http://en.wikipedia.org/wiki/Curse_of_dimensionality">The Curse of Dimensionality</a></p>
 
-<blockquote><p>There are all kinds of terrible things that happen as the dimensionality of your descriptor vectors rises. One obvious one is that as the dimensionality rises, both the time and space complexity of dealing with these vectors rises, often exponentially. Another issue is that as dimensionality rises, the amount of samples needed to draw useful conclusions from that data also rises steeply. Another way of phrasing that is with a fixed number of samples, the usefulness of each dimension diminishes. Finally, as the dimensionality rises, your points all tend to start becoming equidistant to each other, making it difficult to draw solid conclusions from them.</p></blockquote>
+<blockquote><p>&ldquo;There are all kinds of terrible things that happen as the dimensionality of your descriptor vectors rises. One obvious one is that as the dimensionality rises, both the time and space complexity of dealing with these vectors rises, often exponentially. Another issue is that as dimensionality rises, the amount of samples needed to draw useful conclusions from that data also rises steeply. Another way of phrasing that is with a fixed number of samples, the usefulness of each dimension diminishes. Finally, as the dimensionality rises, your points all tend to start becoming equidistant to each other, making it difficult to draw solid conclusions from them.&rdquo;</p></blockquote>
 
-<p>3.<em>Similarity in Vector Space</em></p>
+<ol>
+<li>Similarity in Vector Space</li>
+</ol>
 
-<p>  Euclidean distance (this ignores direction)</p>
 
-<p>  Cosine distance &ndash; measuring similarity based on angle between vectors is know as cosine distance, or cosine similarity.
-  * Unit vectorization &ndash; modify the vectors themselves by dividing each number in each vector by that vector&rsquo;s magnitude. In doing so, all our vectors have a magnitude of 1. This process is called unit vectorization because the output vectors are units vectors.</p>
+<p>  *Euclidean distance (this ignores direction)</p>
 
-<p>4.<em>Supervised Learning</em></p>
+<ul>
+<li><p>Cosine distance &ndash; measuring similarity based on angle between vectors is know as cosine distance, or cosine similarity.
+*Unit vectorization &ndash; modify the vectors themselves by dividing each number in each vector by that vector&rsquo;s magnitude. In doing so, all our vectors have a magnitude of 1. This process is called unit vectorization because the output vectors are units vectors.</p></li>
+<li><p>Supervised Learning
+*Train the algorithm on samples which have the &lsquo;correct&rsquo; answer provided with them. The specific supervised learning problem we&rsquo;re addressing here is called classification. You train an algorithm on labelled descriptor vectors, then ask it to label a previously unseen descriptor vector based on conclusions drawn from the training set.</p></li>
+<li><p><em><a href="http://en.wikipedia.org/wiki/Support_vector_machine">Support Vector Machine</a></em>
++SVM is a family of algorithms which define decision boundaries between classes based on labelled training data.</p></li>
+</ul>
 
-<p>  Train the algorithm on samples which have the &lsquo;correct&rsquo; answer provided with them. The specific supervised learning problem we&rsquo;re addressing here is called classification. You train an algorithm on labelled descriptor vectors, then ask it to label a previously unseen descriptor vector based on conclusions drawn from the training set.</p>
-
-<p>5.<em><a href="http://en.wikipedia.org/wiki/Support_vector_machine">Support Vector Machine</a></em></p>
-
-<p>  SVM is a family of algorithms which define decision boundaries between classes based on labelled training data.</p>
 
 <blockquote><p>For our &lsquo;dog&rsquo; vs. &lsquo;sandwich&rsquo; classification problem, we provide the algorithm with some training samples. These samples are documents which have gone through our whole process (BoW vector &ndash;> topic vector &ndash;> unit vector) and carry with them either a &lsquo;dog&rsquo; label or a &lsquo;sandwich&rsquo; label. As you provide the SVM model with these samples, it looks at these points in space and essentially draws a line between the &lsquo;sandwich&rsquo; documents and the &lsquo;dog&rsquo; documents. This border between &ldquo;dog&rdquo;-land and &ldquo;sandwich&rdquo;-land is known as a decision boundary. Whichever side of the line the query point falls on determines what the algorithm labels it.</p>
 
