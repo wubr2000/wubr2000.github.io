@@ -26,22 +26,20 @@ A more detailed workflow is as follows:
 Several important concepts to be aware of from this tutorial:
 
 1. **Vector Space Model**
+
 1. **[The Curse of Dimensionality](http://en.wikipedia.org/wiki/Curse_of_dimensionality)**
-  - "There are all kinds of terrible things that happen as the dimensionality of your descriptor vectors rises. One obvious one is that as the dimensionality rises, both the time and space complexity of dealing with these vectors rises, often exponentially. Another issue is that as dimensionality rises, the amount of samples needed to draw useful conclusions from that data also rises steeply. Another way of phrasing that is with a fixed number of samples, the usefulness of each dimension diminishes. Finally, as the dimensionality rises, your points all tend to start becoming equidistant to each other, making it difficult to draw solid conclusions from them."
+    - > "There are all kinds of terrible things that happen as the dimensionality of your descriptor vectors rises. One obvious one is that as the dimensionality rises, both the time and space complexity of dealing with these vectors rises, often exponentially. Another issue is that as dimensionality rises, the amount of samples needed to draw useful conclusions from that data also rises steeply. Another way of phrasing that is with a fixed number of samples, the usefulness of each dimension diminishes. Finally, as the dimensionality rises, your points all tend to start becoming equidistant to each other, making it difficult to draw solid conclusions from them."
 1. **Similarity in Vector Space**
-  + Euclidean distance (this ignores direction)
-  - Cosine distance - measuring similarity based on angle between vectors is know as cosine distance, or cosine similarity. 
-  *Unit vectorization - modify the vectors themselves by dividing each number in each vector by that vector's magnitude. In doing so, all our vectors have a magnitude of 1. This process is called unit vectorization because the output vectors are units vectors.
+    - _Euclidean distance_ (this ignores direction)
+    - _Cosine distance_ - measuring similarity based on angle between vectors is know as cosine distance, or cosine similarity. 
+    - *Unit vectorization* - modify the vectors themselves by dividing each number in each vector by that vector's magnitude. In doing so, all our vectors have a magnitude of 1. This process is called unit vectorization because the output vectors are units vectors.
 
-4. **Supervised Learning**
-  - Train the algorithm on samples which have the 'correct' answer provided with them. The specific supervised learning problem we're addressing here is called classification. You train an algorithm on labelled descriptor vectors, then ask it to label a previously unseen descriptor vector based on conclusions drawn from the training set.
+1. **Supervised Learning**
+    - Train the algorithm on samples which have the 'correct' answer provided with them. The specific supervised learning problem we're addressing here is called classification. You train an algorithm on labelled descriptor vectors, then ask it to label a previously unseen descriptor vector based on conclusions drawn from the training set.
 
-5. **[Support Vector Machine](http://en.wikipedia.org/wiki/Support_vector_machine)**
-  + SVM is a family of algorithms which define decision boundaries between classes based on labelled training data.
-  
-  > For our 'dog' vs. 'sandwich' classification problem, we provide the algorithm with some training samples. These samples are documents which have gone through our whole process (BoW vector -> topic vector -> unit vector) and carry with them either a 'dog' label or a 'sandwich' label. As you provide the SVM model with these samples, it looks at these points in space and essentially draws a line between the 'sandwich' documents and the 'dog' documents. This border between "dog"-land and "sandwich"-land is known as a decision boundary. Whichever side of the line the query point falls on determines what the algorithm labels it.
-  
-  > All samples in both training and test sets are labeled. However, in practice, you would build the model on the labeled training set, ignore the labels on the test set, feed them into the model, have the model guess what those labels are, and finally check whether or not the algorithm guessed correctly. This process of testing out your supervised learning algorithm with a training and test set is called cross-validation.
+1. **[Support Vector Machine](http://en.wikipedia.org/wiki/Support_vector_machine)** - SVM is a family of algorithms which define decision boundaries between classes based on labelled training data.
+    - > "For our 'dog' vs. 'sandwich' classification problem, we provide the algorithm with some training samples. These samples are documents which have gone through our whole process (BoW vector -> topic vector -> unit vector) and carry with them either a 'dog' label or a 'sandwich' label. As you provide the SVM model with these samples, it looks at these points in space and essentially draws a line between the 'sandwich' documents and the 'dog' documents. This border between "dog"-land and "sandwich"-land is known as a decision boundary. Whichever side of the line the query point falls on determines what the algorithm labels it."
+    - > "All samples in both training and test sets are labeled. However, in practice, you would build the model on the labeled training set, ignore the labels on the test set, feed them into the model, have the model guess what those labels are, and finally check whether or not the algorithm guessed correctly. This process of testing out your supervised learning algorithm with a training and test set is called cross-validation."
 
 
 ```python

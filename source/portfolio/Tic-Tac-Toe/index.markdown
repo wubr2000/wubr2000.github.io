@@ -7,6 +7,11 @@ sharing: true
 footer: true
 ---
 
-Your content here.
+[TicTact-Hero](http://immense-hamlet-9907.herokuapp.com/) is a simple, two-players, tic-tac-toe game.
+
+## Lessons
+
+- AngularJS
+- AngularFire
 
 <!-- {% portfolio Tic-Tac-Toe %} -->
