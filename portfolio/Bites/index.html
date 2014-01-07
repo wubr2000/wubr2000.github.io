@@ -9,7 +9,7 @@
   <meta name="author" content="Bruno Wu">
 
   
-  <meta name="description" content="Expert-sourced, Bite-sized Restaurant Reviews Dec 26th, 2013 I envisioned Bites to be a restaurant recommendation Twitter-like service that is &hellip;">
+  <meta name="description" content="Expert-sourced, Bite-sized Restaurant Reviews Dec 26th, 2013 Problem There are many crowdsourced restaurant review sites already. For example, in &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -89,9 +89,60 @@
 <time datetime="2013-12-26T07:21:00+08:00" pubdate data-updated="true">Dec 26<span>th</span>, 2013</time></p>
   </header>
   
-  <p>I envisioned <a href="http://bitesize.herokuapp.com">Bites</a> to be a restaurant recommendation Twitter-like service that is curated/commented by experts only and where each review is only limited to 140 words.</p>
+  <h2>Problem</h2>
 
-<p>The most important thing that I experimented with is the following/followers data model.</p>
+<p>There are many crowdsourced restaurant review sites already. For example, in Hong Kong, we have <a href="http://www.openrice.com">Openrice</a>. In the US, there is Yelp. The reviews on these sites are usually ranked by popularity or the strength of social media connections. But the quality, reliability, credibility of these reviews are difficult to verify. At the other end of the spectrum, there are proprietary restaraunt review companies such as Michelin, Zagat, Timeout, etc. These are written and edited by very credible sources but they represent the view of a particular company or individual which could be biased.</p>
+
+<h2>Solution</h2>
+
+<p><strong>I envisioned <a href="http://bitesize.herokuapp.com">Bites</a> to be the RottenTomatoes of restaurant reviews.</strong> It is a review site that is written/curated by dining experts only. While other users can comment and vote on each review, they can never start a review unless they have been verified as an expert by us. Bites will also be Twitter-like in that each review is only limited to 140 words. There will be upvotes/downvotes like Quora and a rigourous expertise verification system as well.</p>
+
+<p>The incentive for experts to share their bite-sized review on this website is to promote their work or to enhance their reputation. This is the reason that <a href="http://www.quora.com">Quora</a> is able to attract experts to be top writers for their website.</p>
+
+<h2>Lessons</h2>
+
+<p><strong>The most important thing that I learned in this project is how to set up a &ldquo;following/followers&rdquo; data model &ndash; the backbone of any social network.</strong> This is done by creating a Relationship &ldquo;through-table&rdquo; that is also reversible.</p>
+
+<p>This is how to set up the &ldquo;Relationship&rdquo; table in the User model:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
+</span><span class='line'>  <span class="c1">#Relationship table for following:</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:relationships</span><span class="p">,</span> <span class="n">foreign_key</span><span class="p">:</span> <span class="s2">&quot;follower_id&quot;</span><span class="p">,</span> <span class="ss">dependent</span><span class="p">:</span> <span class="ss">:destroy</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:followed_users</span><span class="p">,</span> <span class="ss">through</span><span class="p">:</span> <span class="ss">:relationships</span><span class="p">,</span> <span class="ss">source</span><span class="p">:</span> <span class="ss">:followed</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>By default, in a has_many through association Rails looks for a foreign key corresponding to the singular version of the association; in other words, code like &ldquo;has_many :followeds, through: :relationships&rdquo; would assemble an array using the followed_id in the relationships table. But, user.followeds is rather awkward; far more natural is to use &ldquo;followed users&rdquo; as a plural of &ldquo;followed&rdquo;, and write instead user.followed_users for the array of followed users. Naturally, Rails allows us to override the default, in this case using the :source parameter, which explicitly tells Rails that the source of the followed_users array is the set of followed ids.</p>
+
+<p>This is how to set up the &ldquo;Reverse Relationship&rdquo; table for followers in the User model.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>  <span class="c1">#Reverse relationship table for followers</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:reverse_relationships</span><span class="p">,</span>  <span class="n">foreign_key</span><span class="p">:</span> <span class="s2">&quot;followed_id&quot;</span><span class="p">,</span>
+</span><span class='line'>                                    <span class="n">class_name</span><span class="p">:</span> <span class="s2">&quot;Relationship&quot;</span><span class="p">,</span>
+</span><span class='line'>                                    <span class="ss">dependent</span><span class="p">:</span> <span class="ss">:destroy</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:followers</span><span class="p">,</span> <span class="ss">through</span><span class="p">:</span> <span class="ss">:reverse_relationships</span><span class="p">,</span> <span class="ss">source</span><span class="p">:</span> <span class="ss">:follower</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>It is not necessary to make a whole database table just to hold reverse relationships. Instead, take advantage of the underlying symmetry between followers and followed users to simulate a reverse_relationships table by passing followed_id as the primary key. Note that it is necessary to include the class name for this association:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>  <span class="n">has_many</span> <span class="ss">:reverse_relationships</span><span class="p">,</span> <span class="n">foreign_key</span><span class="p">:</span> <span class="s2">&quot;followed_id&quot;</span><span class="p">,</span> <span class="n">class_name</span><span class="p">:</span> <span class="s2">&quot;Relationship&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>because otherwise Rails would look for a ReverseRelationship class, which doesn&rsquo;t exist.</p>
+
+<p>In the case of a :followers attribute, Rails will singularize &ldquo;followers&rdquo; and automatically look for the foreign key followerid in this case. I&rsquo;ve kept the :source key to emphasize the parallel structure with the has_many :followed_users association, but you are free to leave it off.</p>
 
   
     <footer>
