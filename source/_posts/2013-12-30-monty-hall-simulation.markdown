@@ -3,7 +3,7 @@ layout: post
 title: "Solving the Monty Hall Problem using Monte Carlo Simulation"
 date: 2013-12-30 11:25:09 +0800
 comments: true
-categories: 
+categories: machine learning statistics simulation
 ---
 This exercise is from [Harvard's CS109 course.](http://cs109.org/)
 
