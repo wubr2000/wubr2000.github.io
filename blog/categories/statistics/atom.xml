@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Statistics | Codex]]></title>
+  <link href="http://wubr2000.github.io/blog/categories/statistics/atom.xml" rel="self"/>
+  <link href="http://wubr2000.github.io/"/>
+  <updated>2014-05-27T23:14:21-07:00</updated>
+  <id>http://wubr2000.github.io/</id>
+  <author>
+    <name><![CDATA[Bruno Wu]]></name>
+    <email><![CDATA[wubr2000@hotmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Solving the Monty Hall Problem Using Monte Carlo Simulation]]></title>
+    <link href="http://wubr2000.github.io/blog/2013/12/29/monty-hall-simulation/"/>
+    <updated>2013-12-29T19:25:09-08:00</updated>
+    <id>http://wubr2000.github.io/blog/2013/12/29/monty-hall-simulation</id>
+    <content type="html"><![CDATA[<p>This exercise is from <a href="http://cs109.org/">Harvard&rsquo;s CS109 course.</a></p>
+
+<p>In the Monty Hall game show, contestants try to guess which of 3 closed doors contain a cash prize (goats are behind the other two doors). Of course, the odds of choosing the correct door are 1 in 3. As a twist, the host of the show occasionally opens a door after a contestant makes his or her choice. This door is always one of the two the contestant did not pick, and is also always one of the goat doors (note that it is always possible to do this, since there are two goat doors). At this point, the contestant has the option of keeping his or her original choice, or swtiching to the other unopened door. The question is: is there any benefit to switching doors? The answer surprises many people who haven&rsquo;t heard the question before.</p>
+
+<p>We can answer the problem by running simulations in Python.</p>
+
+<!-- more -->
+
+
+<p>First, write a function called <code>simulate_prizedoor</code>. Remember to include <code>Numpy</code> library by including at the top <code>import numpy as np</code></p>
+
+<p><code>python
+def simulate_prizedoor(nsim):
+  return np.random.random_integers(0, high=2, size=nsim)
+</code></p>
+
+<p>Next, write a function that simulates the contestant&rsquo;s guesses for <code>nsim</code> simulations. Call this function <code>simulate_guess</code>. This function should be similar to above but we&rsquo;re only testing so we&rsquo;ll just return a bunch of zeros for now:</p>
+
+<p><code>python
+def simulate_guess(nsim):
+  return np.zeros(nsim, dtype=np.int)
+</code></p>
+
+<p>Next, write a function, <code>goat_door</code>, to simulate randomly revealing one of the goat doors that a contestant didn&rsquo;t pick.</p>
+
+<p>```python
+def goat_door(prizedoors, guesses):</p>
+
+<pre><code>#strategy: generate random answers, and
+#keep updating until they satisfy the rule
+#that they aren't a prizedoor or a guess
+result = np.random.randint(0, 3, prizedoors.size)
+while True:
+    bad = (result == prizedoors) | (result == guesses)
+    if not bad.any():
+        return result
+    result[bad] = np.random.randint(0, 3, bad.sum())
+</code></pre>
+
+<h1>print goat_door(simulate_prizedoor(10), simulate_guess(10))</h1>
+
+<p>```</p>
+
+<p>Write a function, <code>switch_guess</code>, that represents the strategy of always switching a guess after the goat door is opened. This function is identical in concept to <code>goat_door</code></p>
+
+<p>```python
+def switch_guess(guesses, goatdoors):</p>
+
+<pre><code>#strategy: generate random answers, and
+#keep updating until they satisfy the rule
+#that they aren't the original guess or a goat door
+result = np.random.randint(0, 3, guesses.size)
+while True:
+    bad = (result == guesses) | (result == goatdoors)
+    if not bad.any():
+        return result
+    result[bad] = np.random.randint(0, 3, bad.sum())
+</code></pre>
+
+<h1>prize = simulate_prizedoor(10)</h1>
+
+<h1>guess = simulate_guess(10)</h1>
+
+<h1>print guess</h1>
+
+<h1>print prize</h1>
+
+<h1>goat = goat_door(prize, guess)</h1>
+
+<h1>print goat</h1>
+
+<h1>switch = switch_guess(guess, goat)</h1>
+
+<h1>print switch</h1>
+
+<p>```</p>
+
+<p>Last function: write a <code>win_percentage</code> function that takes an array of <code>guesses</code> and <code>prizedoors</code>, and returns the percent of correct guesses</p>
+
+<p>```python
+def win_percentage(guesses, prizedoors):</p>
+
+<pre><code>return (guesses == prizedoors).mean()*100
+</code></pre>
+
+<h1>prize = simulate_prizedoor(10)</h1>
+
+<h1>guess = simulate_guess(10)</h1>
+
+<h1>print guess</h1>
+
+<h1>print prize</h1>
+
+<h1>win_percentage(guess, prize)</h1>
+
+<p>```</p>
+
+<p>Putting it all together. Simulate 10000 games where contestant keeps his original guess, and 10000 games where the contestant switches his door after a  goat door is revealed. Compute the percentage of time the contestant wins under either strategy. Is one strategy better than the other?</p>
+
+<p>```python
+nsim = 10000</p>
+
+<h1>keep guesses</h1>
+
+<p>print &ldquo;Win percentage when keeping original door&rdquo;
+print win_percentage(simulate_prizedoor(nsim), simulate_guess(nsim))</p>
+
+<h1>switch</h1>
+
+<p>pd = simulate_prizedoor(nsim)
+guess = simulate_guess(nsim)
+goats = goat_door(pd, guess)
+guess = switch_guess(guess, goats)
+print &ldquo;Win percentage when switching doors&rdquo;
+print win_percentage(pd, guess).mean()
+```</p>
+
+<p>The result looks something like this:
+<code>
+Win percentage when keeping original door
+32.95
+Win percentage when switching doors
+66.61
+</code></p>
+
+<p>Voila! Always switch!</p>
+
+<p>Additional work: One of the best ways to build intuition about why opening a Goat door affects the odds is to re-run the experiment with 100 doors and one prize. If the game show host opens 98 goat doors after you make your initial selection, would you want to keep your first pick or switch? Can you generalize your simulation code to handle the case of &ldquo;n&rdquo; doors?</p>
+]]></content>
+  </entry>
+  
+</feed>

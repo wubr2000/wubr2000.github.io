@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Python | Codex]]></title>
   <link href="http://wubr2000.github.io/blog/categories/python/atom.xml" rel="self"/>
   <link href="http://wubr2000.github.io/"/>
-  <updated>2014-01-10T12:15:37+08:00</updated>
+  <updated>2014-05-27T23:14:21-07:00</updated>
   <id>http://wubr2000.github.io/</id>
   <author>
     <name><![CDATA[Bruno Wu]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Exploring NLP in Python]]></title>
-    <link href="http://wubr2000.github.io/blog/2013/12/30/exploring-nlp-in-python/"/>
-    <updated>2013-12-30T09:46:50+08:00</updated>
-    <id>http://wubr2000.github.io/blog/2013/12/30/exploring-nlp-in-python</id>
+    <link href="http://wubr2000.github.io/blog/2013/12/29/exploring-nlp-in-python/"/>
+    <updated>2013-12-29T17:46:50-08:00</updated>
+    <id>http://wubr2000.github.io/blog/2013/12/29/exploring-nlp-in-python</id>
     <content type="html"><![CDATA[<p>Came across a <a href="http://blog.scripted.com/scripted-updates/nlp-hacking-in-python/">great tutorial</a> on the basics of natural language processing (NLP) and classification.</p>
 
 <p>The example in this tutorial uses a Python library called <code>gensim</code> which (according to its <a href="http://radimrehurek.com/gensim/about.html">website</a>) is the &ldquo;the most robust, efficient and hassle-free piece of software to realize unsupervised semantic modelling from plain text.&rdquo; As far as I understand it, it&rsquo;s a very handy and commonly-used library for NLP.</p>

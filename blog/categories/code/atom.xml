@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Code | Codex]]></title>
   <link href="http://wubr2000.github.io/blog/categories/code/atom.xml" rel="self"/>
   <link href="http://wubr2000.github.io/"/>
-  <updated>2014-01-10T12:15:37+08:00</updated>
+  <updated>2014-05-27T23:14:21-07:00</updated>
   <id>http://wubr2000.github.io/</id>
   <author>
     <name><![CDATA[Bruno Wu]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Code Snippets Test]]></title>
-    <link href="http://wubr2000.github.io/blog/2013/12/28/code-snippets-test/"/>
-    <updated>2013-12-28T05:28:32+08:00</updated>
-    <id>http://wubr2000.github.io/blog/2013/12/28/code-snippets-test</id>
+    <link href="http://wubr2000.github.io/blog/2013/12/27/code-snippets-test/"/>
+    <updated>2013-12-27T13:28:32-08:00</updated>
+    <id>http://wubr2000.github.io/blog/2013/12/27/code-snippets-test</id>
     <content type="html"><![CDATA[<p>Here&rsquo;s an example of a Ruby code:</p>
 
 <p>``` ruby Discover if a number is prime <a href="http://www.noulakaz.net/weblog/2007/03/18/a-regular-expression-to-check-for-prime-numbers/">http://www.noulakaz.net/weblog/2007/03/18/a-regular-expression-to-check-for-prime-numbers/</a> Source Article

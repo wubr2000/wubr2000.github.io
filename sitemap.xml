@@ -1,59 +1,63 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
-        <loc>http://wubr2000.github.io/blog/2013/12/28/hello-world/</loc>
-        <lastmod>2013-12-30T11:57:15+08:00</lastmod>
+        <loc>http://wubr2000.github.io/blog/2013/12/27/hello-world/</loc>
+        <lastmod>2013-12-29T19:57:15-08:00</lastmod>
     </url>
     <url>
-        <loc>http://wubr2000.github.io/blog/2013/12/28/code-snippets-test/</loc>
-        <lastmod>2014-01-05T11:43:14+08:00</lastmod>
+        <loc>http://wubr2000.github.io/blog/2013/12/27/code-snippets-test/</loc>
+        <lastmod>2014-01-04T19:43:14-08:00</lastmod>
     </url>
     <url>
-        <loc>http://wubr2000.github.io/blog/2013/12/30/exploring-nlp-in-python/</loc>
-        <lastmod>2014-01-07T12:13:49+08:00</lastmod>
+        <loc>http://wubr2000.github.io/blog/2013/12/29/exploring-nlp-in-python/</loc>
+        <lastmod>2014-01-06T20:13:49-08:00</lastmod>
     </url>
     <url>
-        <loc>http://wubr2000.github.io/blog/2013/12/30/monty-hall-simulation/</loc>
-        <lastmod>2013-12-30T11:57:15+08:00</lastmod>
+        <loc>http://wubr2000.github.io/blog/2013/12/29/monty-hall-simulation/</loc>
+        <lastmod>2014-05-27T23:01:14-07:00</lastmod>
     </url>
     <url>
-        <loc>http://wubr2000.github.io/blog/2014/01/05/tapir/</loc>
-        <lastmod>2014-01-05T11:45:06+08:00</lastmod>
+        <loc>http://wubr2000.github.io/blog/2014/01/04/tapir/</loc>
+        <lastmod>2014-01-04T19:45:06-08:00</lastmod>
+    </url>
+    <url>
+        <loc>http://wubr2000.github.io/blog/2014/05/27/bayesian-invasion/</loc>
+        <lastmod>2014-05-27T23:14:05-07:00</lastmod>
     </url>
     <url>
         <loc>http://wubr2000.github.io/about/</loc>
-        <lastmod>2014-01-09T10:25:56+08:00</lastmod>
+        <lastmod>2014-01-08T18:25:56-08:00</lastmod>
     </url>
     <url>
         <loc>http://wubr2000.github.io/blog/archives/</loc>
-        <lastmod>2014-01-07T12:13:49+08:00</lastmod>
+        <lastmod>2014-05-27T23:14:05-07:00</lastmod>
     </url>
     <url>
         <loc>http://wubr2000.github.io/</loc>
-        <lastmod>2014-01-07T12:13:49+08:00</lastmod>
+        <lastmod>2014-05-27T23:14:05-07:00</lastmod>
     </url>
     <url>
         <loc>http://wubr2000.github.io/portfolio/Bites/</loc>
-        <lastmod>2014-01-07T12:38:24+08:00</lastmod>
+        <lastmod>2014-01-06T20:38:24-08:00</lastmod>
     </url>
     <url>
         <loc>http://wubr2000.github.io/portfolio/Group_Order/</loc>
-        <lastmod>2014-01-07T12:41:21+08:00</lastmod>
+        <lastmod>2014-01-06T20:41:21-08:00</lastmod>
     </url>
     <url>
         <loc>http://wubr2000.github.io/portfolio/</loc>
-        <lastmod>2013-12-31T12:08:47+08:00</lastmod>
+        <lastmod>2013-12-30T20:08:47-08:00</lastmod>
     </url>
     <url>
         <loc>http://wubr2000.github.io/portfolio/Tic-Tac-Toe/</loc>
-        <lastmod>2014-01-07T12:45:26+08:00</lastmod>
+        <lastmod>2014-01-06T20:45:26-08:00</lastmod>
     </url>
     <url>
         <loc>http://wubr2000.github.io/robots.txt</loc>
-        <lastmod>2013-12-28T23:26:55+08:00</lastmod>
+        <lastmod>2013-12-28T07:26:55-08:00</lastmod>
     </url>
     <url>
         <loc>http://wubr2000.github.io/search.html</loc>
-        <lastmod>2013-12-30T11:57:15+08:00</lastmod>
+        <lastmod>2013-12-29T19:57:15-08:00</lastmod>
     </url>
 </urlset>

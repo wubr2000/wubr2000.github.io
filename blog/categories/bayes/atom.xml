@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Bayes | Codex]]></title>
+  <link href="http://wubr2000.github.io/blog/categories/bayes/atom.xml" rel="self"/>
+  <link href="http://wubr2000.github.io/"/>
+  <updated>2014-05-27T23:14:21-07:00</updated>
+  <id>http://wubr2000.github.io/</id>
+  <author>
+    <name><![CDATA[Bruno Wu]]></name>
+    <email><![CDATA[wubr2000@hotmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Bayesian Invasion]]></title>
+    <link href="http://wubr2000.github.io/blog/2014/05/27/bayesian-invasion/"/>
+    <updated>2014-05-27T22:53:07-07:00</updated>
+    <id>http://wubr2000.github.io/blog/2014/05/27/bayesian-invasion</id>
+    <content type="html"><![CDATA[<p>This will be an article about maximum a posteriori probability (MAP) estimation.</p>
+
+<blockquote><p>Put in some Nate Silver quote</p></blockquote>
+]]></content>
+  </entry>
+  
+</feed>
