@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Python | Codex]]></title>
   <link href="http://wubr2000.github.io/blog/categories/python/atom.xml" rel="self"/>
   <link href="http://wubr2000.github.io/"/>
-  <updated>2014-05-28T22:43:07-07:00</updated>
+  <updated>2014-05-29T00:28:29-07:00</updated>
   <id>http://wubr2000.github.io/</id>
   <author>
     <name><![CDATA[Bruno Wu]]></name>
@@ -18,7 +18,7 @@
     <link href="http://wubr2000.github.io/blog/2013/12/29/exploring-nlp-in-python/"/>
     <updated>2013-12-29T17:46:50-08:00</updated>
     <id>http://wubr2000.github.io/blog/2013/12/29/exploring-nlp-in-python</id>
-    <content type="html"><![CDATA[<p>Came across a <a href="http://blog.scripted.com/scripted-updates/nlp-hacking-in-python/">great tutorial</a> on the basics of natural language processing (NLP) and classification.</p>
+    <content type="html"><![CDATA[<p>Came across a <a href="http://blog.scripted.com/scripted-updates/nlp-hacking-in-python/">great tutorial</a> on the basics of natural language processing (NLP) and classification. </p>
 
 <p>The example in this tutorial uses a Python library called <code>gensim</code> which (according to its <a href="http://radimrehurek.com/gensim/about.html">website</a>) is the &ldquo;the most robust, efficient and hassle-free piece of software to realize unsupervised semantic modelling from plain text.&rdquo; As far as I understand it, it&rsquo;s a very handy and commonly-used library for NLP.</p>
 
@@ -26,50 +26,62 @@
 
 <!-- more -->
 
-
 <p>A common way to represent a written document as a vector is to think about it in terms of <a href="http://en.wikipedia.org/wiki/Bag-of-words_model">Bag of Words</a> (BoW) vectors. For example, if an entire document consists only of the words &ldquo;dog&rdquo; and &ldquo;cat&rdquo;, then the BoW vector for this document would be [# of &lsquo;dog&rsquo;, # of &lsquo;cat&rsquo;].</p>
 
 <p>A very high-level overview of the workflow for NLP using the Vector Space Model is as follows:</p>
 
-<blockquote><p>Preprocessing &ndash;> Create &ldquo;Bag of Words&rdquo; vector &ndash;> Dimensionality Reduction &ndash;> use SVM algorithm for classification</p></blockquote>
+<blockquote>
+  <p>Preprocessing -&gt; Create &ldquo;Bag of Words&rdquo; vector -&gt; Dimensionality Reduction -&gt; use SVM algorithm for classification</p>
+</blockquote>
 
 <p>A more detailed workflow is as follows:</p>
 
-<blockquote><p>Remove stopwords and split on spaces &ndash;> Take out rare terms using <code>gensim</code> &ndash;> Create Bag of Words vectors &ndash;> Dimensionality reduction using LSI (<a href="http://en.wikipedia.org/wiki/Latent_semantic_indexing">Latent Semantic Indexing</a>) model in <code>gensim</code> (topic vectorization) &ndash;> unit vectorization &ndash;> finding cosine distance</p></blockquote>
+<blockquote>
+  <p>Remove stopwords and split on spaces -&gt; Take out rare terms using <code>gensim</code> -&gt; Create Bag of Words vectors -&gt; Dimensionality reduction using LSI (<a href="http://en.wikipedia.org/wiki/Latent_semantic_indexing">Latent Semantic Indexing</a>) model in <code>gensim</code> (topic vectorization) -&gt; unit vectorization -&gt; finding cosine distance</p>
+</blockquote>
 
 <p>Several important concepts to be aware of from this tutorial:</p>
 
 <ol>
-<li><p><strong>Vector Space Model</strong></p></li>
-<li><p><strong><a href="http://en.wikipedia.org/wiki/Curse_of_dimensionality">The Curse of Dimensionality</a></strong></p>
-
-<ul>
-<li><blockquote><p>&ldquo;There are all kinds of terrible things that happen as the dimensionality of your descriptor vectors rises. One obvious one is that as the dimensionality rises, both the time and space complexity of dealing with these vectors rises, often exponentially. Another issue is that as dimensionality rises, the amount of samples needed to draw useful conclusions from that data also rises steeply. Another way of phrasing that is with a fixed number of samples, the usefulness of each dimension diminishes. Finally, as the dimensionality rises, your points all tend to start becoming equidistant to each other, making it difficult to draw solid conclusions from them.&rdquo;</p></blockquote></li>
-</ul>
-</li>
-<li><p><strong>Similarity in Vector Space</strong></p>
-
-<ul>
-<li><em>Euclidean distance</em> (this ignores direction)</li>
-<li><em>Cosine distance</em> &ndash; measuring similarity based on angle between vectors is know as cosine distance, or cosine similarity.</li>
-<li><em>Unit vectorization</em> &ndash; modify the vectors themselves by dividing each number in each vector by that vector&rsquo;s magnitude. In doing so, all our vectors have a magnitude of 1. This process is called unit vectorization because the output vectors are units vectors.</li>
-</ul>
-</li>
-<li><p><strong>Supervised Learning</strong></p>
-
-<ul>
-<li>Train the algorithm on samples which have the &lsquo;correct&rsquo; answer provided with them. The specific supervised learning problem we&rsquo;re addressing here is called classification. You train an algorithm on labelled descriptor vectors, then ask it to label a previously unseen descriptor vector based on conclusions drawn from the training set.</li>
-</ul>
-</li>
-<li><p><strong><a href="http://en.wikipedia.org/wiki/Support_vector_machine">Support Vector Machine</a></strong> &ndash; SVM is a family of algorithms which define decision boundaries between classes based on labelled training data.</p>
-
-<ul>
-<li><blockquote><p>&ldquo;For our &lsquo;dog&rsquo; vs. &lsquo;sandwich&rsquo; classification problem, we provide the algorithm with some training samples. These samples are documents which have gone through our whole process (BoW vector &ndash;> topic vector &ndash;> unit vector) and carry with them either a &lsquo;dog&rsquo; label or a &lsquo;sandwich&rsquo; label. As you provide the SVM model with these samples, it looks at these points in space and essentially draws a line between the &lsquo;sandwich&rsquo; documents and the &lsquo;dog&rsquo; documents. This border between "dog&rdquo;-land and &ldquo;sandwich&rdquo;-land is known as a decision boundary. Whichever side of the line the query point falls on determines what the algorithm labels it."</p></blockquote></li>
-<li><blockquote><p>&ldquo;All samples in both training and test sets are labeled. However, in practice, you would build the model on the labeled training set, ignore the labels on the test set, feed them into the model, have the model guess what those labels are, and finally check whether or not the algorithm guessed correctly. This process of testing out your supervised learning algorithm with a training and test set is called cross-validation.&rdquo;</p></blockquote></li>
-</ul>
-</li>
+  <li>
+    <p><strong>Vector Space Model</strong></p>
+  </li>
+  <li><strong><a href="http://en.wikipedia.org/wiki/Curse_of_dimensionality">The Curse of Dimensionality</a></strong>
+    <ul>
+      <li>
+        <blockquote>
+          <p>&ldquo;There are all kinds of terrible things that happen as the dimensionality of your descriptor vectors rises. One obvious one is that as the dimensionality rises, both the time and space complexity of dealing with these vectors rises, often exponentially. Another issue is that as dimensionality rises, the amount of samples needed to draw useful conclusions from that data also rises steeply. Another way of phrasing that is with a fixed number of samples, the usefulness of each dimension diminishes. Finally, as the dimensionality rises, your points all tend to start becoming equidistant to each other, making it difficult to draw solid conclusions from them.&rdquo;</p>
+        </blockquote>
+      </li>
+    </ul>
+  </li>
+  <li><strong>Similarity in Vector Space</strong>
+    <ul>
+      <li><em>Euclidean distance</em> (this ignores direction)</li>
+      <li><em>Cosine distance</em> - measuring similarity based on angle between vectors is know as cosine distance, or cosine similarity. </li>
+      <li><em>Unit vectorization</em> - modify the vectors themselves by dividing each number in each vector by that vector&rsquo;s magnitude. In doing so, all our vectors have a magnitude of 1. This process is called unit vectorization because the output vectors are units vectors.</li>
+    </ul>
+  </li>
+  <li><strong>Supervised Learning</strong>
+    <ul>
+      <li>Train the algorithm on samples which have the &lsquo;correct&rsquo; answer provided with them. The specific supervised learning problem we&rsquo;re addressing here is called classification. You train an algorithm on labelled descriptor vectors, then ask it to label a previously unseen descriptor vector based on conclusions drawn from the training set.</li>
+    </ul>
+  </li>
+  <li><strong><a href="http://en.wikipedia.org/wiki/Support_vector_machine">Support Vector Machine</a></strong> - SVM is a family of algorithms which define decision boundaries between classes based on labelled training data.
+    <ul>
+      <li>
+        <blockquote>
+          <p>&ldquo;For our &lsquo;dog&rsquo; vs. &lsquo;sandwich&rsquo; classification problem, we provide the algorithm with some training samples. These samples are documents which have gone through our whole process (BoW vector -&gt; topic vector -&gt; unit vector) and carry with them either a &lsquo;dog&rsquo; label or a &lsquo;sandwich&rsquo; label. As you provide the SVM model with these samples, it looks at these points in space and essentially draws a line between the &lsquo;sandwich&rsquo; documents and the &lsquo;dog&rsquo; documents. This border between &ldquo;dog&rdquo;-land and &ldquo;sandwich&rdquo;-land is known as a decision boundary. Whichever side of the line the query point falls on determines what the algorithm labels it.&rdquo;</p>
+        </blockquote>
+      </li>
+      <li>
+        <blockquote>
+          <p>&ldquo;All samples in both training and test sets are labeled. However, in practice, you would build the model on the labeled training set, ignore the labels on the test set, feed them into the model, have the model guess what those labels are, and finally check whether or not the algorithm guessed correctly. This process of testing out your supervised learning algorithm with a training and test set is called cross-validation.&rdquo;</p>
+        </blockquote>
+      </li>
+    </ul>
+  </li>
 </ol>
-
 
 <p>```python
 import warnings
@@ -207,10 +219,8 @@ for name in names:
     cls = label_to_name[label]
     print name, 'is a document about', cls
 
-print '\n'
+print '\n' ```
 </code></pre>
-
-<p>```</p>
 ]]></content>
   </entry>
   

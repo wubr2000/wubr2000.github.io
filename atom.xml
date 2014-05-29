@@ -4,7 +4,7 @@
   <title><![CDATA[Codex]]></title>
   <link href="http://wubr2000.github.io/atom.xml" rel="self"/>
   <link href="http://wubr2000.github.io/"/>
-  <updated>2014-05-28T22:43:07-07:00</updated>
+  <updated>2014-05-29T00:28:29-07:00</updated>
   <id>http://wubr2000.github.io/</id>
   <author>
     <name><![CDATA[Bruno Wu]]></name>
@@ -18,10 +18,41 @@
     <link href="http://wubr2000.github.io/blog/2014/05/27/bayesian-invasion/"/>
     <updated>2014-05-27T22:53:07-07:00</updated>
     <id>http://wubr2000.github.io/blog/2014/05/27/bayesian-invasion</id>
-    <content type="html"><![CDATA[<blockquote><p>Methods can be abused and that is true with any approach, including Bayesian but it offers a more coherent, philosophical way in which to look at the world
-&ndash; Nate Silver</p></blockquote>
+    <content type="html"><![CDATA[<blockquote>
+  <p>Methods can be abused and that is true with any approach, including Bayesian but it offers a more coherent, philosophical way in which to look at the world 
+- Nate Silver</p>
+</blockquote>
 
-<p>This will be an article about MLE v. MAP.</p>
+<p>Problems with MLE:</p>
+
+<ol>
+  <li>
+    <p>MLE does poorly when the sample size is small. In particular, the ML estimator can be biased.</p>
+  </li>
+  <li>
+    <p>If the coin is tossed once, and came up heads, ML estimation would estimate p = 1.</p>
+  </li>
+  <li>
+    <p>Also, ML assumes uniform priors, which is often incorrect. We frequently have very specific information regarding the plausibility of various hypotheses (e.g., refer the simplest hypothesis etc).</p>
+  </li>
+</ol>
+
+<p>We want to prove the following statement:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>$\displaystyle\frac{1}{</td>
+      <td>C_k</td>
+      <td>}\sum<em>{i,i&rsquo;\in C_k}\sum</em>{j=1}^{p}(x<em>{ij} - x</em>{i&rsquo;j})^2 = 2\sum<em>{i\in C_k}\sum</em>{j=1}^{p}(x<em>{ij} - \bar{x}</em>{kj})^2$</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>To adress these problems, we turn to the framework of Bayesian estimation.</p>
+
+<!-- more -->
+
 ]]></content>
   </entry>
   
@@ -45,171 +76,162 @@
 
 <p>In the Monty Hall game show, contestants try to guess which of 3 closed doors contain a cash prize (goats are behind the other two doors). Of course, the odds of choosing the correct door are 1 in 3. As a twist, the host of the show occasionally opens a door after a contestant makes his or her choice. This door is always one of the two the contestant did not pick, and is also always one of the goat doors (note that it is always possible to do this, since there are two goat doors). At this point, the contestant has the option of keeping his or her original choice, or swtiching to the other unopened door. The question is: is there any benefit to switching doors? The answer surprises many people who haven&rsquo;t heard the question before.</p>
 
-<p>We can answer the problem by running simulations in Python.</p>
+<p>We can answer the problem by running simulations in Python. </p>
 
 <!-- more -->
 
-
 <p>First, write a function called <code>simulate_prizedoor</code>. Remember to include <code>Numpy</code> library by including at the top <code>import numpy as np</code></p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">simulate_prizedoor</span><span class="p">(</span><span class="n">nsim</span><span class="p">):</span>
-</span><span class='line'>  <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random_integers</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">nsim</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class="python"><span class="line"><span class="k">def</span> <span class="nf">simulate_prizedoor</span><span class="p">(</span><span class="n">nsim</span><span class="p">):</span>
+</span><span class="line">  <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random_integers</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">nsim</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>Next, write a function that simulates the contestant&rsquo;s guesses for <code>nsim</code> simulations. Call this function <code>simulate_guess</code>. This function should be similar to above but we&rsquo;re only testing so we&rsquo;ll just return a bunch of zeros for now:</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">simulate_guess</span><span class="p">(</span><span class="n">nsim</span><span class="p">):</span>
-</span><span class='line'>  <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">nsim</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class="python"><span class="line"><span class="k">def</span> <span class="nf">simulate_guess</span><span class="p">(</span><span class="n">nsim</span><span class="p">):</span>
+</span><span class="line">  <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">nsim</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>Next, write a function, <code>goat_door</code>, to simulate randomly revealing one of the goat doors that a contestant didn&rsquo;t pick.</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">goat_door</span><span class="p">(</span><span class="n">prizedoors</span><span class="p">,</span> <span class="n">guesses</span><span class="p">):</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c">#strategy: generate random answers, and</span>
-</span><span class='line'>    <span class="c">#keep updating until they satisfy the rule</span>
-</span><span class='line'>    <span class="c">#that they aren&#39;t a prizedoor or a guess</span>
-</span><span class='line'>    <span class="n">result</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">prizedoors</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
-</span><span class='line'>    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
-</span><span class='line'>        <span class="n">bad</span> <span class="o">=</span> <span class="p">(</span><span class="n">result</span> <span class="o">==</span> <span class="n">prizedoors</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">result</span> <span class="o">==</span> <span class="n">guesses</span><span class="p">)</span>
-</span><span class='line'>        <span class="k">if</span> <span class="ow">not</span> <span class="n">bad</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
-</span><span class='line'>            <span class="k">return</span> <span class="n">result</span>
-</span><span class='line'>        <span class="n">result</span><span class="p">[</span><span class="n">bad</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">bad</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
-</span><span class='line'>
-</span><span class='line'><span class="c"># print goat_door(simulate_prizedoor(10), simulate_guess(10))</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+</pre></td><td class="code"><pre><code class="python"><span class="line"><span class="k">def</span> <span class="nf">goat_door</span><span class="p">(</span><span class="n">prizedoors</span><span class="p">,</span> <span class="n">guesses</span><span class="p">):</span>
+</span><span class="line">
+</span><span class="line">    <span class="c">#strategy: generate random answers, and</span>
+</span><span class="line">    <span class="c">#keep updating until they satisfy the rule</span>
+</span><span class="line">    <span class="c">#that they aren&#39;t a prizedoor or a guess</span>
+</span><span class="line">    <span class="n">result</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">prizedoors</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+</span><span class="line">    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+</span><span class="line">        <span class="n">bad</span> <span class="o">=</span> <span class="p">(</span><span class="n">result</span> <span class="o">==</span> <span class="n">prizedoors</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">result</span> <span class="o">==</span> <span class="n">guesses</span><span class="p">)</span>
+</span><span class="line">        <span class="k">if</span> <span class="ow">not</span> <span class="n">bad</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+</span><span class="line">            <span class="k">return</span> <span class="n">result</span>
+</span><span class="line">        <span class="n">result</span><span class="p">[</span><span class="n">bad</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">bad</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+</span><span class="line">
+</span><span class="line"><span class="c"># print goat_door(simulate_prizedoor(10), simulate_guess(10))</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>Write a function, <code>switch_guess</code>, that represents the strategy of always switching a guess after the goat door is opened. This function is identical in concept to <code>goat_door</code></p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">switch_guess</span><span class="p">(</span><span class="n">guesses</span><span class="p">,</span> <span class="n">goatdoors</span><span class="p">):</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c">#strategy: generate random answers, and</span>
-</span><span class='line'>    <span class="c">#keep updating until they satisfy the rule</span>
-</span><span class='line'>    <span class="c">#that they aren&#39;t the original guess or a goat door</span>
-</span><span class='line'>    <span class="n">result</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">guesses</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
-</span><span class='line'>    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
-</span><span class='line'>        <span class="n">bad</span> <span class="o">=</span> <span class="p">(</span><span class="n">result</span> <span class="o">==</span> <span class="n">guesses</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">result</span> <span class="o">==</span> <span class="n">goatdoors</span><span class="p">)</span>
-</span><span class='line'>        <span class="k">if</span> <span class="ow">not</span> <span class="n">bad</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
-</span><span class='line'>            <span class="k">return</span> <span class="n">result</span>
-</span><span class='line'>        <span class="n">result</span><span class="p">[</span><span class="n">bad</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">bad</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'><span class="c">#prize = simulate_prizedoor(10)</span>
-</span><span class='line'><span class="c">#guess = simulate_guess(10)</span>
-</span><span class='line'><span class="c">#print guess</span>
-</span><span class='line'><span class="c">#print prize</span>
-</span><span class='line'><span class="c">#goat = goat_door(prize, guess)</span>
-</span><span class='line'><span class="c">#print goat</span>
-</span><span class='line'><span class="c">#switch = switch_guess(guess, goat)</span>
-</span><span class='line'><span class="c">#print switch</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+</pre></td><td class="code"><pre><code class="python"><span class="line"><span class="k">def</span> <span class="nf">switch_guess</span><span class="p">(</span><span class="n">guesses</span><span class="p">,</span> <span class="n">goatdoors</span><span class="p">):</span>
+</span><span class="line">
+</span><span class="line">    <span class="c">#strategy: generate random answers, and</span>
+</span><span class="line">    <span class="c">#keep updating until they satisfy the rule</span>
+</span><span class="line">    <span class="c">#that they aren&#39;t the original guess or a goat door</span>
+</span><span class="line">    <span class="n">result</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">guesses</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+</span><span class="line">    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+</span><span class="line">        <span class="n">bad</span> <span class="o">=</span> <span class="p">(</span><span class="n">result</span> <span class="o">==</span> <span class="n">guesses</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">result</span> <span class="o">==</span> <span class="n">goatdoors</span><span class="p">)</span>
+</span><span class="line">        <span class="k">if</span> <span class="ow">not</span> <span class="n">bad</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+</span><span class="line">            <span class="k">return</span> <span class="n">result</span>
+</span><span class="line">        <span class="n">result</span><span class="p">[</span><span class="n">bad</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">bad</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+</span><span class="line">
+</span><span class="line">
+</span><span class="line"><span class="c">#prize = simulate_prizedoor(10)</span>
+</span><span class="line"><span class="c">#guess = simulate_guess(10)</span>
+</span><span class="line"><span class="c">#print guess</span>
+</span><span class="line"><span class="c">#print prize</span>
+</span><span class="line"><span class="c">#goat = goat_door(prize, guess)</span>
+</span><span class="line"><span class="c">#print goat</span>
+</span><span class="line"><span class="c">#switch = switch_guess(guess, goat)</span>
+</span><span class="line"><span class="c">#print switch</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>Last function: write a <code>win_percentage</code> function that takes an array of <code>guesses</code> and <code>prizedoors</code>, and returns the percent of correct guesses</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">win_percentage</span><span class="p">(</span><span class="n">guesses</span><span class="p">,</span> <span class="n">prizedoors</span><span class="p">):</span>
-</span><span class='line'>    <span class="k">return</span> <span class="p">(</span><span class="n">guesses</span> <span class="o">==</span> <span class="n">prizedoors</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">*</span><span class="mi">100</span>
-</span><span class='line'>
-</span><span class='line'><span class="c"># prize = simulate_prizedoor(10)</span>
-</span><span class='line'><span class="c"># guess = simulate_guess(10)</span>
-</span><span class='line'><span class="c"># print guess</span>
-</span><span class='line'><span class="c"># print prize</span>
-</span><span class='line'><span class="c"># win_percentage(guess, prize)</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+</pre></td><td class="code"><pre><code class="python"><span class="line"><span class="k">def</span> <span class="nf">win_percentage</span><span class="p">(</span><span class="n">guesses</span><span class="p">,</span> <span class="n">prizedoors</span><span class="p">):</span>
+</span><span class="line">    <span class="k">return</span> <span class="p">(</span><span class="n">guesses</span> <span class="o">==</span> <span class="n">prizedoors</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">*</span><span class="mi">100</span>
+</span><span class="line">
+</span><span class="line"><span class="c"># prize = simulate_prizedoor(10)</span>
+</span><span class="line"><span class="c"># guess = simulate_guess(10)</span>
+</span><span class="line"><span class="c"># print guess</span>
+</span><span class="line"><span class="c"># print prize</span>
+</span><span class="line"><span class="c"># win_percentage(guess, prize)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>Putting it all together. Simulate 10000 games where contestant keeps his original guess, and 10000 games where the contestant switches his door after a  goat door is revealed. Compute the percentage of time the contestant wins under either strategy. Is one strategy better than the other?</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">nsim</span> <span class="o">=</span> <span class="mi">10000</span>
-</span><span class='line'>
-</span><span class='line'><span class="c">#keep guesses</span>
-</span><span class='line'><span class="k">print</span> <span class="s">&quot;Win percentage when keeping original door&quot;</span>
-</span><span class='line'><span class="k">print</span> <span class="n">win_percentage</span><span class="p">(</span><span class="n">simulate_prizedoor</span><span class="p">(</span><span class="n">nsim</span><span class="p">),</span> <span class="n">simulate_guess</span><span class="p">(</span><span class="n">nsim</span><span class="p">))</span>
-</span><span class='line'>
-</span><span class='line'><span class="c">#switch</span>
-</span><span class='line'><span class="n">pd</span> <span class="o">=</span> <span class="n">simulate_prizedoor</span><span class="p">(</span><span class="n">nsim</span><span class="p">)</span>
-</span><span class='line'><span class="n">guess</span> <span class="o">=</span> <span class="n">simulate_guess</span><span class="p">(</span><span class="n">nsim</span><span class="p">)</span>
-</span><span class='line'><span class="n">goats</span> <span class="o">=</span> <span class="n">goat_door</span><span class="p">(</span><span class="n">pd</span><span class="p">,</span> <span class="n">guess</span><span class="p">)</span>
-</span><span class='line'><span class="n">guess</span> <span class="o">=</span> <span class="n">switch_guess</span><span class="p">(</span><span class="n">guess</span><span class="p">,</span> <span class="n">goats</span><span class="p">)</span>
-</span><span class='line'><span class="k">print</span> <span class="s">&quot;Win percentage when switching doors&quot;</span>
-</span><span class='line'><span class="k">print</span> <span class="n">win_percentage</span><span class="p">(</span><span class="n">pd</span><span class="p">,</span> <span class="n">guess</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-</span></code></pre></td></tr></table></div></figure>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+</pre></td><td class="code"><pre><code class="python"><span class="line"><span class="n">nsim</span> <span class="o">=</span> <span class="mi">10000</span>
+</span><span class="line">
+</span><span class="line"><span class="c">#keep guesses</span>
+</span><span class="line"><span class="k">print</span> <span class="s">&quot;Win percentage when keeping original door&quot;</span>
+</span><span class="line"><span class="k">print</span> <span class="n">win_percentage</span><span class="p">(</span><span class="n">simulate_prizedoor</span><span class="p">(</span><span class="n">nsim</span><span class="p">),</span> <span class="n">simulate_guess</span><span class="p">(</span><span class="n">nsim</span><span class="p">))</span>
+</span><span class="line">
+</span><span class="line"><span class="c">#switch</span>
+</span><span class="line"><span class="n">pd</span> <span class="o">=</span> <span class="n">simulate_prizedoor</span><span class="p">(</span><span class="n">nsim</span><span class="p">)</span>
+</span><span class="line"><span class="n">guess</span> <span class="o">=</span> <span class="n">simulate_guess</span><span class="p">(</span><span class="n">nsim</span><span class="p">)</span>
+</span><span class="line"><span class="n">goats</span> <span class="o">=</span> <span class="n">goat_door</span><span class="p">(</span><span class="n">pd</span><span class="p">,</span> <span class="n">guess</span><span class="p">)</span>
+</span><span class="line"><span class="n">guess</span> <span class="o">=</span> <span class="n">switch_guess</span><span class="p">(</span><span class="n">guess</span><span class="p">,</span> <span class="n">goats</span><span class="p">)</span>
+</span><span class="line"><span class="k">print</span> <span class="s">&quot;Win percentage when switching doors&quot;</span>
+</span><span class="line"><span class="k">print</span> <span class="n">win_percentage</span><span class="p">(</span><span class="n">pd</span><span class="p">,</span> <span class="n">guess</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-
-<p>The result looks something like this:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">Win</span> <span class="n">percentage</span> <span class="n">when</span> <span class="n">keeping</span> <span class="n">original</span> <span class="n">door</span>
-</span><span class='line'><span class="mf">32.95</span>
-</span><span class='line'><span class="n">Win</span> <span class="n">percentage</span> <span class="n">when</span> <span class="n">switching</span> <span class="n">doors</span>
-</span><span class='line'><span class="mf">66.61</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<p>The result looks something like this:
+&lt;div class=&#8217;bogus-wrapper&#8217;&gt;<notextile><figure class="code">&lt;figcaption&gt;<span></span>&lt;/figcaption&gt;&lt;div class=&#8221;highlight&#8221;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#8221;gutter&#8221;&gt;&lt;pre class=&#8221;line-numbers&#8221;&gt;<span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#8217;code&#8217;&gt;&lt;pre&gt;<code class="python"><span class="line"><span class="n">Win</span> <span class="n">percentage</span> <span class="n">when</span> <span class="n">keeping</span> <span class="n">original</span> <span class="n">door</span>
+</span><span class="line"><span class="mf">32.95</span>
+</span><span class="line"><span class="n">Win</span> <span class="n">percentage</span> <span class="n">when</span> <span class="n">switching</span> <span class="n">doors</span>
+</span><span class="line"><span class="mf">66.61</span>
+</span></code>&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;</figure></notextile>&lt;/div&gt;</p>
 
 <p>Voila! Always switch!</p>
 
@@ -222,7 +244,7 @@
     <link href="http://wubr2000.github.io/blog/2013/12/29/exploring-nlp-in-python/"/>
     <updated>2013-12-29T17:46:50-08:00</updated>
     <id>http://wubr2000.github.io/blog/2013/12/29/exploring-nlp-in-python</id>
-    <content type="html"><![CDATA[<p>Came across a <a href="http://blog.scripted.com/scripted-updates/nlp-hacking-in-python/">great tutorial</a> on the basics of natural language processing (NLP) and classification.</p>
+    <content type="html"><![CDATA[<p>Came across a <a href="http://blog.scripted.com/scripted-updates/nlp-hacking-in-python/">great tutorial</a> on the basics of natural language processing (NLP) and classification. </p>
 
 <p>The example in this tutorial uses a Python library called <code>gensim</code> which (according to its <a href="http://radimrehurek.com/gensim/about.html">website</a>) is the &ldquo;the most robust, efficient and hassle-free piece of software to realize unsupervised semantic modelling from plain text.&rdquo; As far as I understand it, it&rsquo;s a very handy and commonly-used library for NLP.</p>
 
@@ -230,325 +252,336 @@
 
 <!-- more -->
 
-
 <p>A common way to represent a written document as a vector is to think about it in terms of <a href="http://en.wikipedia.org/wiki/Bag-of-words_model">Bag of Words</a> (BoW) vectors. For example, if an entire document consists only of the words &ldquo;dog&rdquo; and &ldquo;cat&rdquo;, then the BoW vector for this document would be [# of &lsquo;dog&rsquo;, # of &lsquo;cat&rsquo;].</p>
 
 <p>A very high-level overview of the workflow for NLP using the Vector Space Model is as follows:</p>
 
-<blockquote><p>Preprocessing &ndash;> Create &ldquo;Bag of Words&rdquo; vector &ndash;> Dimensionality Reduction &ndash;> use SVM algorithm for classification</p></blockquote>
+<blockquote>
+  <p>Preprocessing -&gt; Create &ldquo;Bag of Words&rdquo; vector -&gt; Dimensionality Reduction -&gt; use SVM algorithm for classification</p>
+</blockquote>
 
 <p>A more detailed workflow is as follows:</p>
 
-<blockquote><p>Remove stopwords and split on spaces &ndash;> Take out rare terms using <code>gensim</code> &ndash;> Create Bag of Words vectors &ndash;> Dimensionality reduction using LSI (<a href="http://en.wikipedia.org/wiki/Latent_semantic_indexing">Latent Semantic Indexing</a>) model in <code>gensim</code> (topic vectorization) &ndash;> unit vectorization &ndash;> finding cosine distance</p></blockquote>
+<blockquote>
+  <p>Remove stopwords and split on spaces -&gt; Take out rare terms using <code>gensim</code> -&gt; Create Bag of Words vectors -&gt; Dimensionality reduction using LSI (<a href="http://en.wikipedia.org/wiki/Latent_semantic_indexing">Latent Semantic Indexing</a>) model in <code>gensim</code> (topic vectorization) -&gt; unit vectorization -&gt; finding cosine distance</p>
+</blockquote>
 
 <p>Several important concepts to be aware of from this tutorial:</p>
 
 <ol>
-<li><p><strong>Vector Space Model</strong></p></li>
-<li><p><strong><a href="http://en.wikipedia.org/wiki/Curse_of_dimensionality">The Curse of Dimensionality</a></strong></p>
-
-<ul>
-<li><blockquote><p>&ldquo;There are all kinds of terrible things that happen as the dimensionality of your descriptor vectors rises. One obvious one is that as the dimensionality rises, both the time and space complexity of dealing with these vectors rises, often exponentially. Another issue is that as dimensionality rises, the amount of samples needed to draw useful conclusions from that data also rises steeply. Another way of phrasing that is with a fixed number of samples, the usefulness of each dimension diminishes. Finally, as the dimensionality rises, your points all tend to start becoming equidistant to each other, making it difficult to draw solid conclusions from them.&rdquo;</p></blockquote></li>
-</ul>
-</li>
-<li><p><strong>Similarity in Vector Space</strong></p>
-
-<ul>
-<li><em>Euclidean distance</em> (this ignores direction)</li>
-<li><em>Cosine distance</em> &ndash; measuring similarity based on angle between vectors is know as cosine distance, or cosine similarity.</li>
-<li><em>Unit vectorization</em> &ndash; modify the vectors themselves by dividing each number in each vector by that vector&rsquo;s magnitude. In doing so, all our vectors have a magnitude of 1. This process is called unit vectorization because the output vectors are units vectors.</li>
-</ul>
-</li>
-<li><p><strong>Supervised Learning</strong></p>
-
-<ul>
-<li>Train the algorithm on samples which have the &lsquo;correct&rsquo; answer provided with them. The specific supervised learning problem we&rsquo;re addressing here is called classification. You train an algorithm on labelled descriptor vectors, then ask it to label a previously unseen descriptor vector based on conclusions drawn from the training set.</li>
-</ul>
-</li>
-<li><p><strong><a href="http://en.wikipedia.org/wiki/Support_vector_machine">Support Vector Machine</a></strong> &ndash; SVM is a family of algorithms which define decision boundaries between classes based on labelled training data.</p>
-
-<ul>
-<li><blockquote><p>&ldquo;For our &lsquo;dog&rsquo; vs. &lsquo;sandwich&rsquo; classification problem, we provide the algorithm with some training samples. These samples are documents which have gone through our whole process (BoW vector &ndash;> topic vector &ndash;> unit vector) and carry with them either a &lsquo;dog&rsquo; label or a &lsquo;sandwich&rsquo; label. As you provide the SVM model with these samples, it looks at these points in space and essentially draws a line between the &lsquo;sandwich&rsquo; documents and the &lsquo;dog&rsquo; documents. This border between &#8220;dog&rdquo;-land and &ldquo;sandwich&rdquo;-land is known as a decision boundary. Whichever side of the line the query point falls on determines what the algorithm labels it.&#8221;</p></blockquote></li>
-<li><blockquote><p>&ldquo;All samples in both training and test sets are labeled. However, in practice, you would build the model on the labeled training set, ignore the labels on the test set, feed them into the model, have the model guess what those labels are, and finally check whether or not the algorithm guessed correctly. This process of testing out your supervised learning algorithm with a training and test set is called cross-validation.&rdquo;</p></blockquote></li>
-</ul>
-</li>
+  <li>
+    <p><strong>Vector Space Model</strong></p>
+  </li>
+  <li><strong><a href="http://en.wikipedia.org/wiki/Curse_of_dimensionality">The Curse of Dimensionality</a></strong>
+    <ul>
+      <li>
+        <blockquote>
+          <p>&ldquo;There are all kinds of terrible things that happen as the dimensionality of your descriptor vectors rises. One obvious one is that as the dimensionality rises, both the time and space complexity of dealing with these vectors rises, often exponentially. Another issue is that as dimensionality rises, the amount of samples needed to draw useful conclusions from that data also rises steeply. Another way of phrasing that is with a fixed number of samples, the usefulness of each dimension diminishes. Finally, as the dimensionality rises, your points all tend to start becoming equidistant to each other, making it difficult to draw solid conclusions from them.&rdquo;</p>
+        </blockquote>
+      </li>
+    </ul>
+  </li>
+  <li><strong>Similarity in Vector Space</strong>
+    <ul>
+      <li><em>Euclidean distance</em> (this ignores direction)</li>
+      <li><em>Cosine distance</em> - measuring similarity based on angle between vectors is know as cosine distance, or cosine similarity. </li>
+      <li><em>Unit vectorization</em> - modify the vectors themselves by dividing each number in each vector by that vector&rsquo;s magnitude. In doing so, all our vectors have a magnitude of 1. This process is called unit vectorization because the output vectors are units vectors.</li>
+    </ul>
+  </li>
+  <li><strong>Supervised Learning</strong>
+    <ul>
+      <li>Train the algorithm on samples which have the &lsquo;correct&rsquo; answer provided with them. The specific supervised learning problem we&rsquo;re addressing here is called classification. You train an algorithm on labelled descriptor vectors, then ask it to label a previously unseen descriptor vector based on conclusions drawn from the training set.</li>
+    </ul>
+  </li>
+  <li><strong><a href="http://en.wikipedia.org/wiki/Support_vector_machine">Support Vector Machine</a></strong> - SVM is a family of algorithms which define decision boundaries between classes based on labelled training data.
+    <ul>
+      <li>
+        <blockquote>
+          <p>&ldquo;For our &lsquo;dog&rsquo; vs. &lsquo;sandwich&rsquo; classification problem, we provide the algorithm with some training samples. These samples are documents which have gone through our whole process (BoW vector -&gt; topic vector -&gt; unit vector) and carry with them either a &lsquo;dog&rsquo; label or a &lsquo;sandwich&rsquo; label. As you provide the SVM model with these samples, it looks at these points in space and essentially draws a line between the &lsquo;sandwich&rsquo; documents and the &lsquo;dog&rsquo; documents. This border between &ldquo;dog&rdquo;-land and &ldquo;sandwich&rdquo;-land is known as a decision boundary. Whichever side of the line the query point falls on determines what the algorithm labels it.&rdquo;</p>
+        </blockquote>
+      </li>
+      <li>
+        <blockquote>
+          <p>&ldquo;All samples in both training and test sets are labeled. However, in practice, you would build the model on the labeled training set, ignore the labels on the test set, feed them into the model, have the model guess what those labels are, and finally check whether or not the algorithm guessed correctly. This process of testing out your supervised learning algorithm with a training and test set is called cross-validation.&rdquo;</p>
+        </blockquote>
+      </li>
+    </ul>
+  </li>
 </ol>
 
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-<span class='line-number'>46</span>
-<span class='line-number'>47</span>
-<span class='line-number'>48</span>
-<span class='line-number'>49</span>
-<span class='line-number'>50</span>
-<span class='line-number'>51</span>
-<span class='line-number'>52</span>
-<span class='line-number'>53</span>
-<span class='line-number'>54</span>
-<span class='line-number'>55</span>
-<span class='line-number'>56</span>
-<span class='line-number'>57</span>
-<span class='line-number'>58</span>
-<span class='line-number'>59</span>
-<span class='line-number'>60</span>
-<span class='line-number'>61</span>
-<span class='line-number'>62</span>
-<span class='line-number'>63</span>
-<span class='line-number'>64</span>
-<span class='line-number'>65</span>
-<span class='line-number'>66</span>
-<span class='line-number'>67</span>
-<span class='line-number'>68</span>
-<span class='line-number'>69</span>
-<span class='line-number'>70</span>
-<span class='line-number'>71</span>
-<span class='line-number'>72</span>
-<span class='line-number'>73</span>
-<span class='line-number'>74</span>
-<span class='line-number'>75</span>
-<span class='line-number'>76</span>
-<span class='line-number'>77</span>
-<span class='line-number'>78</span>
-<span class='line-number'>79</span>
-<span class='line-number'>80</span>
-<span class='line-number'>81</span>
-<span class='line-number'>82</span>
-<span class='line-number'>83</span>
-<span class='line-number'>84</span>
-<span class='line-number'>85</span>
-<span class='line-number'>86</span>
-<span class='line-number'>87</span>
-<span class='line-number'>88</span>
-<span class='line-number'>89</span>
-<span class='line-number'>90</span>
-<span class='line-number'>91</span>
-<span class='line-number'>92</span>
-<span class='line-number'>93</span>
-<span class='line-number'>94</span>
-<span class='line-number'>95</span>
-<span class='line-number'>96</span>
-<span class='line-number'>97</span>
-<span class='line-number'>98</span>
-<span class='line-number'>99</span>
-<span class='line-number'>100</span>
-<span class='line-number'>101</span>
-<span class='line-number'>102</span>
-<span class='line-number'>103</span>
-<span class='line-number'>104</span>
-<span class='line-number'>105</span>
-<span class='line-number'>106</span>
-<span class='line-number'>107</span>
-<span class='line-number'>108</span>
-<span class='line-number'>109</span>
-<span class='line-number'>110</span>
-<span class='line-number'>111</span>
-<span class='line-number'>112</span>
-<span class='line-number'>113</span>
-<span class='line-number'>114</span>
-<span class='line-number'>115</span>
-<span class='line-number'>116</span>
-<span class='line-number'>117</span>
-<span class='line-number'>118</span>
-<span class='line-number'>119</span>
-<span class='line-number'>120</span>
-<span class='line-number'>121</span>
-<span class='line-number'>122</span>
-<span class='line-number'>123</span>
-<span class='line-number'>124</span>
-<span class='line-number'>125</span>
-<span class='line-number'>126</span>
-<span class='line-number'>127</span>
-<span class='line-number'>128</span>
-<span class='line-number'>129</span>
-<span class='line-number'>130</span>
-<span class='line-number'>131</span>
-<span class='line-number'>132</span>
-<span class='line-number'>133</span>
-<span class='line-number'>134</span>
-<span class='line-number'>135</span>
-<span class='line-number'>136</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">import</span> <span class="nn">warnings</span>
-</span><span class='line'><span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
-</span><span class='line'><span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sqrt</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">gensim</span>
-</span><span class='line'><span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">os</span>
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'><span class="k">def</span> <span class="nf">vec2dense</span><span class="p">(</span><span class="n">vec</span><span class="p">,</span> <span class="n">num_terms</span><span class="p">):</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="sd">&#39;&#39;&#39;Convert from sparse gensim format to dense list of numbers&#39;&#39;&#39;</span>
-</span><span class='line'>    <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">gensim</span><span class="o">.</span><span class="n">matutils</span><span class="o">.</span><span class="n">corpus2dense</span><span class="p">([</span><span class="n">vec</span><span class="p">],</span> <span class="n">num_terms</span><span class="o">=</span><span class="n">num_terms</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c">#Load in corpus, remove newlines, make strings lower-case</span>
-</span><span class='line'>    <span class="n">docs</span> <span class="o">=</span> <span class="p">{}</span>
-</span><span class='line'>    <span class="n">corpus_dir</span> <span class="o">=</span> <span class="s">&#39;corpus&#39;</span>
-</span><span class='line'>    <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">corpus_dir</span><span class="p">):</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">corpus_dir</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
-</span><span class='line'>        <span class="n">doc</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
-</span><span class='line'>        <span class="n">docs</span><span class="p">[</span><span class="n">filename</span><span class="p">]</span> <span class="o">=</span> <span class="n">doc</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">names</span> <span class="o">=</span> <span class="n">docs</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c">#Remove stopwords and split on spaces</span>
-</span><span class='line'>    <span class="k">print</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">---Corpus with Stopwords Removed---&quot;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">stop</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;the&#39;</span><span class="p">,</span> <span class="s">&#39;of&#39;</span><span class="p">,</span> <span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;at&#39;</span><span class="p">,</span> <span class="s">&#39;is&#39;</span><span class="p">]</span>
-</span><span class='line'>    <span class="n">preprocessed_docs</span> <span class="o">=</span> <span class="p">{}</span>
-</span><span class='line'>    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">text</span> <span class="o">=</span> <span class="n">docs</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
-</span><span class='line'>        <span class="n">preprocessed</span> <span class="o">=</span> <span class="p">[</span><span class="n">word</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">text</span> <span class="k">if</span> <span class="n">word</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">stop</span><span class="p">]</span>
-</span><span class='line'>        <span class="n">preprocessed_docs</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">preprocessed</span>
-</span><span class='line'>        <span class="k">print</span> <span class="n">name</span><span class="p">,</span> <span class="s">&quot;:&quot;</span><span class="p">,</span> <span class="n">preprocessed</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c">#Build the dictionary and filter out rare terms</span>
-</span><span class='line'>    <span class="n">dct</span> <span class="o">=</span> <span class="n">gensim</span><span class="o">.</span><span class="n">corpora</span><span class="o">.</span><span class="n">Dictionary</span><span class="p">(</span><span class="n">preprocessed_docs</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
-</span><span class='line'>    <span class="n">unfiltered</span> <span class="o">=</span> <span class="n">dct</span><span class="o">.</span><span class="n">token2id</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
-</span><span class='line'>    <span class="n">dct</span><span class="o">.</span><span class="n">filter_extremes</span><span class="p">(</span><span class="n">no_below</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-</span><span class='line'>    <span class="n">filtered</span> <span class="o">=</span> <span class="n">dct</span><span class="o">.</span><span class="n">token2id</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
-</span><span class='line'>    <span class="n">filtered_out</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">unfiltered</span><span class="p">)</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">filtered</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">print</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">The following super common/rare words were filtered out...&quot;</span>
-</span><span class='line'>    <span class="k">print</span> <span class="nb">list</span><span class="p">(</span><span class="n">filtered_out</span><span class="p">),</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">print</span> <span class="s">&quot;Vocabulary after filtering...&quot;</span>
-</span><span class='line'>    <span class="k">print</span> <span class="n">dct</span><span class="o">.</span><span class="n">token2id</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c">#Build Bag of Words Vectors out of preprocessed corpus</span>
-</span><span class='line'>    <span class="k">print</span> <span class="s">&quot;---Bag of Words Corpus---&quot;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">bow_docs</span> <span class="o">=</span> <span class="p">{}</span>
-</span><span class='line'>    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">sparse</span> <span class="o">=</span> <span class="n">dct</span><span class="o">.</span><span class="n">doc2bow</span><span class="p">(</span><span class="n">preprocessed_docs</span><span class="p">[</span><span class="n">name</span><span class="p">])</span>
-</span><span class='line'>        <span class="n">bow_docs</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">sparse</span>
-</span><span class='line'>        <span class="n">dense</span> <span class="o">=</span> <span class="n">vec2dense</span><span class="p">(</span><span class="n">sparse</span><span class="p">,</span> <span class="n">num_terms</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">dct</span><span class="p">))</span>
-</span><span class='line'>        <span class="k">print</span> <span class="n">name</span><span class="p">,</span> <span class="s">&quot;:&quot;</span><span class="p">,</span> <span class="n">dense</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c">#Dimensionality reduction using LSI. Go from 6D to 2D.</span>
-</span><span class='line'>    <span class="k">print</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">---LSI Model---&quot;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">lsi_docs</span> <span class="o">=</span> <span class="p">{}</span>
-</span><span class='line'>    <span class="n">num_topics</span> <span class="o">=</span> <span class="mi">2</span>
-</span><span class='line'>    <span class="n">lsi_model</span> <span class="o">=</span> <span class="n">gensim</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">LsiModel</span><span class="p">(</span><span class="n">bow_docs</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span>
-</span><span class='line'>                                       <span class="n">num_topics</span><span class="o">=</span><span class="n">num_topics</span><span class="p">)</span>
-</span><span class='line'>    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">vec</span> <span class="o">=</span> <span class="n">bow_docs</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
-</span><span class='line'>        <span class="n">sparse</span> <span class="o">=</span> <span class="n">lsi_model</span><span class="p">[</span><span class="n">vec</span><span class="p">]</span>
-</span><span class='line'>        <span class="n">dense</span> <span class="o">=</span> <span class="n">vec2dense</span><span class="p">(</span><span class="n">sparse</span><span class="p">,</span> <span class="n">num_topics</span><span class="p">)</span>
-</span><span class='line'>        <span class="n">lsi_docs</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">sparse</span>
-</span><span class='line'>        <span class="k">print</span> <span class="n">name</span><span class="p">,</span> <span class="s">&#39;:&#39;</span><span class="p">,</span> <span class="n">dense</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c">#Normalize LSI vectors by setting each vector to unit length</span>
-</span><span class='line'>    <span class="k">print</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">---Unit Vectorization---&quot;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">unit_vecs</span> <span class="o">=</span> <span class="p">{}</span>
-</span><span class='line'>    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">vec</span> <span class="o">=</span> <span class="n">vec2dense</span><span class="p">(</span><span class="n">lsi_docs</span><span class="p">[</span><span class="n">name</span><span class="p">],</span> <span class="n">num_topics</span><span class="p">)</span>
-</span><span class='line'>        <span class="n">norm</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">num</span> <span class="o">**</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="n">vec</span><span class="p">))</span>
-</span><span class='line'>        <span class="n">unit_vec</span> <span class="o">=</span> <span class="p">[</span><span class="n">num</span> <span class="o">/</span> <span class="n">norm</span> <span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="n">vec</span><span class="p">]</span>
-</span><span class='line'>        <span class="n">unit_vecs</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">unit_vec</span>
-</span><span class='line'>        <span class="k">print</span> <span class="n">name</span><span class="p">,</span> <span class="s">&#39;:&#39;</span><span class="p">,</span> <span class="n">unit_vec</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c">#Take cosine distances between docs and show best matches</span>
-</span><span class='line'>    <span class="k">print</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">---Document Similarities---&quot;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">index</span> <span class="o">=</span> <span class="n">gensim</span><span class="o">.</span><span class="n">similarities</span><span class="o">.</span><span class="n">MatrixSimilarity</span><span class="p">(</span><span class="n">lsi_docs</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
-</span><span class='line'>    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">names</span><span class="p">):</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">vec</span> <span class="o">=</span> <span class="n">lsi_docs</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
-</span><span class='line'>        <span class="n">sims</span> <span class="o">=</span> <span class="n">index</span><span class="p">[</span><span class="n">vec</span><span class="p">]</span>
-</span><span class='line'>        <span class="n">sims</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="n">sims</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">item</span><span class="p">:</span> <span class="o">-</span><span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="c">#Similarities are a list of tuples of the form (doc #, score)</span>
-</span><span class='line'>        <span class="c">#In order to extract the doc # we take first value in the tuple</span>
-</span><span class='line'>        <span class="c">#Doc # is stored in tuple as numpy format, must cast to int</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">sims</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span> <span class="o">!=</span> <span class="n">i</span><span class="p">:</span>
-</span><span class='line'>            <span class="n">match</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">sims</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
-</span><span class='line'>        <span class="k">else</span><span class="p">:</span>
-</span><span class='line'>            <span class="n">match</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">sims</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">match</span> <span class="o">=</span> <span class="n">names</span><span class="p">[</span><span class="n">match</span><span class="p">]</span>
-</span><span class='line'>        <span class="k">print</span> <span class="n">name</span><span class="p">,</span> <span class="s">&quot;is most similar to...&quot;</span><span class="p">,</span> <span class="n">match</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c">#We add classes to the mix by labelling dog1.txt and sandwich1.txt</span>
-</span><span class='line'>    <span class="c">#We use these as our training set, and test on all documents.</span>
-</span><span class='line'>    <span class="k">print</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">---Classification---&quot;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">dog1</span> <span class="o">=</span> <span class="n">unit_vecs</span><span class="p">[</span><span class="s">&#39;dog1.txt&#39;</span><span class="p">]</span>
-</span><span class='line'>    <span class="n">sandwich1</span> <span class="o">=</span> <span class="n">unit_vecs</span><span class="p">[</span><span class="s">&#39;sandwich1.txt&#39;</span><span class="p">]</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">train</span> <span class="o">=</span> <span class="p">[</span><span class="n">dog1</span><span class="p">,</span> <span class="n">sandwich1</span><span class="p">]</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c"># The label &#39;1&#39; represents the &#39;dog&#39; category</span>
-</span><span class='line'>    <span class="c"># The label &#39;2&#39; represents the &#39;sandwich&#39; category</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">label_to_name</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">([(</span><span class="mi">1</span><span class="p">,</span> <span class="s">&#39;dogs&#39;</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s">&#39;sandwiches&#39;</span><span class="p">)])</span>
-</span><span class='line'>    <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
-</span><span class='line'>    <span class="n">classifier</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">()</span>
-</span><span class='line'>    <span class="n">classifier</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">vec</span> <span class="o">=</span> <span class="n">unit_vecs</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
-</span><span class='line'>        <span class="n">label</span> <span class="o">=</span> <span class="n">classifier</span><span class="o">.</span><span class="n">predict</span><span class="p">([</span><span class="n">vec</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
-</span><span class='line'>        <span class="n">cls</span> <span class="o">=</span> <span class="n">label_to_name</span><span class="p">[</span><span class="n">label</span><span class="p">]</span>
-</span><span class='line'>        <span class="k">print</span> <span class="n">name</span><span class="p">,</span> <span class="s">&#39;is a document about&#39;</span><span class="p">,</span> <span class="n">cls</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">print</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+<span class="line-number">29</span>
+<span class="line-number">30</span>
+<span class="line-number">31</span>
+<span class="line-number">32</span>
+<span class="line-number">33</span>
+<span class="line-number">34</span>
+<span class="line-number">35</span>
+<span class="line-number">36</span>
+<span class="line-number">37</span>
+<span class="line-number">38</span>
+<span class="line-number">39</span>
+<span class="line-number">40</span>
+<span class="line-number">41</span>
+<span class="line-number">42</span>
+<span class="line-number">43</span>
+<span class="line-number">44</span>
+<span class="line-number">45</span>
+<span class="line-number">46</span>
+<span class="line-number">47</span>
+<span class="line-number">48</span>
+<span class="line-number">49</span>
+<span class="line-number">50</span>
+<span class="line-number">51</span>
+<span class="line-number">52</span>
+<span class="line-number">53</span>
+<span class="line-number">54</span>
+<span class="line-number">55</span>
+<span class="line-number">56</span>
+<span class="line-number">57</span>
+<span class="line-number">58</span>
+<span class="line-number">59</span>
+<span class="line-number">60</span>
+<span class="line-number">61</span>
+<span class="line-number">62</span>
+<span class="line-number">63</span>
+<span class="line-number">64</span>
+<span class="line-number">65</span>
+<span class="line-number">66</span>
+<span class="line-number">67</span>
+<span class="line-number">68</span>
+<span class="line-number">69</span>
+<span class="line-number">70</span>
+<span class="line-number">71</span>
+<span class="line-number">72</span>
+<span class="line-number">73</span>
+<span class="line-number">74</span>
+<span class="line-number">75</span>
+<span class="line-number">76</span>
+<span class="line-number">77</span>
+<span class="line-number">78</span>
+<span class="line-number">79</span>
+<span class="line-number">80</span>
+<span class="line-number">81</span>
+<span class="line-number">82</span>
+<span class="line-number">83</span>
+<span class="line-number">84</span>
+<span class="line-number">85</span>
+<span class="line-number">86</span>
+<span class="line-number">87</span>
+<span class="line-number">88</span>
+<span class="line-number">89</span>
+<span class="line-number">90</span>
+<span class="line-number">91</span>
+<span class="line-number">92</span>
+<span class="line-number">93</span>
+<span class="line-number">94</span>
+<span class="line-number">95</span>
+<span class="line-number">96</span>
+<span class="line-number">97</span>
+<span class="line-number">98</span>
+<span class="line-number">99</span>
+<span class="line-number">100</span>
+<span class="line-number">101</span>
+<span class="line-number">102</span>
+<span class="line-number">103</span>
+<span class="line-number">104</span>
+<span class="line-number">105</span>
+<span class="line-number">106</span>
+<span class="line-number">107</span>
+<span class="line-number">108</span>
+<span class="line-number">109</span>
+<span class="line-number">110</span>
+<span class="line-number">111</span>
+<span class="line-number">112</span>
+<span class="line-number">113</span>
+<span class="line-number">114</span>
+<span class="line-number">115</span>
+<span class="line-number">116</span>
+<span class="line-number">117</span>
+<span class="line-number">118</span>
+<span class="line-number">119</span>
+<span class="line-number">120</span>
+<span class="line-number">121</span>
+<span class="line-number">122</span>
+<span class="line-number">123</span>
+<span class="line-number">124</span>
+<span class="line-number">125</span>
+<span class="line-number">126</span>
+<span class="line-number">127</span>
+<span class="line-number">128</span>
+<span class="line-number">129</span>
+<span class="line-number">130</span>
+<span class="line-number">131</span>
+<span class="line-number">132</span>
+<span class="line-number">133</span>
+<span class="line-number">134</span>
+<span class="line-number">135</span>
+<span class="line-number">136</span>
+</pre></td><td class="code"><pre><code class="python"><span class="line"><span class="kn">import</span> <span class="nn">warnings</span>
+</span><span class="line"><span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
+</span><span class="line"><span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sqrt</span>
+</span><span class="line"><span class="kn">import</span> <span class="nn">gensim</span>
+</span><span class="line"><span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>
+</span><span class="line"><span class="kn">import</span> <span class="nn">os</span>
+</span><span class="line">
+</span><span class="line">
+</span><span class="line"><span class="k">def</span> <span class="nf">vec2dense</span><span class="p">(</span><span class="n">vec</span><span class="p">,</span> <span class="n">num_terms</span><span class="p">):</span>
+</span><span class="line">
+</span><span class="line">    <span class="sd">&#39;&#39;&#39;Convert from sparse gensim format to dense list of numbers&#39;&#39;&#39;</span>
+</span><span class="line">    <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">gensim</span><span class="o">.</span><span class="n">matutils</span><span class="o">.</span><span class="n">corpus2dense</span><span class="p">([</span><span class="n">vec</span><span class="p">],</span> <span class="n">num_terms</span><span class="o">=</span><span class="n">num_terms</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</span><span class="line">
+</span><span class="line"><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+</span><span class="line">
+</span><span class="line">    <span class="c">#Load in corpus, remove newlines, make strings lower-case</span>
+</span><span class="line">    <span class="n">docs</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span class="line">    <span class="n">corpus_dir</span> <span class="o">=</span> <span class="s">&#39;corpus&#39;</span>
+</span><span class="line">    <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">corpus_dir</span><span class="p">):</span>
+</span><span class="line">
+</span><span class="line">        <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">corpus_dir</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+</span><span class="line">        <span class="n">doc</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+</span><span class="line">        <span class="n">docs</span><span class="p">[</span><span class="n">filename</span><span class="p">]</span> <span class="o">=</span> <span class="n">doc</span>
+</span><span class="line">
+</span><span class="line">    <span class="n">names</span> <span class="o">=</span> <span class="n">docs</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+</span><span class="line">
+</span><span class="line">    <span class="c">#Remove stopwords and split on spaces</span>
+</span><span class="line">    <span class="k">print</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">---Corpus with Stopwords Removed---&quot;</span>
+</span><span class="line">
+</span><span class="line">    <span class="n">stop</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;the&#39;</span><span class="p">,</span> <span class="s">&#39;of&#39;</span><span class="p">,</span> <span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;at&#39;</span><span class="p">,</span> <span class="s">&#39;is&#39;</span><span class="p">]</span>
+</span><span class="line">    <span class="n">preprocessed_docs</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span class="line">    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
+</span><span class="line">
+</span><span class="line">        <span class="n">text</span> <span class="o">=</span> <span class="n">docs</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+</span><span class="line">        <span class="n">preprocessed</span> <span class="o">=</span> <span class="p">[</span><span class="n">word</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">text</span> <span class="k">if</span> <span class="n">word</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">stop</span><span class="p">]</span>
+</span><span class="line">        <span class="n">preprocessed_docs</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">preprocessed</span>
+</span><span class="line">        <span class="k">print</span> <span class="n">name</span><span class="p">,</span> <span class="s">&quot;:&quot;</span><span class="p">,</span> <span class="n">preprocessed</span>
+</span><span class="line">
+</span><span class="line">    <span class="c">#Build the dictionary and filter out rare terms</span>
+</span><span class="line">    <span class="n">dct</span> <span class="o">=</span> <span class="n">gensim</span><span class="o">.</span><span class="n">corpora</span><span class="o">.</span><span class="n">Dictionary</span><span class="p">(</span><span class="n">preprocessed_docs</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+</span><span class="line">    <span class="n">unfiltered</span> <span class="o">=</span> <span class="n">dct</span><span class="o">.</span><span class="n">token2id</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+</span><span class="line">    <span class="n">dct</span><span class="o">.</span><span class="n">filter_extremes</span><span class="p">(</span><span class="n">no_below</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span><span class="line">    <span class="n">filtered</span> <span class="o">=</span> <span class="n">dct</span><span class="o">.</span><span class="n">token2id</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+</span><span class="line">    <span class="n">filtered_out</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">unfiltered</span><span class="p">)</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">filtered</span><span class="p">)</span>
+</span><span class="line">
+</span><span class="line">    <span class="k">print</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">The following super common/rare words were filtered out...&quot;</span>
+</span><span class="line">    <span class="k">print</span> <span class="nb">list</span><span class="p">(</span><span class="n">filtered_out</span><span class="p">),</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span>
+</span><span class="line">
+</span><span class="line">    <span class="k">print</span> <span class="s">&quot;Vocabulary after filtering...&quot;</span>
+</span><span class="line">    <span class="k">print</span> <span class="n">dct</span><span class="o">.</span><span class="n">token2id</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span>
+</span><span class="line">
+</span><span class="line">    <span class="c">#Build Bag of Words Vectors out of preprocessed corpus</span>
+</span><span class="line">    <span class="k">print</span> <span class="s">&quot;---Bag of Words Corpus---&quot;</span>
+</span><span class="line">
+</span><span class="line">    <span class="n">bow_docs</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span class="line">    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
+</span><span class="line">
+</span><span class="line">        <span class="n">sparse</span> <span class="o">=</span> <span class="n">dct</span><span class="o">.</span><span class="n">doc2bow</span><span class="p">(</span><span class="n">preprocessed_docs</span><span class="p">[</span><span class="n">name</span><span class="p">])</span>
+</span><span class="line">        <span class="n">bow_docs</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">sparse</span>
+</span><span class="line">        <span class="n">dense</span> <span class="o">=</span> <span class="n">vec2dense</span><span class="p">(</span><span class="n">sparse</span><span class="p">,</span> <span class="n">num_terms</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">dct</span><span class="p">))</span>
+</span><span class="line">        <span class="k">print</span> <span class="n">name</span><span class="p">,</span> <span class="s">&quot;:&quot;</span><span class="p">,</span> <span class="n">dense</span>
+</span><span class="line">
+</span><span class="line">    <span class="c">#Dimensionality reduction using LSI. Go from 6D to 2D.</span>
+</span><span class="line">    <span class="k">print</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">---LSI Model---&quot;</span>
+</span><span class="line">
+</span><span class="line">    <span class="n">lsi_docs</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span class="line">    <span class="n">num_topics</span> <span class="o">=</span> <span class="mi">2</span>
+</span><span class="line">    <span class="n">lsi_model</span> <span class="o">=</span> <span class="n">gensim</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">LsiModel</span><span class="p">(</span><span class="n">bow_docs</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span>
+</span><span class="line">                                       <span class="n">num_topics</span><span class="o">=</span><span class="n">num_topics</span><span class="p">)</span>
+</span><span class="line">    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
+</span><span class="line">
+</span><span class="line">        <span class="n">vec</span> <span class="o">=</span> <span class="n">bow_docs</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+</span><span class="line">        <span class="n">sparse</span> <span class="o">=</span> <span class="n">lsi_model</span><span class="p">[</span><span class="n">vec</span><span class="p">]</span>
+</span><span class="line">        <span class="n">dense</span> <span class="o">=</span> <span class="n">vec2dense</span><span class="p">(</span><span class="n">sparse</span><span class="p">,</span> <span class="n">num_topics</span><span class="p">)</span>
+</span><span class="line">        <span class="n">lsi_docs</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">sparse</span>
+</span><span class="line">        <span class="k">print</span> <span class="n">name</span><span class="p">,</span> <span class="s">&#39;:&#39;</span><span class="p">,</span> <span class="n">dense</span>
+</span><span class="line">
+</span><span class="line">    <span class="c">#Normalize LSI vectors by setting each vector to unit length</span>
+</span><span class="line">    <span class="k">print</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">---Unit Vectorization---&quot;</span>
+</span><span class="line">
+</span><span class="line">    <span class="n">unit_vecs</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span class="line">    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
+</span><span class="line">
+</span><span class="line">        <span class="n">vec</span> <span class="o">=</span> <span class="n">vec2dense</span><span class="p">(</span><span class="n">lsi_docs</span><span class="p">[</span><span class="n">name</span><span class="p">],</span> <span class="n">num_topics</span><span class="p">)</span>
+</span><span class="line">        <span class="n">norm</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">num</span> <span class="o">**</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="n">vec</span><span class="p">))</span>
+</span><span class="line">        <span class="n">unit_vec</span> <span class="o">=</span> <span class="p">[</span><span class="n">num</span> <span class="o">/</span> <span class="n">norm</span> <span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="n">vec</span><span class="p">]</span>
+</span><span class="line">        <span class="n">unit_vecs</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">unit_vec</span>
+</span><span class="line">        <span class="k">print</span> <span class="n">name</span><span class="p">,</span> <span class="s">&#39;:&#39;</span><span class="p">,</span> <span class="n">unit_vec</span>
+</span><span class="line">
+</span><span class="line">    <span class="c">#Take cosine distances between docs and show best matches</span>
+</span><span class="line">    <span class="k">print</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">---Document Similarities---&quot;</span>
+</span><span class="line">
+</span><span class="line">    <span class="n">index</span> <span class="o">=</span> <span class="n">gensim</span><span class="o">.</span><span class="n">similarities</span><span class="o">.</span><span class="n">MatrixSimilarity</span><span class="p">(</span><span class="n">lsi_docs</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+</span><span class="line">    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">names</span><span class="p">):</span>
+</span><span class="line">
+</span><span class="line">        <span class="n">vec</span> <span class="o">=</span> <span class="n">lsi_docs</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+</span><span class="line">        <span class="n">sims</span> <span class="o">=</span> <span class="n">index</span><span class="p">[</span><span class="n">vec</span><span class="p">]</span>
+</span><span class="line">        <span class="n">sims</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="n">sims</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">item</span><span class="p">:</span> <span class="o">-</span><span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</span><span class="line">
+</span><span class="line">        <span class="c">#Similarities are a list of tuples of the form (doc #, score)</span>
+</span><span class="line">        <span class="c">#In order to extract the doc # we take first value in the tuple</span>
+</span><span class="line">        <span class="c">#Doc # is stored in tuple as numpy format, must cast to int</span>
+</span><span class="line">
+</span><span class="line">        <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">sims</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span> <span class="o">!=</span> <span class="n">i</span><span class="p">:</span>
+</span><span class="line">            <span class="n">match</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">sims</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+</span><span class="line">        <span class="k">else</span><span class="p">:</span>
+</span><span class="line">            <span class="n">match</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">sims</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+</span><span class="line">
+</span><span class="line">        <span class="n">match</span> <span class="o">=</span> <span class="n">names</span><span class="p">[</span><span class="n">match</span><span class="p">]</span>
+</span><span class="line">        <span class="k">print</span> <span class="n">name</span><span class="p">,</span> <span class="s">&quot;is most similar to...&quot;</span><span class="p">,</span> <span class="n">match</span>
+</span><span class="line">
+</span><span class="line">    <span class="c">#We add classes to the mix by labelling dog1.txt and sandwich1.txt</span>
+</span><span class="line">    <span class="c">#We use these as our training set, and test on all documents.</span>
+</span><span class="line">    <span class="k">print</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">---Classification---&quot;</span>
+</span><span class="line">
+</span><span class="line">    <span class="n">dog1</span> <span class="o">=</span> <span class="n">unit_vecs</span><span class="p">[</span><span class="s">&#39;dog1.txt&#39;</span><span class="p">]</span>
+</span><span class="line">    <span class="n">sandwich1</span> <span class="o">=</span> <span class="n">unit_vecs</span><span class="p">[</span><span class="s">&#39;sandwich1.txt&#39;</span><span class="p">]</span>
+</span><span class="line">
+</span><span class="line">    <span class="n">train</span> <span class="o">=</span> <span class="p">[</span><span class="n">dog1</span><span class="p">,</span> <span class="n">sandwich1</span><span class="p">]</span>
+</span><span class="line">
+</span><span class="line">    <span class="c"># The label &#39;1&#39; represents the &#39;dog&#39; category</span>
+</span><span class="line">    <span class="c"># The label &#39;2&#39; represents the &#39;sandwich&#39; category</span>
+</span><span class="line">
+</span><span class="line">    <span class="n">label_to_name</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">([(</span><span class="mi">1</span><span class="p">,</span> <span class="s">&#39;dogs&#39;</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s">&#39;sandwiches&#39;</span><span class="p">)])</span>
+</span><span class="line">    <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+</span><span class="line">    <span class="n">classifier</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">()</span>
+</span><span class="line">    <span class="n">classifier</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span>
+</span><span class="line">
+</span><span class="line">    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
+</span><span class="line">
+</span><span class="line">        <span class="n">vec</span> <span class="o">=</span> <span class="n">unit_vecs</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+</span><span class="line">        <span class="n">label</span> <span class="o">=</span> <span class="n">classifier</span><span class="o">.</span><span class="n">predict</span><span class="p">([</span><span class="n">vec</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+</span><span class="line">        <span class="n">cls</span> <span class="o">=</span> <span class="n">label_to_name</span><span class="p">[</span><span class="n">label</span><span class="p">]</span>
+</span><span class="line">        <span class="k">print</span> <span class="n">name</span><span class="p">,</span> <span class="s">&#39;is a document about&#39;</span><span class="p">,</span> <span class="n">cls</span>
+</span><span class="line">
+</span><span class="line">    <span class="k">print</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 ]]></content>
   </entry>
   
@@ -559,40 +592,36 @@
     <id>http://wubr2000.github.io/blog/2013/12/27/code-snippets-test</id>
     <content type="html"><![CDATA[<p>Here&rsquo;s an example of a Ruby code:</p>
 
-<figure class='code'><figcaption><span>Discover if a number is prime</span><a href='http://www.noulakaz.net/weblog/2007/03/18/a-regular-expression-to-check-for-prime-numbers/'>Source Article</a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Fixnum</span>
-</span><span class='line'>  <span class="k">def</span> <span class="nf">prime?</span>
-</span><span class='line'>    <span class="p">(</span><span class="s1">&#39;1&#39;</span> <span class="o">*</span> <span class="nb">self</span><span class="p">)</span> <span class="o">!~</span> <span class="sr">/^1?$|^(11+?)\1+$/</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Discover if a number is prime</span><a href="http://www.noulakaz.net/weblog/2007/03/18/a-regular-expression-to-check-for-prime-numbers/">Source Article</a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="k">class</span> <span class="nc">Fixnum</span>
+</span><span class="line">  <span class="k">def</span> <span class="nf">prime?</span>
+</span><span class="line">    <span class="p">(</span><span class="s1">&#39;1&#39;</span> <span class="o">*</span> <span class="nb">self</span><span class="p">)</span> <span class="o">!~</span> <span class="sr">/^1?$|^(11+?)\1+$/</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line"><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>An example of Coffeescript:</p>
 
-<figure class='code'><figcaption><span>Coffeescript Tricks </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="c1"># Given an alphabet:</span>
-</span><span class='line'><span class="nv">alphabet = </span><span class="s">&#39;abcdefghijklmnopqrstuvwxyz&#39;</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1"># Iterate over part of the alphabet:</span>
-</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">letter</span> <span class="k">for</span> <span class="nx">letter</span> <span class="k">in</span> <span class="nx">alphabet</span><span class="p">[</span><span class="mi">4</span><span class="p">..</span><span class="mi">8</span><span class="p">]</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Coffeescript Tricks </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+</pre></td><td class="code"><pre><code class="coffeescript"><span class="line"><span class="c1"># Given an alphabet:</span>
+</span><span class="line"><span class="nv">alphabet = </span><span class="s">&#39;abcdefghijklmnopqrstuvwxyz&#39;</span>
+</span><span class="line">
+</span><span class="line"><span class="c1"># Iterate over part of the alphabet:</span>
+</span><span class="line"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">letter</span> <span class="k">for</span> <span class="nx">letter</span> <span class="k">in</span> <span class="nx">alphabet</span><span class="p">[</span><span class="mi">4</span><span class="p">..</span><span class="mi">8</span><span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 <!-- more -->
-
 
 <p>Example of embedding Gist:</p>
 
-<div><script src='https://gist.github.com/4321346.js?file=gistfile1.diff'></script>
+<div><script src="https://gist.github.com/4321346.js?file=gistfile1.diff"></script>
 <noscript><pre><code>@@ -590,7 +590,7 @@ class SpritesTest &lt; Test::Unit::TestCase
   it &quot;should generate a sprite from nested folders&quot; do
     css = render &lt;&lt;-SCSS
@@ -602,16 +631,13 @@
     SCSS
     assert_correct css, &lt;&lt;-CSS</code></pre></noscript></div>
 
-
 <p>Inline code blocks example:</p>
 
-<figure class='code'><figcaption><span>Javascript Array Syntax</span><a href='http://j.mp/pPUUmW'>MDN Documentation </a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">arr1</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="nx">arrayLength</span><span class="p">);</span>
-</span><span class='line'><span class="kd">var</span> <span class="nx">arr2</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="nx">element0</span><span class="p">,</span> <span class="nx">element1</span><span class="p">,</span> <span class="p">...,</span> <span class="nx">elementN</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Javascript Array Syntax</span><a href="http://j.mp/pPUUmW">MDN Documentation </a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class="js"><span class="line"><span class="kd">var</span> <span class="nx">arr1</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="nx">arrayLength</span><span class="p">);</span>
+</span><span class="line"><span class="kd">var</span> <span class="nx">arr2</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="nx">element0</span><span class="p">,</span> <span class="nx">element1</span><span class="p">,</span> <span class="p">...,</span> <span class="nx">elementN</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 ]]></content>
   </entry>

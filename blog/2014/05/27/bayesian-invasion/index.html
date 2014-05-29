@@ -9,7 +9,7 @@
   <meta name="author" content="Bruno Wu">
 
   
-  <meta name="description" content="Methods can be abused and that is true with any approach, including Bayesian but it offers a more coherent, philosophical way in which to look at the &hellip;">
+  <meta name="description" content="Methods can be abused and that is true with any approach, including Bayesian but it offers a more coherent, philosophical way in which to look at &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -26,7 +26,39 @@
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+  <!-- MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript"
+   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=Fjalla+One" rel="stylesheet" type="text/css">
@@ -98,10 +130,41 @@
   </header>
 
 
-<div class="entry-content"><blockquote><p>Methods can be abused and that is true with any approach, including Bayesian but it offers a more coherent, philosophical way in which to look at the world
-&ndash; Nate Silver</p></blockquote>
+<div class="entry-content"><blockquote>
+  <p>Methods can be abused and that is true with any approach, including Bayesian but it offers a more coherent, philosophical way in which to look at the world 
+- Nate Silver</p>
+</blockquote>
 
-<p>This will be an article about MLE v. MAP.</p>
+<p>Problems with MLE:</p>
+
+<ol>
+  <li>
+    <p>MLE does poorly when the sample size is small. In particular, the ML estimator can be biased.</p>
+  </li>
+  <li>
+    <p>If the coin is tossed once, and came up heads, ML estimation would estimate p = 1.</p>
+  </li>
+  <li>
+    <p>Also, ML assumes uniform priors, which is often incorrect. We frequently have very specific information regarding the plausibility of various hypotheses (e.g., refer the simplest hypothesis etc).</p>
+  </li>
+</ol>
+
+<p>We want to prove the following statement:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>$\displaystyle\frac{1}{</td>
+      <td>C_k</td>
+      <td>}\sum<em>{i,i&rsquo;\in C_k}\sum</em>{j=1}^{p}(x<em>{ij} - x</em>{i&rsquo;j})^2 = 2\sum<em>{i\in C_k}\sum</em>{j=1}^{p}(x<em>{ij} - \bar{x}</em>{kj})^2$</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>To adress these problems, we turn to the framework of Bayesian estimation.</p>
+
+<!-- more -->
+
 </div>
 
 

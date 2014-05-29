@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Code | Codex]]></title>
   <link href="http://wubr2000.github.io/blog/categories/code/atom.xml" rel="self"/>
   <link href="http://wubr2000.github.io/"/>
-  <updated>2014-05-28T22:43:07-07:00</updated>
+  <updated>2014-05-29T00:28:29-07:00</updated>
   <id>http://wubr2000.github.io/</id>
   <author>
     <name><![CDATA[Bruno Wu]]></name>
@@ -20,32 +20,24 @@
     <id>http://wubr2000.github.io/blog/2013/12/27/code-snippets-test</id>
     <content type="html"><![CDATA[<p>Here&rsquo;s an example of a Ruby code:</p>
 
-<p>``` ruby Discover if a number is prime <a href="http://www.noulakaz.net/weblog/2007/03/18/a-regular-expression-to-check-for-prime-numbers/">http://www.noulakaz.net/weblog/2007/03/18/a-regular-expression-to-check-for-prime-numbers/</a> Source Article
+<p><code>ruby Discover if a number is prime http://www.noulakaz.net/weblog/2007/03/18/a-regular-expression-to-check-for-prime-numbers/ Source Article
 class Fixnum
-  def prime?</p>
-
-<pre><code>('1' * self) !~ /^1?$|^(11+?)\1+$/
-</code></pre>
-
-<p>  end
+  def prime?
+    ('1' * self) !~ /^1?$|^(11+?)\1+$/
+  end
 end
-```</p>
+</code></p>
 
 <p>An example of Coffeescript:</p>
 
-<p>``` coffeescript Coffeescript Tricks</p>
+<p>``` coffeescript Coffeescript Tricks 
+# Given an alphabet:
+alphabet = &lsquo;abcdefghijklmnopqrstuvwxyz&rsquo;</p>
 
-<h1>Given an alphabet:</h1>
-
-<p>alphabet = &lsquo;abcdefghijklmnopqrstuvwxyz&rsquo;</p>
-
-<h1>Iterate over part of the alphabet:</h1>
-
+<h1 id="iterate-over-part-of-the-alphabet">Iterate over part of the alphabet:</h1>
 <p>console.log letter for letter in alphabet[4..8]
-```</p>
-
-<!-- more -->
-
+```
+<!-- more --></p>
 
 <p>Example of embedding Gist:</p>
 
@@ -62,8 +54,7 @@ end
 
 <p>Inline code blocks example:</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Javascript Array Syntax <a href="http://j.mp/pPUUmW">http://j.mp/pPUUmW</a> MDN Documentation </span></figcaption>
-<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Javascript Array Syntax</span><a href='http://j.mp/pPUUmW'>MDN Documentation </a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">arr1</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="nx">arrayLength</span><span class="p">);</span>
 </span><span class='line'><span class="kd">var</span> <span class="nx">arr2</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="nx">element0</span><span class="p">,</span> <span class="nx">element1</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">hellip</span><span class="p">;,</span> <span class="nx">elementN</span><span class="p">);</span>
