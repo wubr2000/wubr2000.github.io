@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Maximum | Codex]]></title>
   <link href="http://wubr2000.github.io/blog/categories/maximum/atom.xml" rel="self"/>
   <link href="http://wubr2000.github.io/"/>
-  <updated>2014-05-27T23:14:21-07:00</updated>
+  <updated>2014-05-28T22:43:07-07:00</updated>
   <id>http://wubr2000.github.io/</id>
   <author>
     <name><![CDATA[Bruno Wu]]></name>
@@ -18,9 +18,10 @@
     <link href="http://wubr2000.github.io/blog/2014/05/27/bayesian-invasion/"/>
     <updated>2014-05-27T22:53:07-07:00</updated>
     <id>http://wubr2000.github.io/blog/2014/05/27/bayesian-invasion</id>
-    <content type="html"><![CDATA[<p>This will be an article about maximum a posteriori probability (MAP) estimation.</p>
+    <content type="html"><![CDATA[<blockquote><p>Methods can be abused and that is true with any approach, including Bayesian but it offers a more coherent, philosophical way in which to look at the world
+&ndash; Nate Silver</p></blockquote>
 
-<blockquote><p>Put in some Nate Silver quote</p></blockquote>
+<p>This will be an article about MLE v. MAP.</p>
 ]]></content>
   </entry>
   
