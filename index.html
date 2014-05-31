@@ -154,15 +154,23 @@
 
 <p>We want to prove the following statement:</p>
 
-<table>
-  <tbody>
-    <tr>
-      <td>$\displaystyle\frac{1}{</td>
-      <td>C_k</td>
-      <td>}\sum<em>{i,i&rsquo;\in C_k}\sum</em>{j=1}^{p}(x<em>{ij} - x</em>{i&rsquo;j})^2 = 2\sum<em>{i\in C_k}\sum</em>{j=1}^{p}(x<em>{ij} - \bar{x}</em>{kj})^2$</td>
-    </tr>
-  </tbody>
-</table>
+<script type="math/tex; mode=display">% <![CDATA[
+
+\begin{align*}
+  & \phi(x,y) = \phi \left(\sum_{i=1}^n x_ie_i, \sum_{j=1}^n y_je_j \right)
+  = \sum_{i=1}^n \sum_{j=1}^n x_i y_j \phi(e_i, e_j) = \\
+  & (x_1, \ldots, x_n) \left( \begin{array}{ccc}
+      \phi(e_1, e_1) & \cdots & \phi(e_1, e_n) \\
+      \vdots & \ddots & \vdots \\
+      \phi(e_n, e_1) & \cdots & \phi(e_n, e_n)
+    \end{array} \right)
+  \left( \begin{array}{c}
+      y_1 \\
+      \vdots \\
+      y_n
+    \end{array} \right)
+\end{align*}
+ %]]></script>
 
 <p>To adress these problems, we turn to the framework of Bayesian estimation.</p>
 
