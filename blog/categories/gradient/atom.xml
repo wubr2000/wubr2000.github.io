@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Gradient | Codex]]></title>
+  <link href="http://wubr2000.github.io/blog/categories/gradient/atom.xml" rel="self"/>
+  <link href="http://wubr2000.github.io/"/>
+  <updated>2014-06-01T20:52:24-07:00</updated>
+  <id>http://wubr2000.github.io/</id>
+  <author>
+    <name><![CDATA[Bruno Wu]]></name>
+    <email><![CDATA[wubr2000@hotmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Gradient Descent Tutorial]]></title>
+    <link href="http://wubr2000.github.io/blog/2014/05/27/bayesian-invasion/"/>
+    <updated>2014-05-27T22:53:07-07:00</updated>
+    <id>http://wubr2000.github.io/blog/2014/05/27/bayesian-invasion</id>
+    <content type="html"><![CDATA[<p>During the third week of Zipfian, we implemented the linear regression model using different Python libraries (statsmodel and scikit-learn). While linear regression is one of the most well-known statistical analysis tool, we learned to use an optimization technique called gradient descent to approximate the analytical solution for linear regression. In fact, when a matrix is <em>non-invertible</em>, one would have to use gradient descent to approximate linear regression (since an analytical solution would not exist in this case).</p>
+
+<p>In general, gradient descent updates the coefficients of the linear regression this way:</p>
+
+<script type="math/tex; mode=display">
+\begin{align*}
+  \theta_j := \theta_j - \alpha \frac{\partial}{\partial\theta_j} J(\theta)
+\end{align*}
+</script>
+
+<!-- more -->
+
+]]></content>
+  </entry>
+  
+</feed>

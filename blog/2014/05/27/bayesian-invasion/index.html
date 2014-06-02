@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Bayesian Invasion - Codex</title>
+  <title>Gradient Descent Tutorial - Codex</title>
   <meta name="author" content="Bruno Wu">
 
   
-  <meta name="description" content="Methods can be abused and that is true with any approach, including Bayesian but it offers a more coherent, philosophical way in which to look at &hellip;">
+  <meta name="description" content="During the third week of Zipfian, we implemented the linear regression model using different Python libraries (statsmodel and scikit-learn). While &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -104,7 +104,7 @@
   
   <header>
     
-      <h1 class="entry-title">Bayesian Invasion</h1>
+      <h1 class="entry-title">Gradient Descent Tutorial</h1>
     
     
       <p class="meta">
@@ -130,46 +130,15 @@
   </header>
 
 
-<div class="entry-content"><blockquote>
-  <p>Methods can be abused and that is true with any approach, including Bayesian but it offers a more coherent, philosophical way in which to look at the world 
-- Nate Silver</p>
-</blockquote>
+<div class="entry-content"><p>During the third week of Zipfian, we implemented the linear regression model using different Python libraries (statsmodel and scikit-learn). While linear regression is one of the most well-known statistical analysis tool, we learned to use an optimization technique called gradient descent to approximate the analytical solution for linear regression. In fact, when a matrix is <em>non-invertible</em>, one would have to use gradient descent to approximate linear regression (since an analytical solution would not exist in this case).</p>
 
-<p>Problems with MLE:</p>
+<p>In general, gradient descent updates the coefficients of the linear regression this way:</p>
 
-<ol>
-  <li>
-    <p>MLE does poorly when the sample size is small. In particular, the ML estimator can be biased.</p>
-  </li>
-  <li>
-    <p>If the coin is tossed once, and came up heads, ML estimation would estimate p = 1.</p>
-  </li>
-  <li>
-    <p>Also, ML assumes uniform priors, which is often incorrect. We frequently have very specific information regarding the plausibility of various hypotheses (e.g., refer the simplest hypothesis etc).</p>
-  </li>
-</ol>
-
-<p>We want to prove the following statement:</p>
-
-<script type="math/tex; mode=display">% <![CDATA[
-
+<script type="math/tex; mode=display">
 \begin{align*}
-  & \phi(x,y) = \phi \left(\sum_{i=1}^n x_ie_i, \sum_{j=1}^n y_je_j \right)
-  = \sum_{i=1}^n \sum_{j=1}^n x_i y_j \phi(e_i, e_j) = \\
-  & (x_1, \ldots, x_n) \left( \begin{array}{ccc}
-      \phi(e_1, e_1) & \cdots & \phi(e_1, e_n) \\
-      \vdots & \ddots & \vdots \\
-      \phi(e_n, e_1) & \cdots & \phi(e_n, e_n)
-    \end{array} \right)
-  \left( \begin{array}{c}
-      y_1 \\
-      \vdots \\
-      y_n
-    \end{array} \right)
+  \theta_j := \theta_j - \alpha \frac{\partial}{\partial\theta_j} J(\theta)
 \end{align*}
- %]]></script>
-
-<p>To adress these problems, we turn to the framework of Bayesian estimation.</p>
+</script>
 
 <!-- more -->
 
@@ -200,7 +169,7 @@
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/bayes/'>bayes</a>, <a class='category' href='/blog/categories/bayesian/'>bayesian</a>, <a class='category' href='/blog/categories/maximum/'>maximum</a>, <a class='category' href='/blog/categories/posteriori/'>posteriori</a>
+    <a class='category' href='/blog/categories/descent/'>descent</a>, <a class='category' href='/blog/categories/gradient/'>gradient</a>, <a class='category' href='/blog/categories/linear/'>linear</a>, <a class='category' href='/blog/categories/regression/'>regression</a>
   
 </span>
 
@@ -240,7 +209,7 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2014/05/27/bayesian-invasion/">Bayesian Invasion</a>
+        <a href="/blog/2014/05/27/bayesian-invasion/">Gradient Descent Tutorial</a>
       </li>
     
       <li class="post">
