@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Regression | Codex]]></title>
   <link href="http://wubr2000.github.io/blog/categories/regression/atom.xml" rel="self"/>
   <link href="http://wubr2000.github.io/"/>
-  <updated>2014-06-01T20:52:24-07:00</updated>
+  <updated>2014-06-01T22:42:18-07:00</updated>
   <id>http://wubr2000.github.io/</id>
   <author>
     <name><![CDATA[Bruno Wu]]></name>
@@ -14,19 +14,21 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Gradient Descent Tutorial]]></title>
+    <title type="html"><![CDATA[A Gentle Gradient Descent]]></title>
     <link href="http://wubr2000.github.io/blog/2014/05/27/bayesian-invasion/"/>
     <updated>2014-05-27T22:53:07-07:00</updated>
     <id>http://wubr2000.github.io/blog/2014/05/27/bayesian-invasion</id>
-    <content type="html"><![CDATA[<p>During the third week of Zipfian, we implemented the linear regression model using different Python libraries (statsmodel and scikit-learn). While linear regression is one of the most well-known statistical analysis tool, we learned to use an optimization technique called gradient descent to approximate the analytical solution for linear regression. In fact, when a matrix is <em>non-invertible</em>, one would have to use gradient descent to approximate linear regression (since an analytical solution would not exist in this case).</p>
+    <content type="html"><![CDATA[<p>During our third week at Zipfian, we implemented the linear regression model by using various Python libraries (e.g. <code>statsmodel</code> and <code>scikit-learn</code>). We also coded the normal equation (<script type="math/tex">\beta = (X^TX)^{-1}X^TY</script>) directly as a Python function. In addition to performing linear regressions with functions provided by the built-in Python libraries, we also learned to use an optimization technique called <strong><a href="http://en.wikipedia.org/wiki/Gradient_descent">gradient descent</a></strong> to approximate the analytical solution for deriving the coefficients of a linear regression. In fact, when a matrix is non-invertible, one would have to use gradient descent to arrive at the coefficients of a linear regression since a <a href="http://stats.stackexchange.com/questions/69442/linear-regression-and-non-invertibility">unique solution does not exist</a> in this case. In fact, gradient descent is a general optimization technique for finding the local minimum of a function and as such, can be applied to many other situations where an analytical solution is either too cumbersome or infeasible. </p>
 
-<p>In general, gradient descent updates the coefficients of the linear regression this way:</p>
+<p>In general, gradient descent updates the coefficients of the linear regression by:</p>
 
 <script type="math/tex; mode=display">
 \begin{align*}
   \theta_j := \theta_j - \alpha \frac{\partial}{\partial\theta_j} J(\theta)
 \end{align*}
 </script>
+
+<p>where <script type="math/tex">J</script> is the cost function (the RSS in the case of linear regressions) and <script type="math/tex">\theta</script> is the coefficient vector.</p>
 
 <!-- more -->
 
