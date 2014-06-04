@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Regression | Codex]]></title>
   <link href="http://wubr2000.github.io/blog/categories/regression/atom.xml" rel="self"/>
   <link href="http://wubr2000.github.io/"/>
-  <updated>2014-06-04T00:01:12-07:00</updated>
+  <updated>2014-06-04T00:17:24-07:00</updated>
   <id>http://wubr2000.github.io/</id>
   <author>
     <name><![CDATA[Bruno Wu]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[A Gentle Gradient Descent]]></title>
+    <title type="html"><![CDATA[Gradient Descent the Python Way]]></title>
     <link href="http://wubr2000.github.io/blog/2014/05/27/bayesian-invasion/"/>
     <updated>2014-05-27T22:53:07-07:00</updated>
     <id>http://wubr2000.github.io/blog/2014/05/27/bayesian-invasion</id>
