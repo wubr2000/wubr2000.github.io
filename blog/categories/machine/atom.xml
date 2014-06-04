@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Machine | Codex]]></title>
   <link href="http://wubr2000.github.io/blog/categories/machine/atom.xml" rel="self"/>
   <link href="http://wubr2000.github.io/"/>
-  <updated>2014-06-01T22:42:18-07:00</updated>
+  <updated>2014-06-04T00:01:12-07:00</updated>
   <id>http://wubr2000.github.io/</id>
   <author>
     <name><![CDATA[Bruno Wu]]></name>
@@ -12,6 +12,76 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[A Gentle Gradient Descent]]></title>
+    <link href="http://wubr2000.github.io/blog/2014/05/27/bayesian-invasion/"/>
+    <updated>2014-05-27T22:53:07-07:00</updated>
+    <id>http://wubr2000.github.io/blog/2014/05/27/bayesian-invasion</id>
+    <content type="html"><![CDATA[<p>During our third week at Zipfian, we implemented the linear regression model by using various Python libraries (e.g. <code>statsmodel</code> and <code>scikit-learn</code>). We also coded the normal equation (<script type="math/tex">\beta = (X^TX)^{-1}X^TY</script>) directly as a Python function. In addition to using standard library functions to perform linear regressions, we also implemented an optimization technique called <strong><a href="http://en.wikipedia.org/wiki/Gradient_descent">gradient descent</a></strong> to approximate the analytical solution for deriving the coefficients of a linear regression. When a matrix is non-invertible, one would have to use gradient descent to arrive at the coefficients of a linear regression since a <a href="http://stats.stackexchange.com/questions/69442/linear-regression-and-non-invertibility">unique solution does not exist</a> in this case. In fact, gradient descent is a general optimization technique for finding the local minimum of a function and as such, can be applied to many other machine learning situations where an analytical solution is either too cumbersome or is infeasible. So I thought it&rsquo;d be quite useful to get a better handle on this important tool.</p>
+
+<p>Here&rsquo;s the general gradient descent algorithm:</p>
+
+<script type="math/tex; mode=display">
+\begin{align*}
+  \theta_{j+1} = \theta_j - \alpha \frac{\partial}{\partial\theta_j} J(\theta)
+\end{align*}
+</script>
+
+<p>where <script type="math/tex">J(\theta)</script> is a function that we want to minimize and <script type="math/tex">\alpha</script> is the <em>learning rate</em>.</p>
+
+<!-- more -->
+
+<p>There is a <a href="https://class.coursera.org/ml-003/lecture/10">video</a> by Andrew Ng of Stanford on the basic intuition behind gradient descent. </p>
+
+<blockquote>
+  <p>The general idea of gradient descent is that we take the gradient (i.e. slope or first-derivation) of the function we want to minimize at some starting point. Then we take one step in the <strong>negative direction</strong> of the gradient (hence, a descent) and repeat this process many times. Eventually, the algorithm will converge to a point where the gradient is zero and where the function is, therefore, at a local minimum. The <script type="math/tex">\alpha</script> (or the learning rate) of the gradient descent algorithm determines how big a step we take at each iteration.</p>
+</blockquote>
+
+<p>For the case of linear regression, the function we want to minimize is the RSS (or the cost function):</p>
+
+<script type="math/tex; mode=display">
+\begin{align*}
+  RSS = \displaystyle \sum_{i=1}^{n} (y_i - f(x_i))^2
+\end{align*}
+</script>
+
+<p>By plugging the RSS (as <script type="math/tex">J(\theta)</script>) into the general gradient descent algorithm and doing some math (as explained on pages 4 and 5 of Andrew Ng&rsquo;s lecture notes <a href="http://cs229.stanford.edu/notes/cs229-notes1.pdf">here</a>), we arrive at the following:</p>
+
+<script type="math/tex; mode=display">
+\begin{align*}
+  \theta_{j+1} = \theta_j - \alpha \frac{1}{m} \displaystyle \sum_{i=1}^{m}(h_{\theta}(x^{(i)}) - y^{(i)}))x_j^{(i)}
+\end{align*}
+</script>
+
+<p>where <script type="math/tex">h_{\theta}(x^{(i)})</script> is the predicted value (<script type="math/tex">\hat{y}</script>) of <script type="math/tex">x^{(i)}</script> and <script type="math/tex">y^{(i)}</script> is the true <script type="math/tex">y</script> value.</p>
+
+<p>Once we have tailored the gradient descent algorithm for linear regression, the Python implementation of the coefficient <code>update</code> function is not too difficult. We just need to make sure that the matrix multiplications are done properly:</p>
+
+<p><code>python
+def update(self, X, y, alpha):
+  gradient = X.T.dot(X.dot(self.coeffs)-y)
+  m = len(y)
+  return self.coeffs - alpha * gradient / m
+</code></p>
+
+<p>Next, we create a <code>run</code> function to iterate through the above gradient descent <code>update</code> function in order to arrive at a set of coefficient vector that would minimize the RSS for the linear regression. To do this, we need to pass in <script type="math/tex">\alpha</script> to control how <em>large</em> a step we&rsquo;d want to take from one iteration to the next:</p>
+
+<p><code>python
+def run(self, X, y, alpha=0.01, num_iterations=10000):
+  for i in xrange(num_iterations):
+    self.coeffs = self.update(X,y,alpha)
+</code></p>
+
+<p>Finally, we can use this set of coefficients vector for our linear regression (<script type="math/tex">\hat{y} = \beta X</script>):</p>
+
+<p><code>python
+def predict(self, X):
+  return X.dot(self.coeffs)
+</code></p>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Solving the Monty Hall Problem Using Monte Carlo Simulation]]></title>
