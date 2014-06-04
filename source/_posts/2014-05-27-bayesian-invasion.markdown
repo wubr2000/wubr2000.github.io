@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "A Gentle Gradient Descent"
+title: "Gradient Descent the Python Way"
 date: 2014-05-27 22:53:07 -0700
 comments: true
-categories: gradient descent linear regression machine learning statistics optimization
+categories: gradient descent linear regression machine learning statistics optimization Python
 ---
 
 During our third week at Zipfian, we implemented the linear regression model by using various Python libraries (e.g. `statsmodel` and `scikit-learn`). We also coded the normal equation ($$\beta = (X^TX)^{-1}X^TY$$) directly as a Python function. In addition to using standard library functions to perform linear regressions, we also implemented an optimization technique called **[gradient descent](http://en.wikipedia.org/wiki/Gradient_descent)** to approximate the analytical solution for deriving the coefficients of a linear regression. When a matrix is non-invertible, one would have to use gradient descent to arrive at the coefficients of a linear regression since a [unique solution does not exist](http://stats.stackexchange.com/questions/69442/linear-regression-and-non-invertibility) in this case. In fact, gradient descent is a general optimization technique for finding the local minimum of a function and as such, can be applied to many other machine learning situations where an analytical solution is either too cumbersome or is infeasible. So I thought it'd be quite useful to get a better handle on this important tool.
