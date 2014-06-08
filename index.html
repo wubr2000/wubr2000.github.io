@@ -9,7 +9,7 @@
   <meta name="author" content="Bruno Wu">
 
   
-  <meta name="description" content="During our third week at Zipfian, we implemented the linear regression model by using various Python libraries (e.g. statsmodel and scikit-learn). We &hellip;">
+  <meta name="description" content="In the fourth week at Zipfian, we encountered and implemented a few more basic machine learning algorithms from scratch using Python. One of the more &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -107,6 +107,54 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2014/06/07/grow-tree/">How to Grow a (Decision) Tree</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-07T23:48:33-07:00" pubdate data-updated="true">Jun 7<span>th</span>, 2014</time>
+        
+           | <a href="/blog/2014/06/07/grow-tree/#disqus_thread"
+             data-disqus-identifier="http://wubr2000.github.io/blog/2014/06/07/grow-tree/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>In the fourth week at Zipfian, we encountered and implemented a few more basic machine learning algorithms from scratch using Python. One of the more interesting ones for me is the <em>decision tree</em>. The decision tree is quite an appealing classification tool because of its simplicity, effectiveness, and interpretability.</p>
+
+<p>Entropy function:</p>
+
+<script type="math/tex; mode=display">H(y) =  -\displaystyle \sum_{i=1}^{m} P(c_i)\log_2(P(c_i))</script>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/06/07/grow-tree/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2014/05/27/bayesian-invasion/">Gradient Descent the Python Way</a></h1>
     
     
@@ -151,47 +199,6 @@
     <footer>
       <a rel="full-article" href="/blog/2014/05/27/bayesian-invasion/">Read on &rarr;</a>
     </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/01/04/tapir/">Installing the Tapir Search Plugin for Octopress</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-04T19:38:37-08:00" pubdate data-updated="true">Jan 4<span>th</span>, 2014</time>
-        
-           | <a href="/blog/2014/01/04/tapir/#disqus_thread"
-             data-disqus-identifier="http://wubr2000.github.io/blog/2014/01/04/tapir/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Was shown a very helpful walkthrough on how to <a href="http://minizatic.github.io/blog/2013/08/08/installing-octopress-plugins/">install the Tapir search plugin</a> for Octopress.</p>
-
-<p>The articles also has instructions on how to install Disqus and a plugin for tag cloud function in Octopress.</p>
-</div>
-  
   
 
 
@@ -293,117 +300,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/12/27/code-snippets-test/">Code Snippets Test</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-27T13:28:32-08:00" pubdate data-updated="true">Dec 27<span>th</span>, 2013</time>
-        
-           | <a href="/blog/2013/12/27/code-snippets-test/#disqus_thread"
-             data-disqus-identifier="http://wubr2000.github.io/blog/2013/12/27/code-snippets-test/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Here&rsquo;s an example of a Ruby code:</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Discover if a number is prime</span><a href="http://www.noulakaz.net/weblog/2007/03/18/a-regular-expression-to-check-for-prime-numbers/">Source Article</a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="k">class</span> <span class="nc">Fixnum</span>
-</span><span class="line">  <span class="k">def</span> <span class="nf">prime?</span>
-</span><span class="line">    <span class="p">(</span><span class="s1">&#39;1&#39;</span> <span class="o">*</span> <span class="nb">self</span><span class="p">)</span> <span class="o">!~</span> <span class="sr">/^1?$|^(11+?)\1+$/</span>
-</span><span class="line">  <span class="k">end</span>
-</span><span class="line"><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>An example of Coffeescript:</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Coffeescript Tricks </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-</pre></td><td class="code"><pre><code class="coffeescript"><span class="line"><span class="c1"># Given an alphabet:</span>
-</span><span class="line"><span class="nv">alphabet = </span><span class="s">&#39;abcdefghijklmnopqrstuvwxyz&#39;</span>
-</span><span class="line">
-</span><span class="line"><span class="c1"># Iterate over part of the alphabet:</span>
-</span><span class="line"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">letter</span> <span class="k">for</span> <span class="nx">letter</span> <span class="k">in</span> <span class="nx">alphabet</span><span class="p">[</span><span class="mi">4</span><span class="p">..</span><span class="mi">8</span><span class="p">]</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/12/27/code-snippets-test/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/12/27/hello-world/">Hello World!</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-27T12:59:03-08:00" pubdate data-updated="true">Dec 27<span>th</span>, 2013</time>
-        
-           | <a href="/blog/2013/12/27/hello-world/#disqus_thread"
-             data-disqus-identifier="http://wubr2000.github.io/blog/2013/12/27/hello-world/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. </div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/12/27/hello-world/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
     <a href="/blog/archives">Blog Archives</a>
@@ -417,11 +313,11 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2014/05/27/bayesian-invasion/">Gradient Descent the Python Way</a>
+        <a href="/blog/2014/06/07/grow-tree/">How to Grow a (Decision) Tree</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2014/01/04/tapir/">Installing the Tapir Search Plugin for Octopress</a>
+        <a href="/blog/2014/05/27/bayesian-invasion/">Gradient Descent the Python Way</a>
       </li>
     
       <li class="post">
@@ -430,10 +326,6 @@
     
       <li class="post">
         <a href="/blog/2013/12/29/exploring-nlp-in-python/">Exploring NLP in Python</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/12/27/code-snippets-test/">Code Snippets Test</a>
       </li>
     
   </ul>

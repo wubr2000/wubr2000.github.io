@@ -4,7 +4,7 @@
   <title><![CDATA[Codex]]></title>
   <link href="http://wubr2000.github.io/atom.xml" rel="self"/>
   <link href="http://wubr2000.github.io/"/>
-  <updated>2014-06-04T00:17:24-07:00</updated>
+  <updated>2014-06-08T00:19:01-07:00</updated>
   <id>http://wubr2000.github.io/</id>
   <author>
     <name><![CDATA[Bruno Wu]]></name>
@@ -12,6 +12,21 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[How to Grow a (Decision) Tree]]></title>
+    <link href="http://wubr2000.github.io/blog/2014/06/07/grow-tree/"/>
+    <updated>2014-06-07T23:48:33-07:00</updated>
+    <id>http://wubr2000.github.io/blog/2014/06/07/grow-tree</id>
+    <content type="html"><![CDATA[<p>In the fourth week at Zipfian, we encountered and implemented a few more basic machine learning algorithms from scratch using Python. One of the more interesting ones for me is the <em>decision tree</em>. The decision tree is quite an appealing classification tool because of its simplicity, effectiveness, and interpretability.</p>
+
+<p>Entropy function:</p>
+
+<script type="math/tex; mode=display">H(y) =  -\displaystyle \sum_{i=1}^{m} P(c_i)\log_2(P(c_i))</script>
+
+<!-- more -->
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Gradient Descent the Python Way]]></title>
@@ -86,17 +101,6 @@
 </span><span class="line">  <span class="k">return</span> <span class="n">X</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coeffs</span><span class="p">)</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Installing the Tapir Search Plugin for Octopress]]></title>
-    <link href="http://wubr2000.github.io/blog/2014/01/04/tapir/"/>
-    <updated>2014-01-04T19:38:37-08:00</updated>
-    <id>http://wubr2000.github.io/blog/2014/01/04/tapir</id>
-    <content type="html"><![CDATA[<p>Was shown a very helpful walkthrough on how to <a href="http://minizatic.github.io/blog/2013/08/08/installing-octopress-plugins/">install the Tapir search plugin</a> for Octopress.</p>
-
-<p>The articles also has instructions on how to install Disqus and a plugin for tag cloud function in Octopress.</p>
 ]]></content>
   </entry>
   
@@ -615,72 +619,6 @@
 </span><span class="line">
 </span><span class="line">    <span class="k">print</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Code Snippets Test]]></title>
-    <link href="http://wubr2000.github.io/blog/2013/12/27/code-snippets-test/"/>
-    <updated>2013-12-27T13:28:32-08:00</updated>
-    <id>http://wubr2000.github.io/blog/2013/12/27/code-snippets-test</id>
-    <content type="html"><![CDATA[<p>Here&rsquo;s an example of a Ruby code:</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Discover if a number is prime</span><a href="http://www.noulakaz.net/weblog/2007/03/18/a-regular-expression-to-check-for-prime-numbers/">Source Article</a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="k">class</span> <span class="nc">Fixnum</span>
-</span><span class="line">  <span class="k">def</span> <span class="nf">prime?</span>
-</span><span class="line">    <span class="p">(</span><span class="s1">&#39;1&#39;</span> <span class="o">*</span> <span class="nb">self</span><span class="p">)</span> <span class="o">!~</span> <span class="sr">/^1?$|^(11+?)\1+$/</span>
-</span><span class="line">  <span class="k">end</span>
-</span><span class="line"><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>An example of Coffeescript:</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Coffeescript Tricks </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-</pre></td><td class="code"><pre><code class="coffeescript"><span class="line"><span class="c1"># Given an alphabet:</span>
-</span><span class="line"><span class="nv">alphabet = </span><span class="s">&#39;abcdefghijklmnopqrstuvwxyz&#39;</span>
-</span><span class="line">
-</span><span class="line"><span class="c1"># Iterate over part of the alphabet:</span>
-</span><span class="line"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">letter</span> <span class="k">for</span> <span class="nx">letter</span> <span class="k">in</span> <span class="nx">alphabet</span><span class="p">[</span><span class="mi">4</span><span class="p">..</span><span class="mi">8</span><span class="p">]</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-<!-- more -->
-
-<p>Example of embedding Gist:</p>
-
-<div><script src="https://gist.github.com/4321346.js?file=gistfile1.diff"></script>
-<noscript><pre><code>@@ -590,7 +590,7 @@ class SpritesTest &lt; Test::Unit::TestCase
-  it &quot;should generate a sprite from nested folders&quot; do
-    css = render &lt;&lt;-SCSS
--     @import &quot;nested/*.png&quot;;
-+     @import &quot;nested/**/*.png&quot;;
-      @include all-nested-sprites;
-    SCSS
-    assert_correct css, &lt;&lt;-CSS</code></pre></noscript></div>
-
-<p>Inline code blocks example:</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Javascript Array Syntax</span><a href="http://j.mp/pPUUmW">MDN Documentation </a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-</pre></td><td class="code"><pre><code class="js"><span class="line"><span class="kd">var</span> <span class="nx">arr1</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="nx">arrayLength</span><span class="p">);</span>
-</span><span class="line"><span class="kd">var</span> <span class="nx">arr2</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="nx">element0</span><span class="p">,</span> <span class="nx">element1</span><span class="p">,</span> <span class="p">...,</span> <span class="nx">elementN</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Hello World!]]></title>
-    <link href="http://wubr2000.github.io/blog/2013/12/27/hello-world/"/>
-    <updated>2013-12-27T12:59:03-08:00</updated>
-    <id>http://wubr2000.github.io/blog/2013/12/27/hello-world</id>
-    <content type="html"><![CDATA[<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. <!-- more --> Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.</p>
 ]]></content>
   </entry>
   

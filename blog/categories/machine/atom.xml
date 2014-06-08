@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Machine | Codex]]></title>
   <link href="http://wubr2000.github.io/blog/categories/machine/atom.xml" rel="self"/>
   <link href="http://wubr2000.github.io/"/>
-  <updated>2014-06-04T00:17:24-07:00</updated>
+  <updated>2014-06-08T00:19:01-07:00</updated>
   <id>http://wubr2000.github.io/</id>
   <author>
     <name><![CDATA[Bruno Wu]]></name>
@@ -12,6 +12,21 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[How to Grow a (Decision) Tree]]></title>
+    <link href="http://wubr2000.github.io/blog/2014/06/07/grow-tree/"/>
+    <updated>2014-06-07T23:48:33-07:00</updated>
+    <id>http://wubr2000.github.io/blog/2014/06/07/grow-tree</id>
+    <content type="html"><![CDATA[<p>In the fourth week at Zipfian, we encountered and implemented a few more basic machine learning algorithms from scratch using Python. One of the more interesting ones for me is the <em>decision tree</em>. The decision tree is quite an appealing classification tool because of its simplicity, effectiveness, and interpretability.</p>
+
+<p>Entropy function:</p>
+
+<script type="math/tex; mode=display">H(y) =  -\displaystyle \sum_{i=1}^{m} P(c_i)\log_2(P(c_i))</script>
+
+<!-- more -->
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Gradient Descent the Python Way]]></title>
