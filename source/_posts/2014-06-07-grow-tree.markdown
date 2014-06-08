@@ -1,0 +1,16 @@
+---
+layout: post
+title: "How to Grow a (Decision) Tree"
+date: 2014-06-07 23:48:33 -0700
+comments: true
+categories: decision tree recursion CART machine learning algorithm
+---
+
+In the fourth week at Zipfian, we encountered and implemented a few more basic machine learning algorithms from scratch using Python. One of the more interesting ones for me is the *decision tree*. The decision tree is quite an appealing classification tool because of its simplicity, effectiveness, and interpretability.
+
+Entropy function:
+
+$$H(y) =  -\displaystyle \sum_{i=1}^{m} P(c_i)\log_2(P(c_i))$$
+
+
+<!-- more -->
