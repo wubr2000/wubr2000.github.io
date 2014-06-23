@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Machine | Codex]]></title>
   <link href="http://wubr2000.github.io/blog/categories/machine/atom.xml" rel="self"/>
   <link href="http://wubr2000.github.io/"/>
-  <updated>2014-06-22T23:51:26-07:00</updated>
+  <updated>2014-06-23T00:04:34-07:00</updated>
   <id>http://wubr2000.github.io/</id>
   <author>
     <name><![CDATA[Bruno Wu]]></name>
@@ -49,7 +49,7 @@ return -total ```
 
 <p>In the code above, we first calculate the variable <code>prob</code> which gives the probability of occurence for each class/label in a set. Then we plug this probability into the entropy formula to derive the total entropy for the set.</p>
 
-<p>Now that we have a general function for calculating entropy, we can think about how to use it to determine the best split. Here is the pseudocode from our assignment which provides a roadmap on how to implement a decision tree:</p>
+<p>Now that we have a general function for calculating entropy, we can think about how to use it to determine the best split. Below is the pseudocode from our assignment which provides a roadmap on how to implement a decision tree:</p>
 
 <p><code>python
 '''
@@ -71,11 +71,17 @@ function BuildTree:
 
 <script type="math/tex; mode=display">Gain(S,D) =  H(S) - \displaystyle \sum_{V\in D} \frac{\lvert V\rvert}{\lvert S\rvert}H(V)</script>
 
-<p><script type="math/tex">D</script> comprises the &ldquo;children&rdquo; sets from the original parent set (i.e. pre-split set) of <script type="math/tex">S</script> and <script type="math/tex">V</script> represents a single child branch. In our case, since we&rsquo;re only dealing with binary splits, we only have two children branches <script type="math/tex">(A,B)</script> in <script type="math/tex">D</script>. The <em>information gain</em> for each split is calculated as follows:</p>
+<p><script type="math/tex">D</script> comprises the &ldquo;children&rdquo; sets from the original parent set (i.e. pre-split set) of <script type="math/tex">S</script> while <script type="math/tex">V</script> represents an individual child branch. In our case, since we&rsquo;re only dealing with binary splits, we only have two children branches <script type="math/tex">(A,B)</script> in <script type="math/tex">D</script>. The <em>information gain</em> for each split is calculated as follows:</p>
 
 <script type="math/tex; mode=display">Gain(S,A,B) =  H(S) - \displaystyle \frac{\lvert A\rvert}{\lvert S\rvert}H(A) - \displaystyle \frac{\lvert B\rvert}{\lvert S\rvert}H(B)</script>
 
-<p>where <script type="math/tex">S = A \cup B</script> Here, we finally encounter our <em>splitting criteria</em>. [discuss]</p>
+<p>where <script type="math/tex">S = A \cup B</script> Here, we&rsquo;ve finally encountered our <em>splitting criteria</em>. <script type="math/tex">H(S)</script> is the entropy of the parent branch while <script type="math/tex">H(A)</script> and <script type="math/tex">H(B)</script> are the respective entropy child branch <script type="math/tex">A</script> and child branch <script type="math/tex">B</script>. </p>
+
+<blockquote>
+  <p>In short, this formula says that the information gain of a split is equal to the difference between the entropy of the parent branch (before the split) and the combined entropy the children branches (after the split). </p>
+</blockquote>
+
+<p>The lower the entropy of the combined children branches, the higher the information gain. So the <strong>best split</strong> at any node is the one that results in the lowest combined entropy of the children branches (i.e. the highest information gain).</p>
 
 <p>[Talk about recursion next]</p>
 
