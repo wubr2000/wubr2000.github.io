@@ -67,7 +67,7 @@ where $$S = A \cup B$$ Here, we've finally encountered our *splitting criteria*.
 
 >In short, this formula says that the information gain of a split is equal to the difference between the entropy of the parent branch (before the split) and the combined entropy the children branches (after the split). 
 
-The lower the entropy of the combined children branches, the higher the information gain. So the **best split** at any node is the one that results in the lowest combined entropy of the children branches (i.e. the highest information gain).
+The lower the entropy of the combined children branches, the higher the information gain. So the **best split** at any node is the one that results in the lowest combined entropy of the children branches (therefore, the highest information gain).
 
 [Talk about recursion next]
 
