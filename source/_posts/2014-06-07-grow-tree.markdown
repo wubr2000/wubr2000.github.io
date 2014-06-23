@@ -63,7 +63,7 @@ $$D$$ comprises the "children" sets from the original parent set (i.e. pre-split
 
 $$Gain(S,A,B) =  H(S) - \displaystyle \frac{\lvert A\rvert}{\lvert S\rvert}H(A) - \displaystyle \frac{\lvert B\rvert}{\lvert S\rvert}H(B)$$
 
-where $$S = A \cup B$$ Here, we've finally encountered our *splitting criteria*. $$H(S)$$ is the entropy of the parent branch while $$H(A)$$ and $$H(B)$$ are the entropy for child branch $$A$$ and child branch $$B$$, respectively. 
+where $$S = A \cup B$$ Here, we've finally encountered our *splitting criteria*. $$H(S)$$ is the entropy of the parent branch $$S$$, while $$H(A)$$ and $$H(B)$$ are the entropy of child branch $$A$$ and child branch $$B$$, respectively. 
 
 >In short, this formula says that the information gain of a split is equal to the difference between the entropy of the parent branch (before the split) and the combined entropy the children branches (after the split). 
 
