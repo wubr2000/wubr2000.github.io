@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Tree | Codex]]></title>
   <link href="http://wubr2000.github.io/blog/categories/tree/atom.xml" rel="self"/>
   <link href="http://wubr2000.github.io/"/>
-  <updated>2014-06-08T00:19:01-07:00</updated>
+  <updated>2014-06-22T23:45:27-07:00</updated>
   <id>http://wubr2000.github.io/</id>
   <author>
     <name><![CDATA[Bruno Wu]]></name>
@@ -14,17 +14,71 @@
 
   
   <entry>
-    <title type="html"><![CDATA[How to Grow a (Decision) Tree]]></title>
+    <title type="html"><![CDATA[To Grow a (Decision) Tree]]></title>
     <link href="http://wubr2000.github.io/blog/2014/06/07/grow-tree/"/>
     <updated>2014-06-07T23:48:33-07:00</updated>
     <id>http://wubr2000.github.io/blog/2014/06/07/grow-tree</id>
-    <content type="html"><![CDATA[<p>In the fourth week at Zipfian, we encountered and implemented a few more basic machine learning algorithms from scratch using Python. One of the more interesting ones for me is the <em>decision tree</em>. The decision tree is quite an appealing classification tool because of its simplicity, effectiveness, and interpretability.</p>
+    <content type="html"><![CDATA[<p>During the fourth week at Zipfian, we implemented a few more basic machine learning algorithms from scratch using Python. One of the more interesting ones for me is the <em>decision tree</em>. As a classification technique, the decision tree has quite a number of appealing features, the chief of which are its simplicity and interpretability. Despite its conceptual simplicity, it is actually not that straightforward to implement from a programming perspective. Hopefully, this post can serve as a brief overview on how to program a simple decision tree. </p>
 
-<p>Entropy function:</p>
+<p>Like many other algorithms we&rsquo;ve learned, the first step is to define a <em>cost function</em> that we will be minimizing. In the case of a decision tree, the cost function determines how variance is calculated at each branch of the tree. For our implementation, we used a concept called <em>entropy</em> to calculate this variance:</p>
 
 <script type="math/tex; mode=display">H(y) =  -\displaystyle \sum_{i=1}^{m} P(c_i)\log_2(P(c_i))</script>
 
 <!-- more -->
+
+<p>In general, entropy measures the amount of <strong>disorder</strong> in a set and our goal is <strong>minimize entropy</strong> after each split. Given the mathematical definition of entropy above, here is one way to write the <code>entropy</code> function in Python:</p>
+
+<p>```python
+import pandas as pd
+import numpy as np
+import math</p>
+
+<p>def entropy(y):
+    &lsquo;&rsquo;&rsquo;
+    INPUT: NUMPY ARRAY
+    OUTPUT: FLOAT</p>
+
+<pre><code>Return the entropy of the array y.
+'''
+total = 0
+for cl in np.unique(y):
+    prob = np.sum(y == cl) / float(len(y))
+    total += prob * math.log(prob)
+return -total ```
+</code></pre>
+
+<p>In the code above, we first calculate the variable <code>prob</code> which gives the probability of occurence for each class/label in a set. Then we plug this probability into the entropy formula to derive the total entropy for the set.</p>
+
+<p>Now that we have a general function for calculating entropy, we can think about how to use it to determine the best split. Here is the pseudocode from our assignment which provides a roadmap on how to implement a decision tree:</p>
+
+<p><code>python
+'''
+function BuildTree:
+    If every item in the dataset is in the same class
+    or there is no feature left to split the data:
+        return a leaf node with the class label
+    Else:
+        find the best feature and value to split the data 
+        split the dataset
+        create a node
+        for each split
+            call BuildTree and add the result as a child of the node
+        return node
+'''
+</code></p>
+
+<p>As can be seen from this pseudocode, an important step within this <code>BuildTree</code> function is to &ldquo;find the best feature and value to split the data&rdquo;. At this point, we were introduced to a critical concept called <em>information gain</em> which determines how we should judge the &ldquo;effectiveness&rdquo; of a particular split.</p>
+
+<script type="math/tex; mode=display">Gain(S,D) =  H(S) - \displaystyle \sum_{V\in D} \frac{\lvert V\rvert}{\lvert S\rvert}H(V)</script>
+
+<p><script type="math/tex">D</script> comprises the &ldquo;children&rdquo; sets from the original parent set (i.e. pre-split set) of <script type="math/tex">S</script>. In our case, since we&rsquo;re only dealing with binary splits, we only have two children sets <script type="math/tex">(A,B)</script> in <script type="math/tex">D</script>. The <em>information gain</em> for each split is calculated as follows:</p>
+
+<script type="math/tex; mode=display">Gain(S,A,B) =  H(S) - \displaystyle \frac{\lvert A\rvert}{\lvert S\rvert}H(A) - \displaystyle \frac{\lvert B\rvert}{\lvert S\rvert}H(B)</script>
+
+<p>where <script type="math/tex">S = A \cup B</script> Here, we finally encounter our <em>splitting criteria</em>. [discuss]</p>
+
+<p>[Talk about recursion next]</p>
+
 ]]></content>
   </entry>
   
