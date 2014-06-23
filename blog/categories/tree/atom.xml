@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Tree | Codex]]></title>
   <link href="http://wubr2000.github.io/blog/categories/tree/atom.xml" rel="self"/>
   <link href="http://wubr2000.github.io/"/>
-  <updated>2014-06-22T23:45:27-07:00</updated>
+  <updated>2014-06-22T23:51:26-07:00</updated>
   <id>http://wubr2000.github.io/</id>
   <author>
     <name><![CDATA[Bruno Wu]]></name>
@@ -71,7 +71,7 @@ function BuildTree:
 
 <script type="math/tex; mode=display">Gain(S,D) =  H(S) - \displaystyle \sum_{V\in D} \frac{\lvert V\rvert}{\lvert S\rvert}H(V)</script>
 
-<p><script type="math/tex">D</script> comprises the &ldquo;children&rdquo; sets from the original parent set (i.e. pre-split set) of <script type="math/tex">S</script>. In our case, since we&rsquo;re only dealing with binary splits, we only have two children sets <script type="math/tex">(A,B)</script> in <script type="math/tex">D</script>. The <em>information gain</em> for each split is calculated as follows:</p>
+<p><script type="math/tex">D</script> comprises the &ldquo;children&rdquo; sets from the original parent set (i.e. pre-split set) of <script type="math/tex">S</script> and <script type="math/tex">V</script> represents a single child branch. In our case, since we&rsquo;re only dealing with binary splits, we only have two children branches <script type="math/tex">(A,B)</script> in <script type="math/tex">D</script>. The <em>information gain</em> for each split is calculated as follows:</p>
 
 <script type="math/tex; mode=display">Gain(S,A,B) =  H(S) - \displaystyle \frac{\lvert A\rvert}{\lvert S\rvert}H(A) - \displaystyle \frac{\lvert B\rvert}{\lvert S\rvert}H(B)</script>
 
