@@ -59,7 +59,7 @@ As can be seen from this pseudocode, an important step within this `BuildTree` f
 
 $$Gain(S,D) =  H(S) - \displaystyle \sum_{V\in D} \frac{\lvert V\rvert}{\lvert S\rvert}H(V)$$
 
-$$D$$ comprises the "children" sets from the original parent set (i.e. pre-split set) of $$S$$. In our case, since we're only dealing with binary splits, we only have two children sets $$(A,B)$$ in $$D$$. The *information gain* for each split is calculated as follows:
+$$D$$ comprises the "children" sets from the original parent set (i.e. pre-split set) of $$S$$ and $$V$$ represents a single child branch. In our case, since we're only dealing with binary splits, we only have two children branches $$(A,B)$$ in $$D$$. The *information gain* for each split is calculated as follows:
 
 $$Gain(S,A,B) =  H(S) - \displaystyle \frac{\lvert A\rvert}{\lvert S\rvert}H(A) - \displaystyle \frac{\lvert B\rvert}{\lvert S\rvert}H(B)$$
 
