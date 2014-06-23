@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Tree | Codex]]></title>
   <link href="http://wubr2000.github.io/blog/categories/tree/atom.xml" rel="self"/>
   <link href="http://wubr2000.github.io/"/>
-  <updated>2014-06-23T00:04:34-07:00</updated>
+  <updated>2014-06-23T00:14:34-07:00</updated>
   <id>http://wubr2000.github.io/</id>
   <author>
     <name><![CDATA[Bruno Wu]]></name>
@@ -75,13 +75,13 @@ function BuildTree:
 
 <script type="math/tex; mode=display">Gain(S,A,B) =  H(S) - \displaystyle \frac{\lvert A\rvert}{\lvert S\rvert}H(A) - \displaystyle \frac{\lvert B\rvert}{\lvert S\rvert}H(B)</script>
 
-<p>where <script type="math/tex">S = A \cup B</script> Here, we&rsquo;ve finally encountered our <em>splitting criteria</em>. <script type="math/tex">H(S)</script> is the entropy of the parent branch while <script type="math/tex">H(A)</script> and <script type="math/tex">H(B)</script> are the respective entropy child branch <script type="math/tex">A</script> and child branch <script type="math/tex">B</script>. </p>
+<p>where <script type="math/tex">S = A \cup B</script> Here, we&rsquo;ve finally encountered our <em>splitting criteria</em>. <script type="math/tex">H(S)</script> is the entropy of the parent branch while <script type="math/tex">H(A)</script> and <script type="math/tex">H(B)</script> are the entropy for child branch <script type="math/tex">A</script> and child branch <script type="math/tex">B</script>, respectively. </p>
 
 <blockquote>
   <p>In short, this formula says that the information gain of a split is equal to the difference between the entropy of the parent branch (before the split) and the combined entropy the children branches (after the split). </p>
 </blockquote>
 
-<p>The lower the entropy of the combined children branches, the higher the information gain. So the <strong>best split</strong> at any node is the one that results in the lowest combined entropy of the children branches (i.e. the highest information gain).</p>
+<p>The lower the entropy of the combined children branches, the higher the information gain. So the <strong>best split</strong> at any node is the one that results in the lowest combined entropy of the children branches (therefore, the highest information gain).</p>
 
 <p>[Talk about recursion next]</p>
 
