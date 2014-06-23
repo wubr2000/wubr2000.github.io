@@ -37,7 +37,7 @@ def entropy(y):
 
 In the code above, we first calculate the variable `prob` which gives the probability of occurence for each class/label in a set. Then we plug this probability into the entropy formula to derive the total entropy for the set.
 
-Now that we have a general function for calculating entropy, we can think about how to use it to determine the best split. Here is the pseudocode from our assignment which provides a roadmap on how to implement a decision tree:
+Now that we have a general function for calculating entropy, we can think about how to use it to determine the best split. Below is the pseudocode from our assignment which provides a roadmap on how to implement a decision tree:
 
 ```python
 '''
@@ -59,11 +59,15 @@ As can be seen from this pseudocode, an important step within this `BuildTree` f
 
 $$Gain(S,D) =  H(S) - \displaystyle \sum_{V\in D} \frac{\lvert V\rvert}{\lvert S\rvert}H(V)$$
 
-$$D$$ comprises the "children" sets from the original parent set (i.e. pre-split set) of $$S$$ and $$V$$ represents a single child branch. In our case, since we're only dealing with binary splits, we only have two children branches $$(A,B)$$ in $$D$$. The *information gain* for each split is calculated as follows:
+$$D$$ comprises the "children" sets from the original parent set (i.e. pre-split set) of $$S$$ while $$V$$ represents an individual child branch. In our case, since we're only dealing with binary splits, we only have two children branches $$(A,B)$$ in $$D$$. The *information gain* for each split is calculated as follows:
 
 $$Gain(S,A,B) =  H(S) - \displaystyle \frac{\lvert A\rvert}{\lvert S\rvert}H(A) - \displaystyle \frac{\lvert B\rvert}{\lvert S\rvert}H(B)$$
 
-where $$S = A \cup B$$ Here, we finally encounter our *splitting criteria*. [discuss]
+where $$S = A \cup B$$ Here, we've finally encountered our *splitting criteria*. $$H(S)$$ is the entropy of the parent branch while $$H(A)$$ and $$H(B)$$ are the respective entropy child branch $$A$$ and child branch $$B$$. 
+
+>In short, this formula says that the information gain of a split is equal to the difference between the entropy of the parent branch (before the split) and the combined entropy the children branches (after the split). 
+
+The lower the entropy of the combined children branches, the higher the information gain. So the **best split** at any node is the one that results in the lowest combined entropy of the children branches (i.e. the highest information gain).
 
 [Talk about recursion next]
 
